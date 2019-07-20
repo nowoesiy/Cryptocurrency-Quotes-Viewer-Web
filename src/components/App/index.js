@@ -3,46 +3,84 @@ import './index.css';
 import Header from '../Header';
 import List from '../List';
 import Note from '../Note';
+import axios from 'axios'
 import { generateId } from '../../utils';
 
 class App extends React.Component {
   state = {
-    notes: [
-      {
-        id: 'initial',
-        title: '심플노트에 오신것을 환영합니다!',
-        contents: '차근차근 만들면서 리액트를 익혀보세요! 👻\n\n헤더의 추가 버튼을 클릭하여 새로운 노트를 만드실 수 있습니다.'
-      }
-    ],
-    activeId: 'initial'
+    notes: [],
+    activeId: 'BTC',
+    coins: ["BTC", "ETH", "DASH", "LTC", "ETC", "XRP", "BCH", "XMR", "ZEC", "QTUM", "BTG", "EOS", "OMG", "GNT", "TRX", "VET", "ICX", "ZIL", "HC", "MITH", "ELF", "KNC", "ETHOS", "MCO", "STEEM", "STRAT", "LRC", "GTO", "WAX", "POWR", "PAY", "ZRX", "REP", "AE", "XEM", "RDN", "SALT", "LOOM", "SNT", "ADA", "PPT", "CTXC", "CMT", "THETA", "WTC", "ITC", "TRUE", "ABT", "RNT", "PLY", "WAVES", "LINK", "ENJ", "PST", "INS", "PIVX", "BCD", "BZNT", "XLM", "OCN", "BSV", "BAT", "TMTG", "XVG", "WET", "IOST", "POLY", "ARN", "ETZ", "APIS", "MTL", "DAC", "DACC", "BTT", "HDAC", "NPXS", "AUTO", "GXC", "ORBS", "ANKR", "MIX", "HYC", "LBA", "LAMB"]
   }
 
+  RequestCoinList = () => {
+    axios
+    .get("/resources/csv/total_ticker.json")
+      .then(response => {
+
+        const coins = Object.keys(response.data)
+        const coinlist = coins.map((coin => {
+          return(
+            {
+              id : coin,
+              title : coin,
+              time : "",
+              openPrice : "Loading...",
+              endPrice : "Loading...",
+              highPrice : "Loading...",
+              lowPrice : "Loading...",
+            }
+          )
+        }))
+
+        this.setState({
+          notes: [
+            ...coinlist
+          ],
+        })
+      })
+  }
+
+  RequestPriceList = async (c) => {
+    axios
+    .get(`/resources/chart/${c}_xcoinTrade_01M.json`)
+    .then(response => {
+      const notes = [...this.state.notes]
+      const priceList = []
+      priceList.push(response.data[response.data.length-2])
+      priceList.push(response.data[response.data.length-3])
+      priceList.push(response.data[response.data.length-4])
+      console.log(priceList)
+      const note = notes.find((coin) => coin.id === c)
+      // var date = new Date(priceList[0])
+      // var hour = date.getHours();
+      // var min = date.getMinutes();
+      // var sec = date.getSeconds();
+      // note.time = hour+":"+min+":"+sec
+      note.openPrice = []
+      note.openPrice = priceList[0][1]
+      // note.openPrice.push(priceList[0][2])
+      // note.openPrice.push(priceList[0][3])
+      console.log(note.openpirce)
+      // note.endPrice = priceList[2]
+      // note.highPrice = priceList[3]
+      // note.lowPrice = priceList[4]
+
+
+      console.log(priceList[0][0])
+      this.setState({
+          notes,
+      })
+    })
+  }
+
+  time = () => {
+    this.state.coins.map((coin => {this.RequestPriceList(coin)}))
+  }
   handleListItemClick = (id) => {
     this.setState({ activeId: id });
   }
 
-  handleAddNote = () => {
-    const id = generateId();
-    this.setState({
-      notes: [
-        ...this.state.notes,
-        {
-          id,
-          title: '제목',
-          contents: '내용',
-        },
-      ],
-      activeId: id,
-    });
-  }
-
-  handleDeleteNote = () => {
-    const notes = this.state.notes.filter((item) => item.id !== this.state.activeId);
-    this.setState({
-      notes,
-      activeId: notes.length === 0 ? null : notes[0].id,
-    });
-  }
 
   handleEditNote = (type, e) => {
     const notes = [ ...this.state.notes ];
@@ -53,15 +91,25 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.RequestCoinList();
+    this.time();
+    this.interval = setInterval(this.time, 10000)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.notes !== this.props.notes) {
+      this.state.coins.map((coin => {this.RequestPriceList(coin)}))
+    }
+  }
+
+
   render() {
-    const { notes, activeId } = this.state;
+    const { notes, activeId, ones, twos, threes } = this.state;
     const activeNote = notes.filter((item) => item.id === activeId)[0];
     return (
       <div className="app">
-        <Header
-          onAddNote={this.handleAddNote}
-          onDeleteNote={this.handleDeleteNote}
-        />
+        <Header/>
         <div className="container">
           <List
             notes={notes}
