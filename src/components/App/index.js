@@ -14,21 +14,18 @@ class App extends React.Component {
   }
 
   RequestCoinList = () => {
-    axios
-    .get("/resources/csv/total_ticker.json")
-      .then(response => {
 
-        const coins = Object.keys(response.data)
-        const coinlist = coins.map((coin => {
+        const coinlist = this.state.coins.map((coin => {
           return(
             {
               id : coin,
               title : coin,
-              time : "",
-              openPrice : "Loading...",
-              endPrice : "Loading...",
-              highPrice : "Loading...",
-              lowPrice : "Loading...",
+              time : [],
+              openPrice : [],
+              endPrice : [],
+              highPrice : [],
+              lowPrice : [],
+              changeRate : '',
             }
           )
         }))
@@ -38,45 +35,52 @@ class App extends React.Component {
             ...coinlist
           ],
         })
-      })
   }
 
-  RequestPriceList = async (c) => {
+  RequestPriceList = (c) => {
     axios
     .get(`/resources/chart/${c}_xcoinTrade_01M.json`)
     .then(response => {
       const notes = [...this.state.notes]
-      const priceList = []
+      let priceList = []
       priceList.push(response.data[response.data.length-2])
       priceList.push(response.data[response.data.length-3])
       priceList.push(response.data[response.data.length-4])
-      console.log(priceList)
       const note = notes.find((coin) => coin.id === c)
       // var date = new Date(priceList[0])
       // var hour = date.getHours();
       // var min = date.getMinutes();
       // var sec = date.getSeconds();
       // note.time = hour+":"+min+":"+sec
+      note.time = []
       note.openPrice = []
-      note.openPrice = priceList[0][1]
-      // note.openPrice.push(priceList[0][2])
-      // note.openPrice.push(priceList[0][3])
-      console.log(note.openpirce)
-      // note.endPrice = priceList[2]
-      // note.highPrice = priceList[3]
-      // note.lowPrice = priceList[4]
+      note.endPrice = []
+      note.highPrice = []
+      note.lowPrice = []
 
-
-      console.log(priceList[0][0])
+      for(var i=0; i<=2; i++){
+        var date = new Date(priceList[i][0])
+        note.time.push(date.getHours()+":"+date.getMinutes())
+        note.openPrice.push(priceList[i][1])
+        note.endPrice.push(priceList[i][2])
+        note.highPrice.push(priceList[i][3])
+        note.lowPrice.push(priceList[i][4])
+      }
+      note.changeRate = ((note.openPrice[0] - note.openPrice[2])/note.openPrice[0]*100).toFixed(3)
+      
+      priceList = null
       this.setState({
           notes,
       })
+      
     })
   }
 
   time = () => {
     this.state.coins.map((coin => {this.RequestPriceList(coin)}))
+    this.state.notes.sort((a, b) => a.changeRate -b.changeRate).reverse()
   }
+
   handleListItemClick = (id) => {
     this.setState({ activeId: id });
   }
@@ -97,15 +101,10 @@ class App extends React.Component {
     this.interval = setInterval(this.time, 10000)
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.notes !== this.props.notes) {
-      this.state.coins.map((coin => {this.RequestPriceList(coin)}))
-    }
-  }
 
 
   render() {
-    const { notes, activeId, ones, twos, threes } = this.state;
+    const { notes, activeId } = this.state;
     const activeNote = notes.filter((item) => item.id === activeId)[0];
     return (
       <div className="app">

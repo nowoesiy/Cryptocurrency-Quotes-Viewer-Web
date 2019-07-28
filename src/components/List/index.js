@@ -9,7 +9,7 @@ class List extends React.Component {
     return (
       <div className="list">
         {notes.map((item) => {
-          const { id, title, time, openPrice, endPrice ,highPrice,lowPrice} = item;
+          const { id, title, time, openPrice, endPrice ,highPrice,lowPrice, changeRate} = item;
           return (
             <ListItem
               key={id}
@@ -21,6 +21,7 @@ class List extends React.Component {
               endPrice={endPrice}
               highPrice={highPrice}
               lowPrice={lowPrice}
+              changeRate={changeRate}
               onClick={() => onListItemClick(id)}
             />
           );

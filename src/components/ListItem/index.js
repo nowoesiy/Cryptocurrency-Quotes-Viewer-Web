@@ -18,7 +18,8 @@ class ListItem extends React.Component {
             low: this.props.lowPrice,
             close: this.props.endPrice
           }
-        ]
+        ],
+
     }
 
     
@@ -67,53 +68,81 @@ class ListItem extends React.Component {
   // }
 
   componentDidMount() {
-    // this.draw()
-  }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.time !== this.props.time) {
-      // this.draw()
+
+  }
+  
+  showRate = (changeRate) => {
+
+    const upStyle = {
+      color : "red"
+    }
+
+    const downStyle = {
+      color : "blue"
+    }
+
+    if(changeRate >0) {
+      return(
+        <div style={upStyle} className="list-item-contents" >{changeRate ? changeRate + '%▲' : '내용'}</div>
+      )
+    }else if(changeRate <0)
+    {
+      return(
+        <div style={downStyle} className="list-item-contents"  >{changeRate ? changeRate + '%▼': '내용'}</div>
+      )
+    }
+    else{
+      <div className="list-item-contents"  >{changeRate ? changeRate: '내용'}</div>
     }
   }
+
   render() {
 
-    const { active, title, time, openPrice, endPrice, highPrice, lowPrice, onClick } = this.props;
+    const { active, title, time, openPrice, endPrice, highPrice, lowPrice, onClick, changeRate } = this.props;
+    
 
-    return (
-      <div
-        className={active ? "list-item active" : "list-item"}
-        onClick={onClick}
-      >
-        <div className="title">{title ? title : '제목'}</div>
-        <div className="list-item-contents">{time ? time : '내용'}</div>
-        <div className="list-item-contents">{openPrice ? openPrice : '내용'}</div>
-        <div className="list-item-contents">{endPrice ? endPrice : '내용'}</div>
-        <div className="list-item-contents">{highPrice ? highPrice : '내용'}</div>
-        <div className="list-item-contents">{lowPrice ? lowPrice : '내용'}</div>
-        <ReactEcharts
-        option={{
-          xAxis: {
-              data: ['2017-10-24', '2017-10-25', '2017-10-26', time]
-          },
-          yAxis: {},
-          series: [{
-              type: 'k',
-              data: [
-                  [20, 30, 10, 35],
-                  [40, 35, 30, 55],
-                  [33, 38, 33, 40],
-                  [openPrice, highPrice, lowPrice, endPrice]
-              ]
-          }]
-      }}
-        notMerge={true}
-        lazyUpdate={true}
-        theme={"theme_name"}
-        onChartReady={this.onChartReadyCallback}
-    />
-      </div>
-    );
-  }
+      return (
+        <div
+          className={active ? "list-item active" : "list-item"}
+          onClick={onClick}
+        >
+          <div className="title">{title ? title : '제목'}</div>
+          <div className="list-item-contents">{time ? time[0] : '내용'}</div>
+          {this.showRate(changeRate)}
+          <div className="list-item-contents">{openPrice ? "시가 " + openPrice[0] : '내용'}</div>
+          <div className="list-item-contents">{endPrice ? "종가 " + endPrice[0] : '내용'}</div>
+          <div className="list-item-contents">{highPrice ? "고가 " + highPrice[0] : '내용'}</div>
+          <div className="list-item-contents">{lowPrice ? "저가 " + lowPrice[0] : '내용'}</div>
+          <ReactEcharts
+          option={{
+            xAxis: {
+                data: [time[2], time[1], time[0]]
+            },
+            yAxis: {
+              type: 'value',
+              min: openPrice[0]*0.98,
+              max: openPrice[0]*1.02,
+            },
+            series: [{
+                type: 'k',
+                data: [
+                    [openPrice[2], highPrice[2], lowPrice[2], endPrice[2]],
+                    [openPrice[1], highPrice[1], lowPrice[1], endPrice[1]],
+                    [openPrice[0], highPrice[0], lowPrice[0], endPrice[0]],
+                ]
+            }]
+        }}
+          notMerge={true}
+          lazyUpdate={true}
+          theme={"theme_name"}
+          onChartReady={this.onChartReadyCallback}
+      />
+        </div>
+      );
+    }
+  
+  
 }
 
 export default ListItem;
