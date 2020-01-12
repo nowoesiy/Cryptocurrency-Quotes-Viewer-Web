@@ -156,13 +156,14 @@ class ListItem extends React.Component {
                 marginTop: "0.67em",
                 marginBottom: "0.67em",
                 border: "none",
-                background: "none"
+                background: "none",
+                outline: "none"
               }}
               onClick={onFixedIconClick}
             >
               <FaStar
                 size="24"
-                color={fixedCoin.includes(name) ? "CCCC00" : "00FFFF"}
+                color={fixedCoin.includes(name) ? "CCCC00" : "D3D3D3"}
               ></FaStar>
             </button>
           </div>
