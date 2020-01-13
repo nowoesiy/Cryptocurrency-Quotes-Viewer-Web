@@ -20,11 +20,13 @@ class Header extends React.Component {
     return (
       <div className="header">
         <div className="title">
-          <span>CoinView</span>
+          <span>
+            <strong>Coin</strong>View
+          </span>
         </div>
         <nav className="header_Menu">
           <MenuItem link="/">Home</MenuItem>
-          <MenuItem link="/member">코인정보</MenuItem>
+          <MenuItem link="/stock">코인정보</MenuItem>
           <MenuItem link="/sales">거래정보</MenuItem>
         </nav>
         <div className="title">{date}</div>

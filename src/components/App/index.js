@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import Header from "../Header";
 import List from "../List";
-import Note from "../Note";
+import Detail from "../Detail";
 import Home from "../Home";
 import axios from "axios";
 import { BrowserRouter, Route, Switch, Router } from "react-router-dom";
@@ -19,7 +19,17 @@ const nameOfCoins = [
   { nameEng: "ZEC", nameKor: "지캐시" },
   { nameEng: "QTUM", nameKor: "퀀텀" },
   { nameEng: "BTG", nameKor: "비트코인 골드" },
-  { nameEng: "EOS", nameKor: "이오스" }
+  { nameEng: "EOS", nameKor: "이오스" },
+  { nameEng: "OMG", nameKor: "비트코인 캐시" },
+  { nameEng: "GNT", nameKor: "골렘" },
+  { nameEng: "TRX", nameKor: "트론" },
+  { nameEng: "VET", nameKor: "비체인" },
+  { nameEng: "ICX", nameKor: "아이콘" },
+  { nameEng: "ZIL", nameKor: "질리카" },
+  { nameEng: "HC", nameKor: "하이퍼캐시" },
+  { nameEng: "ELF", nameKor: "엘프" },
+  { nameEng: "KNC", nameKor: "카이버네트워크" },
+  { nameEng: "MCO", nameKor: "모나코" }
 ];
 
 class App extends React.Component {
@@ -51,18 +61,9 @@ class App extends React.Component {
     });
   };
 
-  sortCoinList = () => {
-    this.state.notes.sort((a, b) => {
-      return (
-        this.state.fixedCoin.includes(b.name) -
-        this.state.fixedCoin.includes(a.name)
-      );
-    });
-  };
-
   RequestPriceList = c => {
     axios
-      .get(`https://api.bithumb.com/public/ticker/${c}_KRW`)
+      .get(`https://api.bithumb.com/public/ticker/BTC_KRW`)
       .then(response => {
         console.log("API Call Start");
         let coinApi = [];
@@ -135,26 +136,26 @@ class App extends React.Component {
   };
 
   handleListItemFixedIconClick = id => {
-    this.setState(state => {
-      let fixedCoinList = [...state.fixedCoin];
-      fixedCoinList.includes(id)
-        ? (fixedCoinList = fixedCoinList.filter(item => item != id))
-        : fixedCoinList.push(id);
+    this.setState(
+      state => {
+        let fixedCoinList = [...state.fixedCoin];
+        fixedCoinList.includes(id)
+          ? (fixedCoinList = fixedCoinList.filter(item => item != id))
+          : fixedCoinList.push(id);
 
-      return {
-        fixedCoin: fixedCoinList
-      };
-    });
-    this.sortCoinList();
-  };
-
-  handleEditNote = (type, e) => {
-    const notes = [...this.state.notes];
-    const note = notes.find(item => item.id === this.state.activeId);
-    note[type] = e.target.value;
-    this.setState({
-      notes
-    });
+        return {
+          fixedCoin: fixedCoinList
+        };
+      },
+      () => {
+        this.state.notes.sort((a, b) => {
+          return (
+            this.state.fixedCoin.includes(b.name) -
+            this.state.fixedCoin.includes(a.name)
+          );
+        });
+      }
+    );
   };
 
   componentDidMount() {
@@ -185,12 +186,7 @@ class App extends React.Component {
                 <Route
                   path="/stock"
                   component={() =>
-                    notes.length !== 0 && (
-                      <Note
-                        note={activeNote}
-                        onEditNote={this.handleEditNote}
-                      />
-                    )
+                    notes.length !== 0 && <Detail note={activeNote} />
                   }
                 ></Route>
               </Switch>
