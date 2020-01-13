@@ -193,11 +193,10 @@ class ListItem extends React.Component {
             </h1>
             <button
               style={{
-                marginTop: "0.67em",
-                marginBottom: "0.67em",
                 border: "none",
                 background: "none",
-                outline: "none"
+                outline: "none",
+                paddingRight: "0px"
               }}
               onClick={onFixedIconClick}
             >

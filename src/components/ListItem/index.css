@@ -1,22 +1,18 @@
 div.profile {
-  padding-top: 1em;
+  padding: 10px;
 }
-
 div.profile_top {
   font-size: 1rem;
   position: relative;
-  display: inline-flex;
-  margin-top: -2em;
-  min-width: 410px;
+  display: flex;
   justify-content: space-between;
+  margin-top: -10px;
 }
 
 div.profile_stockprice {
   margin-top: -20px;
   margin-bottom: -15px;
   font-size: 0.9rem;
-  width: 405px;
-  min-width: 405px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -25,8 +21,7 @@ div.profile_stockprice {
 div.profile_middle {
   font-size: 1.1rem;
   position: relative;
-  min-width: 405px;
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
 }
 
@@ -46,13 +41,11 @@ h4 {
 }
 
 div.list {
-  padding-top: 10px;
   border-bottom: 1px solid #eee;
   /* border-right: 1px solid #eee; */
 }
 
 div.list_active {
-  padding-top: 10px;
   border-bottom: 1px solid #eee;
   /* border-right: 1px solid #eee; */
   background: -webkit-linear-gradient(
@@ -69,10 +62,6 @@ div.list_active :hover {
 
 div.list:hover {
   cursor: pointer;
-}
-
-div.profile {
-  padding-left: 10px;
 }
 
 .favoriteNotButton {

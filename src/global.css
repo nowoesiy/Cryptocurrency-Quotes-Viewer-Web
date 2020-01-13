@@ -11,6 +11,4 @@ body {
   -o-font-smoothing: antialiased;
 }
 
-::-webkit-scrollbar {
-  display: none;
-}
+
