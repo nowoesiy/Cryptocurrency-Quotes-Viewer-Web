@@ -7,28 +7,29 @@ div.profile_top {
   position: relative;
   display: inline-flex;
   margin-top: -2em;
-  min-width: 400px;
+  min-width: 410px;
   justify-content: space-between;
 }
 
 div.profile_stockprice {
+  margin-top: -20px;
+  margin-bottom: -15px;
   font-size: 0.9rem;
+  width: 405px;
+  min-width: 405px;
   position: relative;
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
 }
 
 div.profile_middle {
   font-size: 1.1rem;
   position: relative;
-  min-width: 400px;
+  min-width: 405px;
   display: inline-flex;
   justify-content: space-between;
 }
 
-div.profile_middle span {
-  font-size: 0.9rem;
-}
 div.profile_bottom {
   margin-top: 0.7em;
 }
@@ -72,4 +73,38 @@ div.list:hover {
 
 div.profile {
   padding-left: 10px;
+}
+
+.favoriteNotButton {
+  color: #d3d3d3;
+}
+
+.favoriteNotButton:hover {
+  filter: brightness(85%);
+  cursor: pointer;
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+.favoriteButton {
+  color: #cccc00;
+}
+
+.favoriteButton:hover {
+  filter: brightness(105%);
+  cursor: pointer;
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+#endPrice {
+  text-align: center;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+#changeRate {
+  align-self: center;
 }

@@ -51,9 +51,18 @@ class App extends React.Component {
     });
   };
 
+  sortCoinList = () => {
+    this.state.notes.sort((a, b) => {
+      return (
+        this.state.fixedCoin.includes(b.name) -
+        this.state.fixedCoin.includes(a.name)
+      );
+    });
+  };
+
   RequestPriceList = c => {
     axios
-      .get(`https://api.bithumb.com/public/ticker/BTC_KRW`)
+      .get(`https://api.bithumb.com/public/ticker/${c}_KRW`)
       .then(response => {
         console.log("API Call Start");
         let coinApi = [];
@@ -136,7 +145,9 @@ class App extends React.Component {
         fixedCoin: fixedCoinList
       };
     });
+    this.sortCoinList();
   };
+
   handleEditNote = (type, e) => {
     const notes = [...this.state.notes];
     const note = notes.find(item => item.id === this.state.activeId);
