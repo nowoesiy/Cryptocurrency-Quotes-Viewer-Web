@@ -5,7 +5,7 @@ import List from "../List";
 import Detail from "../Detail";
 import Home from "../Home";
 import axios from "axios";
-import { BrowserRouter, Route, Switch, Router } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Router, Link } from "react-router-dom";
 
 const nameOfCoins = [
   { nameEng: "BTC", nameKor: "비트코인" },
@@ -171,7 +171,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div className="app">
-          <Header date={date} />
+          <Header activeId={activeId} date={date} />
           <div className="container">
             <List
               notes={notes}
@@ -184,7 +184,7 @@ class App extends React.Component {
               <Switch>
                 <Route path="/" exact component={() => <Home />}></Route>
                 <Route
-                  path="/stock"
+                  path={"/quote/" + activeId}
                   component={() =>
                     notes.length !== 0 && <Detail note={activeNote} />
                   }

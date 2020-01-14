@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const MenuItem = ({ active, children, link }) => {
   const activeStyle = {
-    borderBottom: "5px solid #00cccc"
+    borderBottom: "5px solid #cccc00"
   };
 
   return (
@@ -16,7 +16,7 @@ const MenuItem = ({ active, children, link }) => {
 
 class Header extends React.Component {
   render() {
-    const { date } = this.props;
+    const { activeId, date } = this.props;
     return (
       <div className="header">
         <div className="title">
@@ -26,8 +26,8 @@ class Header extends React.Component {
         </div>
         <nav className="header_Menu">
           <MenuItem link="/">Home</MenuItem>
-          <MenuItem link="/stock">코인정보</MenuItem>
-          <MenuItem link="/sales">거래정보</MenuItem>
+          <MenuItem link={"/quote/" + activeId}>코인정보</MenuItem>
+          <MenuItem link="/tradeinfo">거래정보</MenuItem>
         </nav>
         <div className="title">{date}</div>
       </div>

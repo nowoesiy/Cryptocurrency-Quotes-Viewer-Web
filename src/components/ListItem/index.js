@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import ReactEcharts from "echarts-for-react";
 import { FaStar } from "react-icons/fa";
-
+import { Link } from "react-router-dom";
 class ListItem extends React.Component {
   constructor(props) {
     super(props);
@@ -59,22 +59,24 @@ class ListItem extends React.Component {
       return (
         <div className="chart">
           <div className="profile_middle">
-            <h2>
-              <span>고가</span>
-              <span style={{ color: "#d60000" }}>
-                {highPrice
-                  ? " " + Number(highPrice[0]).toLocaleString()
-                  : "내용"}
-              </span>
-            </h2>
-            <h2>
-              <span>저가</span>
-              <span style={{ color: "#0051c7" }}>
-                {highPrice
-                  ? " " + Number(lowPrice[0]).toLocaleString()
-                  : "내용"}
-              </span>
-            </h2>
+            <div className="middleleft">
+              <h2 style={{ marginBottom: "0px" }}>
+                <span>고가</span>
+                <span style={{ color: "#d60000" }}>
+                  {highPrice
+                    ? " " + Number(highPrice[0]).toLocaleString()
+                    : "내용"}
+                </span>
+              </h2>
+              <h2 style={{ marginBottom: "0px", marginTop: "5px" }}>
+                <span>저가</span>
+                <span style={{ color: "#0051c7" }}>
+                  {highPrice
+                    ? " " + Number(lowPrice[0]).toLocaleString()
+                    : "내용"}
+                </span>
+              </h2>
+            </div>
             <h2>
               <span>거래량</span>
               <span>
@@ -179,48 +181,50 @@ class ListItem extends React.Component {
     }
 
     return (
-      <div className={active ? "list_active" : "list"} onClick={onClick}>
-        {/* <div className="image">
+      <Link to={"/quote/" + name}>
+        <div className={active ? "list_active" : "list"} onClick={onClick}>
+          {/* <div className="image">
           <img src="https://via.placeholder.com/64" />
         </div> */}
-        <div className="profile">
-          <div className="profile_top">
-            <h1>
-              <span>{nameKor ? nameKor : "제목"}</span>
-              <span style={{ color: "grey", fontSize: "1.8rem" }}>
-                {name ? " " + name : ""}
-              </span>
-            </h1>
-            <button
-              style={{
-                border: "none",
-                background: "none",
-                outline: "none",
-                paddingRight: "0px"
-              }}
-              onClick={onFixedIconClick}
-            >
-              <FaStar
-                size="24"
-                //color={fixedCoin.includes(name) ? "CCCC00" : "D3D3D3"}
-                className={
-                  fixedCoin.includes(name)
-                    ? "favoriteButton"
-                    : "favoriteNotButton"
-                }
-              ></FaStar>
-            </button>
-          </div>
+          <div className="profile">
+            <div className="profile_top">
+              <h1>
+                <span>{nameKor ? nameKor : "제목"}</span>
+                <span style={{ color: "grey", fontSize: "1.8rem" }}>
+                  {name ? " " + name : ""}
+                </span>
+              </h1>
+              <button
+                style={{
+                  border: "none",
+                  background: "none",
+                  outline: "none",
+                  paddingRight: "0px"
+                }}
+                onClick={onFixedIconClick}
+              >
+                <FaStar
+                  size="24"
+                  //color={fixedCoin.includes(name) ? "CCCC00" : "D3D3D3"}
+                  className={
+                    fixedCoin.includes(name)
+                      ? "favoriteButton"
+                      : "favoriteNotButton"
+                  }
+                ></FaStar>
+              </button>
+            </div>
 
-          <div className="profile_stockprice">
-            <h1 id="endPrice">\ {Number(endPrice[0]).toLocaleString()}</h1>
-            <h1 id="changeRate">
-              {this.showRate(Number(endPrice[0] - endPrice[2]), changeRate)}
-            </h1>
+            <div className="profile_stockprice">
+              <h1 id="endPrice">\ {Number(endPrice[0]).toLocaleString()}</h1>
+              <h1 id="changeRate">
+                {this.showRate(Number(endPrice[0] - endPrice[2]), changeRate)}
+              </h1>
+            </div>
+            {fixedCoin.includes(name) ? CreateChart() : ""}
           </div>
-          {fixedCoin.includes(name) ? CreateChart() : ""}
         </div>
-      </div>
+      </Link>
     );
   }
 }
