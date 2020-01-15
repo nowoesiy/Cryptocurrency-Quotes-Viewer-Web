@@ -24,7 +24,7 @@ class ListItem extends React.Component {
     if (changeRate > 0) {
       return (
         <div style={{ color: "#d60000" }} className="list-item-contents">
-          {changeRate ? `▲ ${diff.toFixed(0)}(${changeRate}%)` : ""}
+          {changeRate ? `▲ ${Math.abs(diff).toFixed(0)}(${changeRate}%)` : ""}
         </div>
       );
     } else if (changeRate < 0) {
@@ -87,6 +87,12 @@ class ListItem extends React.Component {
           <div className="List_Chart">
             <ReactEcharts
               option={{
+                grid: {
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  bottom: 0
+                },
                 xAxis: {
                   type: "category",
                   show: false,
@@ -110,7 +116,6 @@ class ListItem extends React.Component {
                   ]
                 },
                 yAxis: {
-                  type: "value",
                   show: false,
                   min: openPrice[0] * 0.999,
                   max: openPrice[0] * 1.001
@@ -180,6 +185,49 @@ class ListItem extends React.Component {
       );
     }
 
+    function CreateSmallChart() {
+      return (
+        <div className="chart">
+          <div className="List_Chart">
+            <ReactEcharts
+              option={{
+                grid: {
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  bottom: 0
+                },
+                xAxis: {
+                  type: "category",
+                  show: false,
+                  data: [time[0]]
+                },
+                yAxis: {
+                  show: false,
+                  min: openPrice[0] * 0.999,
+                  max: openPrice[0] * 1.001
+                },
+                series: [
+                  {
+                    type: "k",
+
+                    data: [
+                      [openPrice[0], endPrice[0], lowPrice[0], highPrice[0]]
+                    ]
+                  }
+                ]
+              }}
+              style={{ height: "30px", width: "20px", marginTop: "15px" }}
+              notMerge={true}
+              lazyUpdate={true}
+              theme={"theme_name"}
+              //onChartReady={this.onChartReadyCallback}
+            />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <Link to={"/quote/" + name}>
         <div className={active ? "list_active" : "list"} onClick={onClick}>
@@ -187,39 +235,42 @@ class ListItem extends React.Component {
           <img src="https://via.placeholder.com/64" />
         </div> */}
           <div className="profile">
-            <div className="profile_top">
-              <h1>
-                <span>{nameKor ? nameKor : "제목"}</span>
-                <span style={{ color: "grey", fontSize: "1.8rem" }}>
-                  {name ? " " + name : ""}
-                </span>
-              </h1>
-              <button
-                style={{
-                  border: "none",
-                  background: "none",
-                  outline: "none",
-                  paddingRight: "0px"
-                }}
-                onClick={onFixedIconClick}
-              >
-                <FaStar
-                  size="24"
-                  //color={fixedCoin.includes(name) ? "CCCC00" : "D3D3D3"}
-                  className={
-                    fixedCoin.includes(name)
-                      ? "favoriteButton"
-                      : "favoriteNotButton"
-                  }
-                ></FaStar>
-              </button>
-            </div>
-
-            <div className="profile_stockprice">
-              <h1 id="endPrice">\ {Number(endPrice[0]).toLocaleString()}</h1>
-              <h1 id="changeRate">
-                {this.showRate(Number(endPrice[0] - endPrice[2]), changeRate)}
-              </h1>
+            <div className="profile_original">
+              <div className="profile_top">
+                <h1>
+                  <span>{nameKor ? nameKor : "제목"}</span>
+                  <span style={{ color: "grey", fontSize: "1.8rem" }}>
+                    {name ? " " + name : ""}
+                  </span>
+                </h1>
+                <h1 id="endPrice">\ {Number(endPrice[0]).toLocaleString()}</h1>
+              </div>
+              {fixedCoin.includes(name) ? "" : CreateSmallChart()}
+              <div className="profile_stockprice">
+                <button
+                  style={{
+                    border: "none",
+                    background: "none",
+                    outline: "none",
+                    paddingRight: "0px",
+                    marginLeft: "150px"
+                  }}
+                  onClick={onFixedIconClick}
+                >
+                  <FaStar
+                    size="24"
+                    //color={fixedCoin.includes(name) ? "CCCC00" : "D3D3D3"}
+                    className={
+                      fixedCoin.includes(name)
+                        ? "favoriteButton"
+                        : "favoriteNotButton"
+                    }
+                  ></FaStar>
+                </button>
+                <h1 id="changeRate">
+                  {this.showRate(Number(endPrice[0] - endPrice[2]), changeRate)}
+                </h1>
+              </div>
             </div>
             {fixedCoin.includes(name) ? CreateChart() : ""}
           </div>

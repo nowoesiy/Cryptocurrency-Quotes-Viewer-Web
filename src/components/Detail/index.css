@@ -1,5 +1,15 @@
 div.coinDetail {
+  height: 300px;
   width: 100%;
   padding: 40px 70px 0px 70px;
   background-color: #f2f4f8;
+  border-bottom: 1px solid #eee;
+}
+
+div.coinDetailInfo {
+  width: 100%;
+}
+
+div.coinDetailInfoSub {
+  width: 270px;
 }
