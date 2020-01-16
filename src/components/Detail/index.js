@@ -44,12 +44,26 @@ class Detail extends React.Component {
       volume
     } = note;
 
+    function getChartTime(t) {
+      const timeseries = [];
+      for (let i = 0; i < t; i++) {
+        timeseries.unshift(time[i]);
+      }
+      return timeseries;
+    }
+    console.log(getChartTime(5));
     function CreateDetailChart() {
       return (
         <div className="chart">
           <div className="List_Chart">
             <ReactEcharts
               option={{
+                grid: {
+                  left: 50,
+                  top: 40,
+                  right: 80,
+                  bottom: 40
+                },
                 tooltip: {
                   trigger: "axis"
                 },
@@ -59,43 +73,13 @@ class Detail extends React.Component {
                   boundaryGap: false,
                   minInterval: 5,
 
-                  data: [
-                    time[29],
-                    time[28],
-                    time[27],
-                    time[26],
-                    time[25],
-                    time[24],
-                    time[23],
-                    time[22],
-                    time[21],
-                    time[20],
-                    time[19],
-                    time[18],
-                    time[17],
-                    time[16],
-                    time[15],
-                    time[14],
-                    time[13],
-                    time[12],
-                    time[11],
-                    time[10],
-                    time[9],
-                    time[8],
-                    time[7],
-                    time[6],
-                    time[5],
-                    time[4],
-                    time[3],
-                    time[2],
-                    time[1],
-                    time[0]
-                  ]
+                  data: [getChartTime(30)]
                 },
                 yAxis: {
                   scale: true,
                   type: "value",
                   boundaryGap: true,
+                  position: "right",
                   min:
                     openPrice[0] * 0.995 -
                     ((openPrice[0] * 0.995) %
@@ -243,7 +227,7 @@ class Detail extends React.Component {
                   }
                 ]
               }}
-              style={{ height: "480px", width: "100%" }}
+              style={{ height: "480px", width: "1400px" }}
               notMerge={true}
               lazyUpdate={true}
               theme={"theme_name"}
@@ -335,7 +319,9 @@ class Detail extends React.Component {
               </span>
             </h2>
           </div>
-          <div className="coinDetialChart">{CreateDetailChart()}</div>
+        </div>
+        <div className="coinDetialChart">
+          {time[0] ? CreateDetailChart() : ""}
         </div>
       </div>
     );

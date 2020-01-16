@@ -63,7 +63,7 @@ class App extends React.Component {
 
   RequestPriceList = c => {
     axios
-      .get(`https://api.bithumb.com/public/ticker/${c}_KRW`)
+      .get(`https://api.bithumb.com/public/ticker/BTC_KRW`)
       .then(response => {
         console.log("API Call Start");
         let coinApi = [];
@@ -76,8 +76,8 @@ class App extends React.Component {
         const note = notes.find(coin => coin.id === c);
         var date = new Date(Number(coinApi.date));
         if (note.openPrice[0] == null) {
-          // note.time.unshift(date.getHours() + ":" + date.getMinutes());
-          note.time.unshift(date);
+          note.time.unshift(date.getHours() + ":" + date.getMinutes());
+          //note.time.unshift(date);
           note.openPrice.unshift(coinApi.closing_price);
           note.highPrice.unshift(coinApi.closing_price);
           note.lowPrice.unshift(coinApi.closing_price);
@@ -85,8 +85,8 @@ class App extends React.Component {
           note.volume.unshift(coinApi.units_traded_24H);
         }
         if (this.getSeconds() == "0") {
-          //note.time.unshift(date.getHours() + ":" + date.getMinutes());
-          note.time.unshift(date);
+          note.time.unshift(date.getHours() + ":" + date.getMinutes());
+          //note.time.unshift(date);
           note.openPrice.unshift(coinApi.closing_price);
           note.highPrice.unshift(coinApi.closing_price);
           note.lowPrice.unshift(coinApi.closing_price);

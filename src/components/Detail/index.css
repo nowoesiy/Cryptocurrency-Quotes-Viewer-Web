@@ -13,3 +13,7 @@ div.coinDetailInfo {
 div.coinDetailInfoSub {
   width: 270px;
 }
+
+div.coinDetialChart {
+  margin: 30px 40px;
+}
