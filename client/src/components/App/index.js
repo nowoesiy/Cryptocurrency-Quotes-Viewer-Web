@@ -7,6 +7,8 @@ import Home from "../Home";
 import axios from "axios";
 import { BrowserRouter, Route, Switch, Router, Link } from "react-router-dom";
 
+let coinApi = [];
+
 const nameOfCoins = [
   { nameEng: "BTC", nameKor: "비트코인" },
   { nameEng: "ETH", nameKor: "이더리움" },
@@ -37,10 +39,11 @@ class App extends React.Component {
     date: "",
     notes: [],
     activeId: "BTC",
-    fixedCoin: ["BTC", "ETH"]
+    fixedCoin: ["BTC", "ETH"],
+    keyword: ""
   };
 
-  RequestCoinList = () => {
+  setNotes = () => {
     const coinlist = nameOfCoins.map(nameOfCoin => {
       return {
         id: nameOfCoin.nameEng,
@@ -55,61 +58,27 @@ class App extends React.Component {
         changeRate: ""
       };
     });
-
     this.setState({
       notes: [...coinlist]
     });
   };
 
   RequestPriceList = c => {
-    axios
-      .get(`https://api.bithumb.com/public/ticker/BTC_KRW`)
-      .then(response => {
-        console.log("API Call Start");
-        let coinApi = [];
-        if (response.data.status !== "0000") {
-          console.log("Error API Call");
-        } else {
-          coinApi = response.data.data;
-        }
-        const notes = [...this.state.notes];
-        const note = notes.find(coin => coin.id === c);
-        var date = new Date(Number(coinApi.date));
-        if (note.openPrice[0] == null) {
-          note.time.unshift(date.getHours() + ":" + date.getMinutes());
-          //note.time.unshift(date);
-          note.openPrice.unshift(coinApi.closing_price);
-          note.highPrice.unshift(coinApi.closing_price);
-          note.lowPrice.unshift(coinApi.closing_price);
-          note.endPrice.unshift(coinApi.closing_price);
-          note.volume.unshift(coinApi.units_traded_24H);
-        }
-        if (this.getSeconds() == "0") {
-          note.time.unshift(date.getHours() + ":" + date.getMinutes());
-          //note.time.unshift(date);
-          note.openPrice.unshift(coinApi.closing_price);
-          note.highPrice.unshift(coinApi.closing_price);
-          note.lowPrice.unshift(coinApi.closing_price);
-          note.endPrice.unshift(coinApi.closing_price);
-          note.volume.unshift(coinApi.units_traded_24H);
-        }
-        note.endPrice[0] = coinApi.closing_price;
-        note.highPrice[0] < coinApi.closing_price
-          ? (note.highPrice[0] = coinApi.closing_price)
-          : null;
-        note.lowPrice[0] > coinApi.closing_price
-          ? (note.lowPrice[0] = coinApi.closing_price)
-          : null;
+    axios.get(`/api/coin/${c}`).then(response => {
+      const coins = [...this.state.notes];
+      const coin = coins.find(coin => coin.id == c);
+      coin.time = [...response.data.time];
+      coin.openPrice = [...response.data.openPrice];
+      coin.endPrice = [...response.data.endPrice];
+      coin.highPrice = [...response.data.highPrice];
+      coin.lowPrice = [...response.data.lowPrice];
+      coin.volume = [...response.data.volume];
+      coin.changeRate = response.data.changeRate;
 
-        note.changeRate = (
-          ((note.endPrice[0] - note.endPrice[2]) / note.endPrice[0]) *
-          100
-        ).toFixed(3);
-
-        this.setState({
-          notes
-        });
+      this.setState({
+        notes: [...coins]
       });
+    });
   };
 
   time = () => {
@@ -160,15 +129,19 @@ class App extends React.Component {
     );
   };
 
+  handleValueChange = e => {
+    this.setState({ keyword: e.target.value });
+  };
+
   componentDidMount() {
-    this.RequestCoinList();
+    this.setNotes();
     this.time();
-    this.interval = setInterval(this.time, 1000);
+    this.interval = setInterval(this.time, 5000);
     this.timeInterval = setInterval(this.getTime, 1000);
   }
 
   render() {
-    const { notes, date, fixedCoin, activeId } = this.state;
+    const { notes, date, fixedCoin, activeId, keyword } = this.state;
     const activeNote = notes.filter(item => item.id === activeId)[0];
     return (
       <BrowserRouter>
@@ -176,11 +149,13 @@ class App extends React.Component {
           <Header activeId={activeId} date={date} />
           <div className="container">
             <List
+              keyword={keyword}
               notes={notes}
               activeId={activeId}
               fixedCoin={fixedCoin}
               onListItemClick={this.handleListItemClick}
               onListItemFixedIconClick={this.handleListItemFixedIconClick}
+              onValueChange={this.handleValueChange}
             />
             <div className="board">
               <Switch>

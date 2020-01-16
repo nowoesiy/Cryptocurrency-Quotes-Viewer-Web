@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const MenuItem = ({ active, children, link }) => {
   const activeStyle = {
-    borderBottom: "5px solid #cccc00"
+    borderBottom: "3px solid #cccc00"
   };
 
   return (

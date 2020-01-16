@@ -1,25 +1,34 @@
 {
-  "name": "simplenote-react",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "apexcharts": "^3.12.0",
-    "axios": "^0.19.0",
-    "chart.js": "^2.8.0",
-    "echarts": "^4.2.1",
-    "echarts-for-react": "^2.0.15-beta.0",
-    "lightweight-charts": "^1.0.1",
-    "react": "^16.4.2",
-    "react-apexcharts": "^1.3.6",
-    "react-dom": "^16.4.2",
-    "react-icons": "^3.8.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "1.1.5"
-  },
+  "name": "cowindow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "axios": "^0.19.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "nodemon": "^2.0.2",
+    "react-router": "^5.1.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.1",
+    "eslint": "^6.7.2",
+    "prettier-eslint": "^9.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nowoesiy/coin.git"
+  },
+  "author": "nowoesiy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nowoesiy/coin/issues"
+  },
+  "homepage": "https://github.com/nowoesiy/coin#readme"
 }

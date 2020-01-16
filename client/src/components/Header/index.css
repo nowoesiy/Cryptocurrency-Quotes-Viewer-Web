@@ -7,7 +7,6 @@ div.header {
   border-bottom: 1px solid #eee;
   align-items: center;
   padding: 0 30px;
-  box-shadow: 0 8px 8px 0 rgba(80, 78, 75, 0.09);
 }
 
 div.header > div.title {
@@ -23,9 +22,8 @@ div.header > div.title > a {
 
 .menu-item {
   color: #ffffff;
-  margin-left: -5px;
   line-height: 5rem;
-  height: 46px;
+  height: 48px;
   width: 120px;
   display: inline-block;
   font-size: 1.8rem;
@@ -42,7 +40,7 @@ a:hover {
   -webkit-transition: width 2s, height 2s, background-color 2s,
     -webkit-transform 2s;
   transition: width 2s, height 2s, background-color 2s, transform 2s;
-  border-bottom: 5px solid darkgrey;
+  border-bottom: 3px solid darkgrey;
 }
 
 a:active {

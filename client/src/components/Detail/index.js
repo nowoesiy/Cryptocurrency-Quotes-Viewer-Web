@@ -44,14 +44,17 @@ class Detail extends React.Component {
       volume
     } = note;
 
-    function getChartTime(t) {
-      const timeseries = [];
-      for (let i = 0; i < t; i++) {
-        timeseries.unshift(time[i]);
-      }
-      return timeseries;
-    }
-    console.log(getChartTime(5));
+    // function getChartTime(t) {
+    //   const timeseries = Array.apply(null, new Array(5)).map(
+    //     Number.prototype.valueOf,
+    //     0
+    //   );
+    //   for (let i = 0; i < t; i++) {
+    //     timeseries.push(time[i]);
+    //   }
+    //   console.log(timeseries);
+    //   return timeseries;
+    // }
     function CreateDetailChart() {
       return (
         <div className="chart">
@@ -73,7 +76,38 @@ class Detail extends React.Component {
                   boundaryGap: false,
                   minInterval: 5,
 
-                  data: [getChartTime(30)]
+                  data: [
+                    time[29],
+                    time[28],
+                    time[27],
+                    time[26],
+                    time[25],
+                    time[24],
+                    time[23],
+                    time[22],
+                    time[21],
+                    time[20],
+                    time[19],
+                    time[18],
+                    time[17],
+                    time[16],
+                    time[15],
+                    time[14],
+                    time[13],
+                    time[12],
+                    time[11],
+                    time[10],
+                    time[9],
+                    time[8],
+                    time[7],
+                    time[6],
+                    time[5],
+                    time[4],
+                    time[3],
+                    time[2],
+                    time[1],
+                    time[0]
+                  ]
                 },
                 yAxis: {
                   scale: true,
