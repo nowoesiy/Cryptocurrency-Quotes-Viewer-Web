@@ -127,6 +127,7 @@ class App extends React.Component {
         });
       }
     );
+    return false;
   };
 
   handleValueChange = e => {
@@ -146,7 +147,11 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div className="app">
-          <Header activeId={activeId} date={date} />
+          <Header
+            activeId={activeId}
+            date={date}
+            onListItemClick={this.handleListItemClick}
+          />
           <div className="container">
             <List
               keyword={keyword}
@@ -160,7 +165,13 @@ class App extends React.Component {
             <div className="board">
               <Switch>
                 <Route path="/" exact>
-                  {<Home />}
+                  {
+                    <Home
+                      notes={notes}
+                      fixedCoin={fixedCoin}
+                      onListItemClick={this.handleListItemClick}
+                    />
+                  }
                 </Route>
                 <Route path={"/quote/" + activeId}>
                   {notes.length !== 0 && <Detail note={activeNote} />}

@@ -11,12 +11,12 @@ div.Coinlist {
 .coinsearch {
   border-bottom: 1px solid #eee;
   border-right: 2px solid #eee;
-  box-shadow: 0 12px 12px 0 rgba(80, 78, 75, 0.09);
+  box-shadow: 0 6px 6px 0 rgba(80, 78, 75, 0.09);
 }
 
 .coinsearch input {
   margin: 5px 0px 5px 15px;
-  font-size: 13px;
+  font-size: 15px;
   height: 30px;
   width: 300px;
   border: black;

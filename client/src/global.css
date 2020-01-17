@@ -10,3 +10,7 @@ body {
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
 }
+
+a:hover:active {
+  text-decoration: none;
+}

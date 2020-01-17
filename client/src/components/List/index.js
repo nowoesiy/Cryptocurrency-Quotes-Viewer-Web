@@ -48,7 +48,11 @@ class List extends React.Component {
             volume={volume}
             fixedCoin={fixedCoin}
             onClick={() => onListItemClick(id)}
-            onFixedIconClick={() => onListItemFixedIconClick(id)}
+            onFixedIconClick={e => {
+              e.stopPropagation();
+              e.preventDefault();
+              onListItemFixedIconClick(id);
+            }}
           />
         );
       });
@@ -68,6 +72,8 @@ class List extends React.Component {
             autoComplete="off"
             onChange={e => onValueChange(e)}
           ></input>
+          <span>차트</span>
+
           <img src="https://img.icons8.com/officel/40/000000/toggle-on.png"></img>
         </div>
         <div className="Coinlist">{filterCoinList(notes)}</div>

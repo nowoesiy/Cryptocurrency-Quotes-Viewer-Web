@@ -290,7 +290,7 @@ class Detail extends React.Component {
                 \ {Number(endPrice[0]).toLocaleString()}
               </span>
             </h1>
-            {this.showRate(Number(endPrice[2] - endPrice[0]), changeRate)}
+            {this.showRate(Number(endPrice[0] - endPrice[2]), changeRate)}
           </div>
           <div className="coinDetailInfoSub">
             <h2
