@@ -15,7 +15,7 @@ function CreateCoinInfo({ title, notes, onclick }) {
               <th>순위</th>
               <th>코인명</th>
               <th>현재가</th>
-              <th>등락폭(3M)</th>
+              <th>등락폭</th>
               <th>등락률</th>
             </tr>
           </thead>
@@ -26,9 +26,11 @@ function CreateCoinInfo({ title, notes, onclick }) {
                 <tr>
                   <td width="50">{i + 1}</td>
 
-                  <td width="300" onClick={() => onclick(name)}>
+                  <td width="300">
                     <Link style={{ color: "#000000" }} to={"/quote/" + name}>
-                      {nameKor}({name})
+                      <span onClick={() => onclick(name)}>
+                        {nameKor}({name})
+                      </span>
                     </Link>
                   </td>
                   <td width="140">
@@ -48,7 +50,7 @@ function CreateCoinInfo({ title, notes, onclick }) {
   );
 }
 
-function CreateFavoriteCoinInfo({ title, notes, fixedCoin }) {
+function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
   return (
     <div className="FavCoinInfo">
       <div className="Fav-title">
@@ -61,7 +63,7 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin }) {
               <tr>
                 <th>코인명</th>
                 <th>현재가</th>
-                <th>등락폭(3M)</th>
+                <th>등락폭</th>
                 <th>등락률</th>
                 <th>고가</th>
                 <th>저가</th>
@@ -88,23 +90,27 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin }) {
                   return (
                     <tr>
                       <td width="140">
-                        {nameKor}({name})
+                        <Link
+                          style={{ color: "#000000" }}
+                          to={"/quote/" + name}
+                        >
+                          <span onClick={() => onclick(name)}>
+                            {nameKor}({name})
+                          </span>
+                        </Link>
                       </td>
                       <td width="140">
-                        \ {Number(endPrice[0]).toLocaleString()}
+                        {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
                       </td>
                       <td width="120">
-                        ▲{" "}
-                        {Number(endPrice[0] - endPrice[2]) < 15
-                          ? Number(endPrice[0] - endPrice[2]).toFixed(3)
-                          : Number(endPrice[0] - endPrice[2]).toLocaleString()}
+                        {showDiff(Number(endPrice[0] - endPrice[2]))}
                       </td>
-                      <td width="120">{Number(changeRate).toFixed(3)} %</td>
-                      <td width="120">
-                        {Number(highPrice[0]).toLocaleString()}
+                      <td width="120">{showRate(changeRate)}</td>
+                      <td width="120" style={{ color: "#d60000" }}>
+                        \ {Number(highPrice[0]).toLocaleString()}
                       </td>
-                      <td width="120">
-                        {Number(lowPrice[0]).toLocaleString()}
+                      <td width="120" style={{ color: "#0051c7" }}>
+                        \ {Number(lowPrice[0]).toLocaleString()}
                       </td>
                       <td width="120">{Number(volume[0]).toLocaleString()}</td>
                     </tr>
@@ -130,16 +136,22 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin }) {
 
 class Home extends React.Component {
   state = {
-    priceJumpCoins: []
+    priceJumpCoins: [],
+    priceSlumpCoins: []
   };
 
   callPumpCoinList = () => {
     const { notes } = this.props;
     let priceJumpCoins = notes.slice();
+    let priceSlumpCoins = notes.slice();
     priceJumpCoins.sort((a, b) => a.changeRate - b.changeRate).reverse();
+    priceSlumpCoins.sort((a, b) => a.changeRate - b.changeRate);
     priceJumpCoins = priceJumpCoins.slice(0, 5);
+    priceSlumpCoins = priceSlumpCoins.slice(0, 5);
+
     this.setState({
-      priceJumpCoins
+      priceJumpCoins,
+      priceSlumpCoins
     });
   };
 
@@ -152,7 +164,7 @@ class Home extends React.Component {
     this.time = setInterval(this.callPumpCoinList, 5000);
   }
   render() {
-    const { priceJumpCoins } = this.state;
+    const { priceJumpCoins, priceSlumpCoins } = this.state;
     const { notes, fixedCoin, onListItemClick } = this.props;
     console.log(notes.filter(note => fixedCoin.includes(note.id)));
     return (
@@ -167,8 +179,8 @@ class Home extends React.Component {
           )}
           {priceJumpCoins.length != 0 && (
             <CreateCoinInfo
-              title={"실시간 거래량 Top5"}
-              notes={priceJumpCoins}
+              title={"실시간 하락률 Top5"}
+              notes={priceSlumpCoins}
             />
           )}
         </div>
@@ -178,6 +190,7 @@ class Home extends React.Component {
               title={"관심 코인"}
               notes={notes}
               fixedCoin={fixedCoin}
+              onclick={onListItemClick}
             />
           )}
         </div>
