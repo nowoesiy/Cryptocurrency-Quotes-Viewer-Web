@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.css";
+import { showPrice } from "../../common";
 import ReactEcharts from "echarts-for-react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -245,7 +246,9 @@ class ListItem extends React.Component {
                     {name ? " " + name : ""}
                   </span>
                 </h1>
-                <h1 id="endPrice">\ {Number(endPrice[0]).toLocaleString()}</h1>
+                <h1 id="endPrice">
+                  {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
+                </h1>
               </div>
               {fixedCoin.includes(name) ? "" : CreateSmallChart()}
               <div className="profile_stockprice">
