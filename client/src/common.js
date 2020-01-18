@@ -36,22 +36,20 @@ export const showDiff = diff => {
   }
 };
 
-export const showPrice = (priceF, priceB, size) => {
+export const showPrice = (priceF, priceB) => {
   if (priceF - priceB > 0) {
     return (
-      <span style={{ color: "#d60000", font: `\"${size}px\"` }}>
+      <span style={{ color: "#d60000" }}>
         {priceF ? `\\ ${Math.abs(priceF).toLocaleString()}` : ""}
       </span>
     );
-  } else if (priceB - priceF < 0) {
+  } else if (priceF - priceB < 0) {
     return (
-      <span style={{ color: "#0051c7", font: `\"${size}px\"` }}>
+      <span style={{ color: "#0051c7" }}>
         {priceF ? `\\ ${Math.abs(priceF).toLocaleString()}` : ""}
       </span>
     );
   } else {
-    return (
-      <span style={{ font: `\"${size}px\"` }}>\ {priceF.toLocaleString()}</span>
-    );
+    return <span>\ {priceF.toLocaleString()}</span>;
   }
 };
