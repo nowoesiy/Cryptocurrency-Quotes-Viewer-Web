@@ -14,7 +14,7 @@ export const showRate = changeRate => {
       </span>
     );
   } else {
-    return <span> 0.00%</span>;
+    return <span>0.00%</span>;
   }
 };
 
@@ -36,20 +36,22 @@ export const showDiff = diff => {
   }
 };
 
-export const showPrice = (priceF, priceB) => {
+export const showPrice = (priceF, priceB, size) => {
   if (priceF - priceB > 0) {
     return (
-      <span style={{ color: "#d60000" }}>
+      <span style={{ color: "#d60000", font: `\"${size}px\"` }}>
         {priceF ? `\\ ${Math.abs(priceF).toLocaleString()}` : ""}
       </span>
     );
   } else if (priceB - priceF < 0) {
     return (
-      <span style={{ color: "#0051c7" }}>
+      <span style={{ color: "#0051c7", font: `\"${size}px\"` }}>
         {priceF ? `\\ ${Math.abs(priceF).toLocaleString()}` : ""}
       </span>
     );
   } else {
-    return <span>\ {priceF.toLocaleString()}</span>;
+    return (
+      <span style={{ font: `\"${size}px\"` }}>\ {priceF.toLocaleString()}</span>
+    );
   }
 };
