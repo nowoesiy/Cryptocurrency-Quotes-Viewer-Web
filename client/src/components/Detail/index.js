@@ -1,7 +1,139 @@
 import React from "react";
 import "./index.css";
+import { showRate, showDiff, showPrice } from "../../common";
 import ReactEcharts from "echarts-for-react";
 import { FaPowerOff } from "react-icons/fa";
+
+function CreateDeailCoinInfoTitle({ note }) {
+  const {
+    nameKor,
+    name,
+    endPrice,
+    changeRate,
+    time,
+    openPrice,
+    highPrice,
+    lowPrice,
+    volume
+  } = note;
+
+  return (
+    <div className="DetailCoinInfo">
+      <div className="DetailInfo-title">
+        <h1>
+          <span style={{ fontWeight: "900", fontSize: "36px" }}>
+            <strong>{nameKor}</strong>
+          </span>
+          <span style={{ color: "grey", fontSize: "24px" }}> {name}/KRW</span>
+          &nbsp;&nbsp;&nbsp;
+          {showPrice(Number(endPrice[0]), Number(endPrice[2]), 70)}
+          {showDiff(Number(endPrice[0] - endPrice[2]))} {showRate(changeRate)}
+        </h1>
+      </div>
+    </div>
+  );
+}
+
+function CreateDeailCoinInfoBoard({ note }) {
+  const {
+    nameKor,
+    name,
+    endPrice,
+    changeRate,
+    time,
+    openPrice,
+    highPrice,
+    lowPrice,
+    volume
+  } = note;
+
+  return (
+    <div className="DetailCoinInfoBoard">
+      <div className="DetailInfo-board">
+        <div className="coinDetail">
+          <div className="coinDetailInfo">
+            <h1 style={{ fontSize: "38px" }}>
+              <span></span>
+            </h1>
+            <h1></h1>
+          </div>
+          <div className="coinDetailInfoSub">
+            <h2
+              style={{
+                marginBottom: "0px",
+                fontSize: "22px",
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              <span>고가(3M)</span>
+              <span style={{ color: "#d60000" }}>
+                {highPrice
+                  ? " " + Number(highPrice[0]).toLocaleString()
+                  : "내용"}
+              </span>
+            </h2>
+            <h2
+              style={{
+                marginBottom: "0px",
+                marginTop: "5px",
+                fontSize: "22px",
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              <span>저가(3M)</span>
+              <span style={{ color: "#0051c7" }}>
+                {highPrice
+                  ? " " + Number(lowPrice[0]).toLocaleString()
+                  : "내용"}
+              </span>
+            </h2>
+            <h2
+              style={{
+                marginBottom: "0px",
+                marginTop: "5px",
+                fontSize: "22px",
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              <span>거래량</span>
+              <span>
+                {volume ? " " + Number(volume[0]).toLocaleString() : "내용"}
+              </span>
+            </h2>
+            <h2
+              style={{
+                marginBottom: "0px",
+                marginTop: "5px",
+                fontSize: "22px",
+                display: "flex",
+                justifyContent: "space-between"
+              }}
+            >
+              <span>시가총액</span>
+              <span>
+                {volume ? " " + Number(volume[0]).toLocaleString() : "내용"}
+              </span>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CreateDeailCoinChart({ CreateDetailChart }) {
+  return (
+    <div className="DetailCoinInfoChart">
+      <div className="DetailInfoChart-title">
+        <span>차트</span>
+      </div>
+      <div className="DetailInfoChart-board">{CreateDetailChart}</div>
+    </div>
+  );
+}
 
 class Detail extends React.Component {
   showRate = (diff, changeRate) => {
@@ -55,7 +187,7 @@ class Detail extends React.Component {
     //   console.log(timeseries);
     //   return timeseries;
     // }
-    function CreateDetailChart() {
+    function CreateDetailChart(create) {
       return (
         <div className="chart">
           <div className="List_Chart">
@@ -115,12 +247,12 @@ class Detail extends React.Component {
                   boundaryGap: true,
                   position: "right",
                   min:
-                    openPrice[0] * 0.995 -
-                    ((openPrice[0] * 0.995) %
+                    openPrice[0] * 0.99 -
+                    ((openPrice[0] * 0.99) %
                       Math.pow(10, Math.ceil(Math.log10(openPrice[0])) - 3)),
                   max:
-                    openPrice[0] * 1.005 -
-                    ((openPrice[0] * 1.005) %
+                    openPrice[0] * 1.01 -
+                    ((openPrice[0] * 1.01) %
                       Math.pow(10, Math.ceil(Math.log10(openPrice[0])) - 3))
                 },
                 series: [
@@ -274,7 +406,9 @@ class Detail extends React.Component {
 
     return (
       <div>
-        <div className="coinDetail">
+        <CreateDeailCoinInfoTitle note={note} />
+        <CreateDeailCoinInfoBoard note={note} />
+        {/* <div className="coinDetail">
           <div className="coinDetailInfo">
             <h1>
               <span style={{ fontWeight: "900", fontSize: "32px" }}>
@@ -353,9 +487,13 @@ class Detail extends React.Component {
               </span>
             </h2>
           </div>
-        </div>
+        </div> */}
         <div className="coinDetialChart">
-          {time[0] ? CreateDetailChart() : ""}
+          {time[0] ? (
+            <CreateDeailCoinChart CreateDetailChart={CreateDetailChart()} />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );

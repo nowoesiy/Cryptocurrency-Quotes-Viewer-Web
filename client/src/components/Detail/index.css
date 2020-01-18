@@ -1,8 +1,60 @@
+div.DetailCoinInfo {
+  border-top: 7px solid #294e80;
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
+  padding: 10px 10px 10px 10px;
+  margin: 20px 20px 10px 20px;
+  background: white;
+  width: 96%;
+  font-size: 1.5rem;
+}
+
+div.DetailCoinInfoBoard {
+  border-radius: 0px 0px 5px 5px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
+  padding: 10px 10px 10px 10px;
+  margin: 10px 20px 20px 20px;
+  background: white;
+  width: 96%;
+  font-size: 1.5rem;
+}
+
+div.DetailCoinInfoChart {
+  border-top: 7px solid #294e80;
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
+  padding: 10px 10px 10px 10px;
+  margin: 20px 20px 10px 20px;
+  background: white;
+  width: 96%;
+  font-size: 1.5rem;
+}
+
+div.DetailInfo-title {
+  /* height: 3.2rem; */
+  border-bottom: 2px solid #eee;
+  padding-left: 18px;
+}
+
+div.DetailInfo-title span {
+  font-weight: 700;
+}
+
+div.DetailInfoChart-title {
+  height: 3.2rem;
+  border-bottom: 2px solid #eee;
+  padding-left: 18px;
+}
+
+div.DetailInfoChart-title span {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
 div.coinDetail {
-  height: 300px;
-  width: 100%;
-  padding: 40px 70px 0px 70px;
-  background-color: #f2f4f8;
+  height: 150px;
+  margin: 10px 10px 10px 20px;
+  /* background-color: #f2f4f8; */
   border-bottom: 1px solid #eee;
 }
 
@@ -12,8 +64,4 @@ div.coinDetailInfo {
 
 div.coinDetailInfoSub {
   width: 270px;
-}
-
-div.coinDetialChart {
-  margin: 30px 40px;
 }
