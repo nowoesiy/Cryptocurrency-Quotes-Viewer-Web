@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
 import { Link } from "react-router-dom";
+import { showRate, showDiff, showPrice } from "../../common";
 function CreateCoinInfo({ title, notes, onclick }) {
   return (
     <div className="JumpCoinInfo">
@@ -30,18 +31,13 @@ function CreateCoinInfo({ title, notes, onclick }) {
                       {nameKor}({name})
                     </Link>
                   </td>
-                  <td width="140" style={{ color: "rgb(214, 0, 0)" }}>
-                    \ {Number(endPrice[0]).toLocaleString()}
+                  <td width="140">
+                    {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
                   </td>
-                  <td width="120" style={{ color: "rgb(214, 0, 0)" }}>
-                    ▲{" "}
-                    {Number(endPrice[0] - endPrice[2]) < 15
-                      ? Number(endPrice[0] - endPrice[2]).toFixed(3)
-                      : Number(endPrice[0] - endPrice[2]).toLocaleString()}
+                  <td width="120">
+                    {showDiff(Number(endPrice[0] - endPrice[2]))}
                   </td>
-                  <td width="120" style={{ color: "rgb(214, 0, 0)" }}>
-                    {Number(changeRate).toFixed(3)} %
-                  </td>
+                  <td width="120">{showRate(changeRate)}</td>
                 </tr>
               );
             })}

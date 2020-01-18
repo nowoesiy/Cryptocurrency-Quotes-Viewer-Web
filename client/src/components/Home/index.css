@@ -98,10 +98,6 @@ div.Info-bord table tbody a:hover {
   text-decoration: none;
 }
 
-a:link {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
+table a {
+  margin-left: 35px;
 }
