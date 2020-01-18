@@ -89,9 +89,9 @@ class ListItem extends React.Component {
               option={{
                 grid: {
                   left: 0,
-                  top: 0,
+                  top: 10,
                   right: 0,
-                  bottom: 0
+                  bottom: 10
                 },
                 xAxis: {
                   type: "category",
@@ -117,8 +117,10 @@ class ListItem extends React.Component {
                 },
                 yAxis: {
                   show: false,
-                  min: openPrice[0] * 0.999,
-                  max: openPrice[0] * 1.001
+                  // min: openPrice[0] * 0.999,
+                  // max: openPrice[0] * 1.001
+                  min: openPrice[0] * 0.99,
+                  max: openPrice[0] * 1.01
                 },
                 series: [
                   {
@@ -174,7 +176,7 @@ class ListItem extends React.Component {
                   }
                 ]
               }}
-              style={{ height: "240px", width: "100%" }}
+              style={{ height: "150px", width: "100%" }}
               notMerge={true}
               lazyUpdate={true}
               theme={"theme_name"}
