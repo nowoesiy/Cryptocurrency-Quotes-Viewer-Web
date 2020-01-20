@@ -3,17 +3,16 @@ div.DetailCoinInfo {
   border-radius: 5px 5px 0px 0px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
   padding: 10px 10px 10px 10px;
-  margin: 20px 20px 10px 20px;
+  margin: 20px 0px 10px 20px;
   background: white;
   width: 96%;
   font-size: 1.5rem;
 }
 
 div.DetailCoinInfoBoard {
-  border-radius: 0px 0px 5px 5px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
   padding: 10px 10px 10px 10px;
-  margin: 10px 20px 20px 20px;
+  margin: 10px 0px 20px 20px;
   background: white;
   width: 96%;
   font-size: 1.5rem;
@@ -24,7 +23,7 @@ div.DetailCoinInfoChart {
   border-radius: 5px 5px 0px 0px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
   padding: 10px 10px 10px 10px;
-  margin: 20px 20px 10px 20px;
+  margin: 20px 0px 10px 20px;
   background: white;
   width: 96%;
   font-size: 1.5rem;
@@ -52,10 +51,8 @@ div.DetailInfoChart-title span {
 }
 
 div.coinDetail {
-  height: 150px;
   margin: 10px 10px 10px 20px;
   /* background-color: #f2f4f8; */
-  border-bottom: 1px solid #eee;
 }
 
 div.coinDetailInfo {
