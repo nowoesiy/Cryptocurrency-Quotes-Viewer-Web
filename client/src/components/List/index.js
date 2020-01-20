@@ -59,7 +59,7 @@ class List extends React.Component {
     };
 
     return (
-      <div>
+      <div className="list">
         <div
           className="coinsearch"
           style={{ display: "flex", justifyContent: "space-between" }}
@@ -72,9 +72,7 @@ class List extends React.Component {
             autoComplete="off"
             onChange={e => onValueChange(e)}
           ></input>
-          <span>차트</span>
-
-          <img src="https://img.icons8.com/officel/40/000000/toggle-on.png"></img>
+          {/* <img src="https://img.icons8.com/officel/40/000000/toggle-on.png"></img> */}
         </div>
         <div className="Coinlist">{filterCoinList(notes)}</div>
       </div>
