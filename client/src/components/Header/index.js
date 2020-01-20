@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./index.css";
 import { NavLink } from "react-router-dom";
 
@@ -21,7 +22,7 @@ class Header extends React.Component {
       <div className="header">
         <div className="title">
           <span>
-            <strong>Coin</strong>View
+            <strong>Vis</strong>Coin
           </span>
         </div>
         <nav className="header_Menu">
