@@ -1,5 +1,7 @@
 import React from "react";
 import "./index.css";
+import coinpan_logo from "../../coinpan_logo.png";
+import subaek from "../../subaek.jpg";
 import { Link } from "react-router-dom";
 import { showRate, showDiff, showPrice } from "../../common";
 function CreateCoinInfo({ title, notes, onclick }) {
@@ -16,7 +18,7 @@ function CreateCoinInfo({ title, notes, onclick }) {
               <th>코인명</th>
               <th>현재가</th>
               <th>등락폭</th>
-              <th>등락률</th>
+              {/* <th>등락률</th> */}
             </tr>
           </thead>
           <tbody>
@@ -39,7 +41,7 @@ function CreateCoinInfo({ title, notes, onclick }) {
                   <td width="120">
                     {showDiff(Number(endPrice[0] - endPrice[2]))}
                   </td>
-                  <td width="120">{showRate(changeRate)}</td>
+                  {/* <td width="120">{showRate(changeRate)}</td> */}
                 </tr>
               );
             })}
@@ -134,6 +136,83 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
   );
 }
 
+function CreateCrawlInfo({ title, crawls }) {
+  return (
+    <div className="CrawlInfo">
+      <div className="Fav-title">
+        <span>{title}</span>
+      </div>
+      <div className="Fav-board">
+        <table>
+          <thead>
+            <tr>
+              <th>소스</th>
+              <th>제목</th>
+              <th>날짜</th>
+            </tr>
+          </thead>
+          <tbody>
+            {crawls.length != 0 &&
+              crawls.slice(0, 6).map(crawl => {
+                const { title, url, date } = crawl;
+                return (
+                  <tr>
+                    <td width="60">
+                      <img width={60} src={coinpan_logo} />
+                    </td>
+                    <td width="350">
+                      <a
+                        style={{ color: "#000000" }}
+                        href={`https://coinpan.com${url}`}
+                        target="_blank"
+                      >
+                        {title}
+                      </a>
+                    </td>
+                    <td width="70">{date}</td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function CreateCrawlNews({ title, crawlNews }) {
+  return (
+    <div className="CrawlInfo">
+      <div className="Fav-title">
+        <span>{title}</span>
+      </div>
+      <div className="Fav-board">
+        <table>
+          <tbody>
+            {crawlNews.length != 0 &&
+              crawlNews.slice(0, 9).map(crawl => {
+                const { title, url, date } = crawl;
+                return (
+                  <tr>
+                    <td width="350">
+                      <a
+                        style={{ color: "#000000" }}
+                        href={`https://kr.investing.com/${url}`}
+                        target="_blank"
+                      >
+                        {title}
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 class Home extends React.Component {
   state = {
     priceJumpCoins: [],
@@ -165,8 +244,7 @@ class Home extends React.Component {
   }
   render() {
     const { priceJumpCoins, priceSlumpCoins } = this.state;
-    const { notes, fixedCoin, onListItemClick } = this.props;
-    console.log(notes.filter(note => fixedCoin.includes(note.id)));
+    const { notes, crawls, crawlNews, fixedCoin, onListItemClick } = this.props;
     return (
       <div>
         <div className="Homecoininfo" style={{ display: "flex" }}>
@@ -181,6 +259,7 @@ class Home extends React.Component {
             <CreateCoinInfo
               title={"실시간 하락률 Top5"}
               notes={priceSlumpCoins}
+              onclick={onListItemClick}
             />
           )}
         </div>
@@ -193,6 +272,10 @@ class Home extends React.Component {
               onclick={onListItemClick}
             />
           )}
+        </div>
+        <div style={{ display: "flex" }}>
+          <CreateCrawlInfo title={"실시간 반응"} crawls={crawls} />
+          <CreateCrawlNews title={"코인 뉴스"} crawlNews={crawlNews} />
         </div>
       </div>
     );
