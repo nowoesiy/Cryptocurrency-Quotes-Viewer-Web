@@ -22,7 +22,6 @@ const nameOfCoins = [
   { nameEng: "QTUM", nameKor: "퀀텀" },
   { nameEng: "BTG", nameKor: "비트코인 골드" },
   { nameEng: "EOS", nameKor: "이오스" },
-  { nameEng: "OMG", nameKor: "비트코인 캐시" },
   { nameEng: "GNT", nameKor: "골렘" },
   { nameEng: "TRX", nameKor: "트론" },
   { nameEng: "VET", nameKor: "비체인" },
@@ -38,6 +37,8 @@ class App extends React.Component {
   state = {
     date: "",
     notes: [],
+    crawls: [],
+    crawlNews: [],
     activeId: "BTC",
     fixedCoin: ["BTC", "ETH"],
     keyword: ""
@@ -63,6 +64,25 @@ class App extends React.Component {
     });
   };
 
+  setCrawls = () => {
+    axios.get(`/api/crawl:coinpan`).then(response => {
+      const crawls = response.data;
+
+      this.setState({
+        crawls
+      });
+    });
+
+    axios.get(`/api/crawl/investing`).then(response => {
+      const crawls = response.data;
+
+      this.setState({
+        crawlNews: crawls
+      });
+    });
+  };
+
+  setCrawlNew;
   RequestPriceList = c => {
     axios.get(`/api/coin/${c}`).then(response => {
       const coins = [...this.state.notes];
@@ -136,13 +156,23 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setNotes();
+    this.setCrawls();
     this.time();
     this.interval = setInterval(this.time, 5000);
     this.timeInterval = setInterval(this.getTime, 1000);
+    this.crawlInterval = setInterval(this.setCrawls, 10000);
   }
 
   render() {
-    const { notes, date, fixedCoin, activeId, keyword } = this.state;
+    const {
+      notes,
+      crawls,
+      crawlNews,
+      date,
+      fixedCoin,
+      activeId,
+      keyword
+    } = this.state;
     const activeNote = notes.filter(item => item.id === activeId)[0];
     return (
       <BrowserRouter>
@@ -168,6 +198,8 @@ class App extends React.Component {
                   {
                     <Home
                       notes={notes}
+                      crawls={crawls}
+                      crawlNews={crawlNews}
                       fixedCoin={fixedCoin}
                       onListItemClick={this.handleListItemClick}
                     />
