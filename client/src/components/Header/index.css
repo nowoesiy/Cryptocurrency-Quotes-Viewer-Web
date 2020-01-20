@@ -4,9 +4,8 @@ div.header {
   height: 52px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #eee;
   align-items: center;
-  padding: 0 30px;
+  padding: 0 205px;
 }
 
 div.header > div.title {
