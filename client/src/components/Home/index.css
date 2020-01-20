@@ -2,8 +2,8 @@ div.JumpCoinInfo {
   border-top: 7px solid #294e80;
   border-radius: 5px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
-  padding: 10px 10px 10px 10px;
-  margin: 20px;
+  padding: 11px;
+  margin: 20px 0px 0px 20px;
   background: white;
   width: 46%;
   font-size: 1.5rem;
@@ -54,11 +54,11 @@ div.FavCoinInfo {
   border-radius: 5px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
   padding: 10px 10px 10px 10px;
-  margin: 20px;
+  margin: 20px 0px 0px 20px;
   background: white;
   width: 96%;
   font-size: 1.5rem;
-  min-height: 150px;
+  min-height: 140px;
 }
 div.Fav-title {
   height: 3.2rem;
@@ -85,7 +85,7 @@ div.Fav-board table tr {
 
 div.Fav-board table tr td {
   font-size: 1.7rem;
-  padding: 10px 0px 5px 60px;
+  padding: 10px 0px 5px 30px;
 }
 
 div.Fav-board table tr:hover {
@@ -97,5 +97,25 @@ div.Info-bord table tbody a:hover {
 }
 
 div.Info-board table a {
-  margin-left: 35px;
+  margin-left: 15px;
+}
+
+div.CrawlInfo {
+  border-top: 7px solid #294e80;
+  border-radius: 5px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
+  padding: 11px;
+  margin: 20px 0px 0px 20px;
+  background: white;
+  width: 46%;
+  font-size: 1.5rem;
+  min-height: 140px;
+}
+
+div.Fav-title {
+  height: 3.2rem;
+  border-bottom: 2px solid #eee;
+  font-size: 2rem;
+  font-weight: 700;
+  padding-left: 18px;
 }
