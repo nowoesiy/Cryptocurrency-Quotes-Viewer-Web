@@ -4,6 +4,24 @@ import { showRate, showDiff, showPrice } from "../../common";
 import ReactEcharts from "echarts-for-react";
 import { FaPowerOff } from "react-icons/fa";
 
+const showDiffWithRate = (diff, changeRate) => {
+  if (changeRate > 0) {
+    return (
+      <span style={{ color: "#d60000" }}>
+        {changeRate ? `▲${diff.toFixed(0)}(${changeRate}%)` : ""}
+      </span>
+    );
+  } else if (changeRate < 0) {
+    return (
+      <span style={{ color: "#0051c7" }}>
+        {changeRate ? `▼ ${Math.abs(diff).toFixed(0)}(${changeRate}%)` : ""}
+      </span>
+    );
+  } else {
+    return <span>0.000(0.00%)</span>;
+  }
+};
+
 function CreateDeailCoinInfoTitle({ note }) {
   const {
     nameKor,
@@ -19,16 +37,23 @@ function CreateDeailCoinInfoTitle({ note }) {
 
   return (
     <div className="DetailCoinInfo">
-      <div className="DetailInfo-title">
-        <h1>
-          <span style={{ fontWeight: "900", fontSize: "36px" }}>
-            <strong>{nameKor}</strong>
-          </span>
-          <span style={{ color: "grey", fontSize: "24px" }}> {name}/KRW</span>
-          &nbsp;&nbsp;&nbsp;
-          {showPrice(Number(endPrice[0]), Number(endPrice[2]), 70)}
-          {showDiff(Number(endPrice[0] - endPrice[2]))} {showRate(changeRate)}
-        </h1>
+      <div className="DetailInfo-title" style={{ display: "flex" }}>
+        <div className="CoinDetailInfo-left">
+          <h1 style={{ margin: "10px" }}>
+            <span style={{ fontWeight: "900", fontSize: "30px" }}>
+              <strong>{nameKor}</strong>
+            </span>
+            <span style={{ color: "grey", fontSize: "22px" }}> {name}/KRW</span>
+          </h1>
+          <h1 style={{ margin: "10px", fontSize: "32px", fontWeight: "800" }}>
+            {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
+          </h1>
+        </div>
+        <div>
+          <h1>
+            {showDiffWithRate(Number(endPrice[0] - endPrice[2]), changeRate)}
+          </h1>
+        </div>
       </div>
     </div>
   );
@@ -136,32 +161,6 @@ function CreateDeailCoinChart({ CreateDetailChart }) {
 }
 
 class Detail extends React.Component {
-  showRate = (diff, changeRate) => {
-    if (changeRate > 0) {
-      return (
-        <h1>
-          <span style={{ color: "#d60000", fontSize: "32px" }}>
-            {changeRate ? `▲${diff.toFixed(0)}(${changeRate}%)` : ""}
-          </span>
-        </h1>
-      );
-    } else if (changeRate < 0) {
-      return (
-        <h1>
-          <span style={{ color: "#0051c7", fontSize: "32px" }}>
-            {changeRate ? `▼ ${Math.abs(diff).toFixed(0)}(${changeRate}%)` : ""}
-          </span>
-        </h1>
-      );
-    } else {
-      return (
-        <h1>
-          <span style={{ fontSize: "32px" }}>0.000(0.00%)</span>
-        </h1>
-      );
-    }
-  };
-
   render() {
     const { note } = this.props;
     const {
@@ -393,7 +392,7 @@ class Detail extends React.Component {
                   }
                 ]
               }}
-              style={{ height: "480px", width: "1400px" }}
+              style={{ height: "520px", width: "100%" }}
               notMerge={true}
               lazyUpdate={true}
               theme={"theme_name"}
