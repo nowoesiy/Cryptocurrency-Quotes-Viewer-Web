@@ -2,9 +2,10 @@ div.app > div.container {
   display: flex;
   flex-direction: row;
   height: calc(100vh - 50px);
+  padding: 0px 200px;
+  background-color: #eeee;
 }
 
 div.board {
-  background-color: #eeee;
   width: 100%;
 }
