@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mysql = require("mysql");
+const cheerio = require("cheerio");
 const axios = require("axios");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -131,7 +131,90 @@ time = () => {
   //등락률 순 정렬
 };
 
+getHtml = async () => {
+  try {
+    return await axios.get("https://coinpan.com/free");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+getInvesting = async () => {
+  try {
+    return await axios.get("https://kr.investing.com/news/cryptocurrency-news");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 callAPI = setInterval(time, 1000);
+callCrawl = setInterval(getHtml, 10000);
+callNewCrawl = setInterval(getInvesting, 10000);
+
+app.get("/api/crawl:coinpan", function(req, res, next) {
+  getHtml()
+    .then(html => {
+      let ulList = [];
+      const $ = cheerio.load(html.data);
+      const $bodyList = $("tr.bg2");
+
+      $bodyList.each(function(i, elem) {
+        {
+          ulList[i] = {
+            title: $(this)
+              .find("td.title a")
+              .text()
+              .trim()
+              .slice(0, 30)
+              .trim(),
+            url: $(this)
+              .find("td.title a")
+              .attr("href"),
+            date: $(this)
+              .find("td.time span.number span.regdateHour")
+              .text()
+          };
+        }
+      });
+      ulList = ulList.filter(ul => {
+        return ul.title.length >= 3;
+      });
+      return ulList;
+    })
+    .then(ulList => {
+      // title = ulList.map(ul => {
+      //   return ul.title;
+      // });
+      res.json(ulList);
+    });
+});
+
+app.get("/api/crawl/investing", function(req, res, next) {
+  getInvesting()
+    .then(html => {
+      let List = [];
+      const $ = cheerio.load(html.data);
+      const $bodyList = $("div.largeTitle article.js-article-item");
+
+      $bodyList.each(function(i, elem) {
+        {
+          List[i] = {
+            title: $(this)
+              .find("div.textDiv a.title")
+              .text()
+              .trim(),
+            url: $(this)
+              .find("div.textDiv a.title")
+              .attr("href")
+          };
+        }
+      });
+      return List;
+    })
+    .then(List => {
+      res.json(List);
+    });
+});
 
 app.get("/api/coin/:id", (req, res) => {
   res.set({ "content-type": "application/json; charset=utf-8" });
