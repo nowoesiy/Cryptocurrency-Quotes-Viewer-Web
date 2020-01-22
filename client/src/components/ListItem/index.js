@@ -4,6 +4,8 @@ import { showPrice } from "../../common";
 import ReactEcharts from "echarts-for-react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+
 class ListItem extends React.Component {
   constructor(props) {
     super(props);
@@ -230,13 +232,9 @@ class ListItem extends React.Component {
         </div>
       );
     }
-
-    return (
+    const board = (
       <Link to={"/quote/" + name}>
         <div className={active ? "list_active" : "list"} onClick={onClick}>
-          {/* <div className="image">
-          <img src="https://via.placeholder.com/64" />
-        </div> */}
           <div className="profile">
             <div className="profile_original">
               <div className="profile_top">
@@ -281,6 +279,31 @@ class ListItem extends React.Component {
           </div>
         </div>
       </Link>
+    );
+    return (
+      <div>
+        {changeRate != null && openPrice[openPrice.length - 1] != null ? (
+          board
+        ) : (
+          <div
+            className="list_loading"
+            style={{
+              minHeight: "80px",
+              textAlign: "center",
+              border: "1px solid #eee"
+            }}
+          >
+            <ClipLoader
+              css={{
+                marginTop: "16px"
+              }}
+              size={60}
+              color={"#123abc"}
+              loading={true}
+            />
+          </div>
+        )}
+      </div>
     );
   }
 }
