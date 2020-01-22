@@ -40,7 +40,7 @@ class App extends React.Component {
     crawls: [],
     crawlNews: [],
     activeId: "BTC",
-    fixedCoin: ["BTC", "ETH"],
+    fixedCoin: [],
     keyword: ""
   };
 
