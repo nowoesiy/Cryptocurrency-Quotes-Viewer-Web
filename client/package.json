@@ -24,7 +24,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://cowindo.herokuapp.com/",
   "devDependencies": {
     "http-proxy-middleware": "^0.20.0"
   }
