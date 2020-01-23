@@ -115,7 +115,7 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
                         </span>
                       </Link>
                     </td>
-                    <td width="140">
+                    <td width="150">
                       {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
                     </td>
                     <td width="120">
