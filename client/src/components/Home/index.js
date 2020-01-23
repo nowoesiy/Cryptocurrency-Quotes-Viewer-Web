@@ -128,7 +128,7 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
                     <td width="120" style={{ color: "#0051c7" }}>
                       \ {Number(lowPrice[0]).toLocaleString()}
                     </td>
-                    <td width="130">{Number(volume[0]).toLocaleString()}</td>
+                    <td width="120">{Number(volume[0]).toLocaleString()}</td>
                   </tr>
                 );
               })
