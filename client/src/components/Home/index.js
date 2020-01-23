@@ -87,7 +87,7 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
               <th>고가</th>
               <th>저가</th>
               <th>거래량</th>
-              <td>젠킨스</td>
+              <td>젠킨스2</td>
             </tr>
           </thead>
         ) : (
