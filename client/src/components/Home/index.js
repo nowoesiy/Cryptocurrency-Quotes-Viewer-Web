@@ -108,7 +108,7 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
                 } = note;
                 return (
                   <tr>
-                    <td width="140">
+                    <td width="200">
                       <Link style={{ color: "#000000" }} to={"/quote/" + name}>
                         <span onClick={() => onclick(name)}>
                           {nameKor}({name})
