@@ -12,21 +12,21 @@ function CreateCoinInfo({ title, notes, onclick }) {
       <table>
         <thead>
           <tr>
-            <th>순위</th>
+            {/* <th>순위</th> */}
             <th>코인명</th>
             <th>현재가</th>
             <th>등락폭</th>
-            {/* <th>등락률</th> */}
+            <th>등락률</th>
           </tr>
         </thead>
         <tbody>
-          {notes.map((priceJumpCoin, i) => {
+          {notes.map(priceJumpCoin => {
             const { nameKor, name, endPrice, changeRate } = priceJumpCoin;
             return (
               <tr>
-                <td width="50">{i + 1}</td>
+                {/* <td width="50">{i + 1}</td> */}
 
-                <td width="300">
+                <td width="320">
                   <Link style={{ color: "#000000" }} to={"/quote/" + name}>
                     <span onClick={() => onclick(name)}>
                       {nameKor}({name})
@@ -36,10 +36,10 @@ function CreateCoinInfo({ title, notes, onclick }) {
                 <td width="140">
                   {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
                 </td>
-                <td width="120">
+                <td width="100">
                   {showDiff(Number(endPrice[0] - endPrice[2]))}
                 </td>
-                {/* <td width="120">{showRate(changeRate)}</td> */}
+                <td width="100">{showRate(changeRate)}</td>
               </tr>
             );
           })}
@@ -158,7 +158,7 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
       ) : (
         <div
           className="loading"
-          style={{ minHeight: "110px", textAlign: "center" }}
+          style={{ minHeight: "100px", textAlign: "center" }}
         >
           <ClipLoader
             css={{

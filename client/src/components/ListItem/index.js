@@ -120,10 +120,8 @@ class ListItem extends React.Component {
                 },
                 yAxis: {
                   show: false,
-                  // min: openPrice[0] * 0.999,
-                  // max: openPrice[0] * 1.001
-                  min: openPrice[0] * 0.99,
-                  max: openPrice[0] * 1.01
+                  min: Math.min.apply(null, openPrice.slice(0, 15)) * 0.999,
+                  max: Math.max.apply(null, openPrice.slice(0, 15)) * 1.001
                 },
                 series: [
                   {

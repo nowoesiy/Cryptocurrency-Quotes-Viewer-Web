@@ -246,12 +246,12 @@ class Detail extends React.Component {
                   boundaryGap: true,
                   position: "right",
                   min:
-                    openPrice[0] * 0.99 -
-                    ((openPrice[0] * 0.99) %
+                    Math.min.apply(null, openPrice.slice(0, 29)) * 0.99 -
+                    ((Math.min.apply(null, openPrice.slice(0, 29)) * 0.99) %
                       Math.pow(10, Math.ceil(Math.log10(openPrice[0])) - 3)),
                   max:
-                    openPrice[0] * 1.01 -
-                    ((openPrice[0] * 1.01) %
+                    Math.max.apply(null, openPrice.slice(0, 29)) * 1.01 -
+                    ((Math.max.apply(null, openPrice.slice(0, 29)) * 1.01) %
                       Math.pow(10, Math.ceil(Math.log10(openPrice[0])) - 3))
                 },
                 series: [
