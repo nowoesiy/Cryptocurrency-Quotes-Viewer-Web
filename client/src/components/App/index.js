@@ -74,6 +74,7 @@ class App extends React.Component {
   };
 
   setNotes = () => {
+    console.log("1");
     const coinlist = nameOfCoins.map(nameOfCoin => {
       return {
         id: nameOfCoin.nameEng,
