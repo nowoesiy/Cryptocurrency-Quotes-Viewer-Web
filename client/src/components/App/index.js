@@ -11,26 +11,55 @@ let coinApi = [];
 
 const nameOfCoins = [
   { nameEng: "BTC", nameKor: "비트코인" },
-  { nameEng: "ETH", nameKor: "이더리움" },
-  { nameEng: "DASH", nameKor: "대시" },
-  { nameEng: "LTC", nameKor: "라이트코인" },
-  { nameEng: "ETC", nameKor: "이더리움 클래식" },
+  { nameEng: "BSV", nameKor: "비트코인에스브이" },
+  { nameEng: "BNP", nameKor: "베네핏" },
   { nameEng: "XRP", nameKor: "리플" },
   { nameEng: "BCH", nameKor: "비트코인 캐시" },
-  { nameEng: "XMR", nameKor: "모네로" },
-  { nameEng: "ZEC", nameKor: "지캐시" },
-  { nameEng: "QTUM", nameKor: "퀀텀" },
-  { nameEng: "BTG", nameKor: "비트코인 골드" },
   { nameEng: "EOS", nameKor: "이오스" },
-  { nameEng: "GNT", nameKor: "골렘" },
+  { nameEng: "ETH", nameKor: "이더리움" },
+  { nameEng: "WPX", nameKor: "더블유플러스" },
+  { nameEng: "ETC", nameKor: "이더리움 클래식" },
+  { nameEng: "XSR", nameKor: "젠서" },
+  { nameEng: "BTG", nameKor: "비트코인 골드" },
   { nameEng: "TRX", nameKor: "트론" },
+  { nameEng: "LTC", nameKor: "라이트코인" },
+  { nameEng: "QTUM", nameKor: "퀀텀" },
+  { nameEng: "SOC", nameKor: "소다코인" },
+  { nameEng: "LUNA", nameKor: "루나" },
+  { nameEng: "ADA", nameKor: "에이다" },
+  { nameEng: "GNT", nameKor: "골렘" },
+  { nameEng: "DAD", nameKor: "다드" },
+  { nameEng: "IPX", nameKor: "타키온프로토콜" },
+  { nameEng: "TRV", nameKor: "트러스트버스" },
+  { nameEng: "XLM", nameKor: "스텔라루멘" },
+  { nameEng: "BCD", nameKor: "비트코인 다이아몬드" },
+  { nameEng: "MTL", nameKor: "메탈" },
+  { nameEng: "AE", nameKor: "애터니티" },
+  { nameEng: "LINK", nameKor: "체인링크" },
+  { nameEng: "TMTG", nameKor: "더마이다스터치골드" },
+  { nameEng: "STEEM", nameKor: "스팀" },
+  { nameEng: "WTC", nameKor: "월튼체인" },
+  { nameEng: "AOA", nameKor: "오로라" },
+  { nameEng: "REP", nameKor: "어거" },
+  { nameEng: "CON", nameKor: "코넌" },
+  { nameEng: "FCT", nameKor: "피르마체인" },
+  { nameEng: "DASH", nameKor: "대시" },
+  { nameEng: "THETA", nameKor: "쎄타토큰" },
+  { nameEng: "FNB", nameKor: "애프앤비프로토콜" },
+  { nameEng: "FAB", nameKor: "패블릭" },
+  { nameEng: "APIS", nameKor: "아피스" },
+  { nameEng: "BTT", nameKor: "비트토렌트" },
+  { nameEng: "VALOR", nameKor: "밸러토큰" },
+  { nameEng: "GXC", nameKor: "지엑스체인" },
+  { nameEng: "ETZ", nameKor: "이더제로" },
+  { nameEng: "AMO", nameKor: "아모코인" },
+  { nameEng: "MXC", nameKor: "머신익스체인지코인" },
   { nameEng: "VET", nameKor: "비체인" },
-  { nameEng: "ICX", nameKor: "아이콘" },
-  { nameEng: "ZIL", nameKor: "질리카" },
-  { nameEng: "HC", nameKor: "하이퍼캐시" },
-  { nameEng: "ELF", nameKor: "엘프" },
-  { nameEng: "KNC", nameKor: "카이버네트워크" },
-  { nameEng: "MCO", nameKor: "모나코" }
+  { nameEng: "ZEC", nameKor: "제트캐시" },
+  { nameEng: "WAVES", nameKor: "웨이브" },
+  { nameEng: "INS", nameKor: "아이앤에스" },
+  { nameEng: "OMG", nameKor: "오미세고" },
+  { nameEng: "XVG", nameKor: "버지" }
 ];
 
 class App extends React.Component {
@@ -65,26 +94,29 @@ class App extends React.Component {
   };
 
   setCrawls = () => {
-    axios.get(`/api/crawl:coinpan`).then(response => {
-      const crawls = response.data;
-
-      this.setState({
-        crawls
+    axios
+      .get(`https://cowindo.herokuapp.com/api/crawl:coinpan`)
+      .then(response => {
+        const crawls = response.data;
+        this.setState({
+          crawls
+        });
       });
-    });
 
-    axios.get(`/api/crawl/investing`).then(response => {
-      const crawls = response.data;
+    axios
+      .get(`https://cowindo.herokuapp.com/api/crawl/investing`)
+      .then(response => {
+        const crawls = response.data;
 
-      this.setState({
-        crawlNews: crawls
+        this.setState({
+          crawlNews: crawls
+        });
       });
-    });
   };
 
   setCrawlNew;
   RequestPriceList = c => {
-    axios.get(`/api/coin/${c}`).then(response => {
+    axios.get(`https://cowindo.herokuapp.com/api/coin/${c}`).then(response => {
       const coins = [...this.state.notes];
       const coin = coins.find(coin => coin.id == c);
       coin.time = [...response.data.time];
