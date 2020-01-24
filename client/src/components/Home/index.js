@@ -15,8 +15,8 @@ function CreateCoinInfo({ title, notes, onclick }) {
             {/* <th>순위</th> */}
             <th>코인명</th>
             <th>현재가</th>
-            <th>등락폭</th>
-            <th>등락률</th>
+            <th>변동폭</th>
+            <th>변동률</th>
           </tr>
         </thead>
         <tbody>
@@ -87,7 +87,6 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
               <th>고가</th>
               <th>저가</th>
               <th>거래량</th>
-              <td>젠킨스2</td>
             </tr>
           </thead>
         ) : (
@@ -321,18 +320,16 @@ class Home extends React.Component {
     const { priceJumpCoins, priceSlumpCoins } = this.state;
     const { notes, crawls, crawlNews, fixedCoin, onListItemClick } = this.props;
     return (
-      <div>
-        <div className="Homefavcoininfo">
-          {notes.length != 0 && (
-            <CreateFavoriteCoinInfo
-              title={"관심 코인"}
-              notes={notes}
-              fixedCoin={fixedCoin}
-              onclick={onListItemClick}
-            />
-          )}
-        </div>
-        <div className="Homecoininfo" style={{ display: "flex" }}>
+      <div className="home_wrap">
+        {notes.length != 0 && (
+          <CreateFavoriteCoinInfo
+            title={"관심 코인"}
+            notes={notes}
+            fixedCoin={fixedCoin}
+            onclick={onListItemClick}
+          />
+        )}
+        <div className="Homecoininfo">
           <CreateCoinInfo
             title={"실시간 상승률 Top5"}
             notes={priceJumpCoins}

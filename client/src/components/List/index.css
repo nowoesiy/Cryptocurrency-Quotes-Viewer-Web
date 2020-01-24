@@ -1,13 +1,13 @@
-div.list {
+div.list_wrap {
   background-color: #ffffff;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
+  z-index: 9000;
 }
 
 div.Coinlist {
-  -ms-overflow-style: none;
-  overflow-y: scroll;
+  overflow: scroll;
   position: relative;
-  height: 905px;
+  height: 93vh;
   width: 420px;
   min-width: 420px;
 }

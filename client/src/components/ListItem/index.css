@@ -1,20 +1,19 @@
 div.profile {
-  padding: 12px;
+  padding: 8px;
   color: #000000;
 }
 
 div.profile_original {
   display: flex;
   justify-content: space-between;
-  height: 60px;
 }
 div.profile_top {
-  font-size: 1rem;
+  font-size: 0.9rem;
   width: 200px;
 }
 .profile_top h1 {
   margin-top: 0px;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 div.profile_stockprice {
   margin-top: -4px;
@@ -93,11 +92,14 @@ div.list:hover {
 }
 
 #endPrice {
-  font-size: 23px;
+  font-size: 2rem;
   font-weight: 800;
+  margin-bottom: 0px;
 }
 
 #changeRate {
   float: right;
   align-self: center;
+  margin-top: 8px;
+  margin-bottom: 0px;
 }

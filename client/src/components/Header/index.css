@@ -1,15 +1,19 @@
 div.header {
   background-color: #294e80;
+  position: fixed;
+  right: 0;
+  left: 0;
+  padding: 0 20rem;
+  min-width: 1083px;
   z-index: 10000;
   height: 52px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 205px;
 }
 
 div.header > div.title {
-  font-size: 25px;
+  font-size: 3rem;
   color: white;
 }
 
@@ -17,6 +21,11 @@ div.header > div.title > a {
   display: inline-block;
   vertical-align: middle;
   margin-right: 5px;
+}
+
+div.header > div.clock {
+  font-size: 2.5rem;
+  color: white;
 }
 
 .menu-item {

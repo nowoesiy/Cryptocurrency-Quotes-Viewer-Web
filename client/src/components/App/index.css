@@ -1,11 +1,19 @@
+div.app {
+  min-height: 100vh;
+}
+
 div.app > div.container {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 50px);
-  padding: 0px 200px;
-  background-color: #eeee;
+  /* height: calc(100vh - 50px); */
+  padding: 0px 180px;
+  padding-top: 5.2rem;
 }
 
 div.board {
+  overflow-y: scroll;
+  position: relative;
+  height: 96vh;
+  min-width: 420px;
   width: 100%;
 }

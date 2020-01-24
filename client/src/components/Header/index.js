@@ -30,7 +30,7 @@ class Header extends React.Component {
           <MenuItem link={"/quote/" + activeId}>코인정보</MenuItem>
           <MenuItem link="/tradeinfo">거래정보</MenuItem>
         </nav>
-        <div className="title">{date}</div>
+        <div className="clock">{date}</div>
       </div>
     );
   }

@@ -59,7 +59,7 @@ class List extends React.Component {
     };
 
     return (
-      <div className="list">
+      <div className="list_wrap">
         <div
           className="coinsearch"
           style={{ display: "flex", justifyContent: "space-between" }}

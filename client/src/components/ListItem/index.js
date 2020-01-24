@@ -177,7 +177,7 @@ class ListItem extends React.Component {
                   }
                 ]
               }}
-              style={{ height: "150px", width: "100%" }}
+              style={{ height: "100%", width: "100%" }}
               notMerge={true}
               lazyUpdate={true}
               theme={"theme_name"}
@@ -238,7 +238,7 @@ class ListItem extends React.Component {
               <div className="profile_top">
                 <h1>
                   <span>{nameKor ? nameKor : "제목"}</span>
-                  <span style={{ color: "grey", fontSize: "1.8rem" }}>
+                  <span style={{ color: "grey", fontSize: "1.7rem" }}>
                     {name ? " " + name : ""}
                   </span>
                 </h1>
@@ -259,7 +259,7 @@ class ListItem extends React.Component {
                   onClick={onFixedIconClick}
                 >
                   <FaStar
-                    size="24"
+                    size="20"
                     //color={fixedCoin.includes(name) ? "CCCC00" : "D3D3D3"}
                     className={
                       fixedCoin.includes(name)
