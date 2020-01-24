@@ -13,7 +13,7 @@ function CreateCoinInfo({ title, notes, onclick }) {
         <thead>
           <tr>
             {/* <th>순위</th> */}
-            <th>코인명1</th>
+            <th>코인명</th>
             <th>현재가</th>
             <th>변동폭</th>
             <th>변동률</th>
