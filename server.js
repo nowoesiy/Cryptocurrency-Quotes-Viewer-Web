@@ -12,7 +12,7 @@ app.use(
   })
 );
 
-console.log("jenkins test6");
+console.log("jenkins test7");
 
 const nameOfCoins = [
   { nameEng: "BTC", nameKor: "비트코인" },
