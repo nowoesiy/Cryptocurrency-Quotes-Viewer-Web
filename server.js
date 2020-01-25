@@ -12,7 +12,6 @@ app.use(
   })
 );
 
-let coinInfo = [];
 
 const nameOfCoins = [
   { nameEng: "BTC", nameKor: "비트코인" },
