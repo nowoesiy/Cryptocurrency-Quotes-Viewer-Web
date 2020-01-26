@@ -6,7 +6,7 @@ div.app > div.container {
   display: flex;
   flex-direction: row;
   /* height: calc(100vh - 50px); */
-  padding: 0px 180px;
+  padding: 0px 130px 0px 150px;
   padding-top: 5.2rem;
 }
 
