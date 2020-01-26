@@ -95,15 +95,17 @@ class App extends React.Component {
   };
 
   setCrawls = () => {
-    axios.get(`http://15.165.113.47:5000/api/crawl:coinpan`).then(response => {
-      const crawls = response.data;
-      this.setState({
-        crawls
+    axios
+      .get(`http://cowindo.herokuapp.com/api/crawl:coinpan`)
+      .then(response => {
+        const crawls = response.data;
+        this.setState({
+          crawls
+        });
       });
-    });
 
     axios
-      .get(`http://15.165.113.47:5000/api/crawl/investing`)
+      .get(`http://cowindo.herokuapp.com/api/crawl/investing`)
       .then(response => {
         const crawls = response.data;
 
@@ -115,7 +117,7 @@ class App extends React.Component {
 
   setCrawlNew;
   RequestPriceList = c => {
-    axios.get(`http://15.165.113.47:5000/api/coin/${c}`).then(response => {
+    axios.get(`http://cowindo.herokuapp.com/api/coin/${c}`).then(response => {
       const coins = [...this.state.notes];
       const coin = coins.find(coin => coin.id == c);
       coin.time = [...response.data.time];
