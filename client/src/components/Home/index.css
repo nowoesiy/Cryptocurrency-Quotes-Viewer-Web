@@ -7,6 +7,7 @@ div.JumpCoinInfo {
   border-radius: 5px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
   padding: 11px;
+  margin-right: 1rem;
   background: white;
   font-size: 1.5rem;
   width: 50%;
@@ -17,19 +18,19 @@ div.Homecoininfo {
   display: flex;
 }
 
-div.Info-title {
+div.Table-title {
   height: 3.2rem;
   border-bottom: 2px solid #eee;
   padding-left: 18px;
 }
 
-div.Info-title span {
+div.Table-title span {
   font-size: 2rem;
   font-weight: 700;
 }
 
 div.Info-board {
-  margin-top: 10px;
+  margin-top: 1rem;
 }
 div.Info-board table {
   width: 100%;
@@ -57,21 +58,15 @@ div.FavCoinInfo {
   border-radius: 5px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
   padding: 10px 10px 10px 10px;
+  margin-right: 1rem;
   background: white;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
   min-height: 140px;
 }
-div.Fav-title {
-  height: 3.2rem;
-  border-bottom: 2px solid #eee;
-  font-size: 2rem;
-  font-weight: 700;
-  padding-left: 18px;
-}
 
 div.Fav-board {
-  margin-top: 10px;
+  margin-top: 1rem;
 }
 div.Fav-board table {
   width: 100%;
@@ -107,16 +102,9 @@ div.CrawlInfo {
   border-radius: 5px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
   padding: 11px;
+  margin-right: 1rem;
   background: white;
   width: 50%;
   font-size: 1.5rem;
   min-height: 140px;
-}
-
-div.Fav-title {
-  height: 3.2rem;
-  border-bottom: 2px solid #eee;
-  font-size: 2rem;
-  font-weight: 700;
-  padding-left: 18px;
 }

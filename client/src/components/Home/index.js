@@ -49,7 +49,7 @@ function CreateCoinInfo({ title, notes, onclick }) {
   );
   return (
     <div className="JumpCoinInfo">
-      <div className="Info-title">
+      <div className="Table-title">
         <span>{title}</span>
       </div>
       {notes.length != 0 ? (
@@ -82,8 +82,8 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
             <tr>
               <th>코인명</th>
               <th>현재가</th>
-              <th>등락폭</th>
-              <th>등락률</th>
+              <th>변동폭</th>
+              <th>변동률</th>
               <th>고가</th>
               <th>저가</th>
               <th>거래량</th>
@@ -150,7 +150,7 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
 
   return (
     <div className="FavCoinInfo">
-      <div className="Fav-title">
+      <div className="Table-title">
         <span>{title}</span>
       </div>
       {notes[notes.length - 1].openPrice[0] != null ? (
@@ -163,6 +163,71 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
           <ClipLoader
             css={{
               marginTop: "20px"
+            }}
+            size={60}
+            color={"#123abc"}
+            loading={true}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CreateVoluneJumpCoinInfo({ title, notes, onclick }) {
+  const board = (
+    <div className="Info-board">
+      <table>
+        <thead>
+          <tr>
+            {/* <th>순위</th> */}
+            <th>코인명</th>
+            <th>현재가</th>
+            <th>거래량</th>
+          </tr>
+        </thead>
+        <tbody>
+          {notes.map(VolumeJumpCoin => {
+            const { nameKor, name, endPrice, volume } = VolumeJumpCoin;
+            return (
+              <tr>
+                {/* <td width="50">{i + 1}</td> */}
+
+                <td width="320">
+                  <Link style={{ color: "#000000" }} to={"/quote/" + name}>
+                    <span onClick={() => onclick(name)}>
+                      {nameKor}({name})
+                    </span>
+                  </Link>
+                </td>
+                <td width="140">
+                  {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
+                </td>
+                <td width="100">
+                  {Number((volume[9] - volume[0]) * endPrice[0]).toFixed(3)}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+  return (
+    <div className="JumpCoinInfo">
+      <div className="Table-title">
+        <span>{title}</span>
+      </div>
+      {notes.length != 0 ? (
+        board
+      ) : (
+        <div
+          className="loading"
+          style={{ minHeight: "218px", textAlign: "center" }}
+        >
+          <ClipLoader
+            css={{
+              marginTop: "75px"
             }}
             size={60}
             color={"#123abc"}
@@ -212,7 +277,7 @@ function CreateCrawlInfo({ title, crawls }) {
   );
   return (
     <div className="CrawlInfo">
-      <div className="Fav-title">
+      <div className="Table-title">
         <span>{title}</span>
       </div>
       {crawls.length != 0 ? (
@@ -263,7 +328,7 @@ function CreateCrawlNews({ title, crawlNews }) {
   );
   return (
     <div className="CrawlInfo">
-      <div className="Fav-title">
+      <div className="Table-title">
         <span>{title}</span>
       </div>
       {crawlNews.length != 0 ? (
@@ -290,21 +355,31 @@ function CreateCrawlNews({ title, crawlNews }) {
 class Home extends React.Component {
   state = {
     priceJumpCoins: [],
-    priceSlumpCoins: []
+    priceSlumpCoins: [],
+    volumeJumpCoins: []
   };
 
   callPumpCoinList = () => {
     const { notes } = this.props;
     let priceJumpCoins = notes.slice();
     let priceSlumpCoins = notes.slice();
+    let volumeJumpCoins = notes.slice();
     priceJumpCoins.sort((a, b) => a.changeRate - b.changeRate).reverse();
     priceSlumpCoins.sort((a, b) => a.changeRate - b.changeRate);
+    volumeJumpCoins.sort(
+      (a, b) =>
+        (a.volume[0] - a.volume[9]) * a.endPrice[0] -
+        (b.volume[0] - b.volume[9]) * b.endPrice[0]
+    );
+
     priceJumpCoins = priceJumpCoins.slice(0, 5);
     priceSlumpCoins = priceSlumpCoins.slice(0, 5);
+    volumeJumpCoins = volumeJumpCoins.slice(0, 5);
 
     this.setState({
       priceJumpCoins,
-      priceSlumpCoins
+      priceSlumpCoins,
+      volumeJumpCoins
     });
   };
 
@@ -317,7 +392,7 @@ class Home extends React.Component {
     this.time = setInterval(this.callPumpCoinList, 5000);
   }
   render() {
-    const { priceJumpCoins, priceSlumpCoins } = this.state;
+    const { priceJumpCoins, priceSlumpCoins, volumeJumpCoins } = this.state;
     const { notes, crawls, crawlNews, fixedCoin, onListItemClick } = this.props;
     return (
       <div className="home_wrap">
@@ -338,6 +413,18 @@ class Home extends React.Component {
           <CreateCoinInfo
             title={"실시간 하락률 Top5"}
             notes={priceSlumpCoins}
+            onclick={onListItemClick}
+          />
+        </div>
+        <div className="Homecoininfo">
+          <CreateVoluneJumpCoinInfo
+            title={"실시간 거래량 Top5"}
+            notes={volumeJumpCoins}
+            onclick={onListItemClick}
+          />
+          <CreateVoluneJumpCoinInfo
+            title={"실시간 거래량 Top5"}
+            notes={volumeJumpCoins}
             onclick={onListItemClick}
           />
         </div>
