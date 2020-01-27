@@ -183,17 +183,17 @@ function CreateVoluneJumpCoinInfo({ title, notes, onclick }) {
             {/* <th>순위</th> */}
             <th>코인명</th>
             <th>현재가</th>
-            <th>거래량</th>
+            <th>거래금액</th>
           </tr>
         </thead>
         <tbody>
-          {notes.map(VolumeJumpCoin => {
-            const { nameKor, name, endPrice, volume } = VolumeJumpCoin;
+          {notes.map(hotCoin => {
+            const { nameKor, name, endPrice, volume } = hotCoin;
             return (
               <tr>
                 {/* <td width="50">{i + 1}</td> */}
 
-                <td width="320">
+                <td width="260">
                   <Link style={{ color: "#000000" }} to={"/quote/" + name}>
                     <span onClick={() => onclick(name)}>
                       {nameKor}({name})
@@ -203,8 +203,8 @@ function CreateVoluneJumpCoinInfo({ title, notes, onclick }) {
                 <td width="140">
                   {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
                 </td>
-                <td width="100">
-                  {Number((volume[9] - volume[0]) * endPrice[0]).toFixed(3)}
+                <td width="190">
+                \ {Number((volume[0] - volume[9]) * endPrice[0]).toLocaleString(undefined, {maximumFractionDigits: 0})}
                 </td>
               </tr>
             );
@@ -364,22 +364,26 @@ class Home extends React.Component {
     let priceJumpCoins = notes.slice();
     let priceSlumpCoins = notes.slice();
     let volumeJumpCoins = notes.slice();
+
     priceJumpCoins.sort((a, b) => a.changeRate - b.changeRate).reverse();
     priceSlumpCoins.sort((a, b) => a.changeRate - b.changeRate);
     volumeJumpCoins.sort(
       (a, b) =>
         (a.volume[0] - a.volume[9]) * a.endPrice[0] -
         (b.volume[0] - b.volume[9]) * b.endPrice[0]
-    );
+    ).reverse();
 
     priceJumpCoins = priceJumpCoins.slice(0, 5);
     priceSlumpCoins = priceSlumpCoins.slice(0, 5);
     volumeJumpCoins = volumeJumpCoins.slice(0, 5);
 
+    let slicepriceCoins = priceJumpCoins.slice(0, 5);
+    let slicevolumeCoins = volumeJumpCoins.slice(0, 5);
+    //let hotCoins = volumeJumpCoins.filter(coins =>priceJumpCoins.includes(coins.id))
     this.setState({
       priceJumpCoins,
       priceSlumpCoins,
-      volumeJumpCoins
+      volumeJumpCoins,
     });
   };
 
@@ -392,7 +396,7 @@ class Home extends React.Component {
     this.time = setInterval(this.callPumpCoinList, 5000);
   }
   render() {
-    const { priceJumpCoins, priceSlumpCoins, volumeJumpCoins } = this.state;
+    const { priceJumpCoins, priceSlumpCoins, volumeJumpCoins} = this.state;
     const { notes, crawls, crawlNews, fixedCoin, onListItemClick } = this.props;
     return (
       <div className="home_wrap">
@@ -418,12 +422,12 @@ class Home extends React.Component {
         </div>
         <div className="Homecoininfo">
           <CreateVoluneJumpCoinInfo
-            title={"실시간 거래량 Top5"}
+            title={"실시간 거래금액 Top5"}
             notes={volumeJumpCoins}
             onclick={onListItemClick}
           />
           <CreateVoluneJumpCoinInfo
-            title={"실시간 거래량 Top5"}
+            title={"실시간 핫코인"}
             notes={volumeJumpCoins}
             onclick={onListItemClick}
           />
