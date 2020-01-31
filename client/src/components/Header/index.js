@@ -28,7 +28,7 @@ class Header extends React.Component {
         <nav className="header_Menu">
           <MenuItem link="/">Home</MenuItem>
           <MenuItem link={"/quote/" + activeId}>코인정보</MenuItem>
-          <MenuItem link="/tradeinfo">거래정보</MenuItem>
+          {/* <MenuItem link="/tradeinfo">거래정보</MenuItem> */}
         </nav>
         <div className="clock">{date}</div>
       </div>
