@@ -50,16 +50,16 @@ const nameOfCoins = [
   { nameEng: "APIS", nameKor: "아피스" },
   { nameEng: "BTT", nameKor: "비트토렌트" },
   { nameEng: "VALOR", nameKor: "밸러토큰" },
-  { nameEng: "GXC", nameKor: "지엑스체인" },
-  { nameEng: "ETZ", nameKor: "이더제로" },
-  { nameEng: "AMO", nameKor: "아모코인" },
-  { nameEng: "MXC", nameKor: "머신익스체인지코인" },
-  { nameEng: "VET", nameKor: "비체인" },
-  { nameEng: "ZEC", nameKor: "제트캐시" },
-  { nameEng: "WAVES", nameKor: "웨이브" },
-  { nameEng: "INS", nameKor: "아이앤에스" },
-  { nameEng: "OMG", nameKor: "오미세고" },
-  { nameEng: "XVG", nameKor: "버지" }
+  { nameEng: "GXC", nameKor: "지엑스체인" }
+  // { nameEng: "ETZ", nameKor: "이더제로" },
+  // { nameEng: "AMO", nameKor: "아모코인" },
+  // { nameEng: "MXC", nameKor: "머신익스체인지코인" },
+  // { nameEng: "VET", nameKor: "비체인" },
+  // { nameEng: "ZEC", nameKor: "제트캐시" },
+  // { nameEng: "WAVES", nameKor: "웨이브" },
+  // { nameEng: "INS", nameKor: "아이앤에스" },
+  // { nameEng: "OMG", nameKor: "오미세고" },
+  // { nameEng: "XVG", nameKor: "버지" }
 ];
 
 class App extends React.Component {
@@ -74,7 +74,6 @@ class App extends React.Component {
   };
 
   setNotes = () => {
-    console.log("1");
     const coinlist = nameOfCoins.map(nameOfCoin => {
       return {
         id: nameOfCoin.nameEng,
@@ -86,7 +85,7 @@ class App extends React.Component {
         highPrice: [],
         lowPrice: [],
         volume: [],
-        changeRate: ""
+        changeRate: []
       };
     });
     this.setState({
