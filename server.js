@@ -12,7 +12,7 @@ app.use(
   })
 );
 
-console.log("jenkins test10");
+const coinInfo = [];
 
 const nameOfCoins = [
   { nameEng: "BTC", nameKor: "비트코인" },
@@ -55,16 +55,16 @@ const nameOfCoins = [
   { nameEng: "APIS", nameKor: "아피스" },
   { nameEng: "BTT", nameKor: "비트토렌트" },
   { nameEng: "VALOR", nameKor: "밸러토큰" },
-  { nameEng: "GXC", nameKor: "지엑스체인" },
-  { nameEng: "ETZ", nameKor: "이더제로" },
-  { nameEng: "AMO", nameKor: "아모코인" },
-  { nameEng: "MXC", nameKor: "머신익스체인지코인" },
-  { nameEng: "VET", nameKor: "비체인" },
-  { nameEng: "ZEC", nameKor: "제트캐시" },
-  { nameEng: "WAVES", nameKor: "웨이브" },
-  { nameEng: "INS", nameKor: "아이앤에스" },
-  { nameEng: "OMG", nameKor: "오미세고" },
-  { nameEng: "XVG", nameKor: "버지" }
+  { nameEng: "GXC", nameKor: "지엑스체인" }
+  // { nameEng: "ETZ", nameKor: "이더제로" },
+  // { nameEng: "AMO", nameKor: "아모코인" },
+  // { nameEng: "MXC", nameKor: "머신익스체인지코인" },
+  // { nameEng: "VET", nameKor: "비체인" },
+  // { nameEng: "ZEC", nameKor: "제트캐시" },
+  // { nameEng: "WAVES", nameKor: "웨이브" },
+  // { nameEng: "INS", nameKor: "아이앤에스" },
+  // { nameEng: "OMG", nameKor: "오미세고" },
+  // { nameEng: "XVG", nameKor: "버지" }
 ];
 
 const RequestCoinList = () => {
@@ -79,14 +79,13 @@ const RequestCoinList = () => {
       highPrice: [],
       lowPrice: [],
       volume: [],
-      changeRate: ""
+      changeRate: []
     };
   });
   coinInfo.unshift(...coinlist);
 };
 
 RequestCoinList();
-
 
 getSeconds = () => {
   let d = new Date();
@@ -131,8 +130,33 @@ const RequestPriceList = c => {
       ? (coin.lowPrice[0] = coinApi.closing_price)
       : null;
 
-    coin.changeRate = (
+    coin.changeRate[0] = (
       ((coin.endPrice[0] - coin.endPrice[2]) / coin.endPrice[0]) *
+      100
+    ).toFixed(3);
+
+    coin.changeRate[1] = (
+      ((coin.endPrice[0] - coin.endPrice[4]) / coin.endPrice[0]) *
+      100
+    ).toFixed(3);
+
+    coin.changeRate[2] = (
+      ((coin.endPrice[0] - coin.endPrice[9]) / coin.endPrice[0]) *
+      100
+    ).toFixed(3);
+
+    coin.changeRate[3] = (
+      ((coin.endPrice[0] - coin.endPrice[14]) / coin.endPrice[0]) *
+      100
+    ).toFixed(3);
+
+    coin.changeRate[4] = (
+      ((coin.endPrice[0] - coin.endPrice[29]) / coin.endPrice[0]) *
+      100
+    ).toFixed(3);
+
+    coin.changeRate[5] = (
+      ((coin.endPrice[0] - coin.endPrice[59]) / coin.endPrice[0]) *
       100
     ).toFixed(3);
 
@@ -172,8 +196,10 @@ app.get("/api/crawl:coinpan", function(req, res, next) {
   getHtml()
     .then(html => {
       let ulList = [];
+      let ulList2 = [];
       const $ = cheerio.load(html.data);
       const $bodyList = $("tr.bg2");
+      const $bodyList2 = $("tr.bg1");
 
       $bodyList.each(function(i, elem) {
         {
@@ -193,8 +219,37 @@ app.get("/api/crawl:coinpan", function(req, res, next) {
           };
         }
       });
+
+      $bodyList2.each(function(i, elem) {
+        {
+          ulList2[i] = {
+            title: $(this)
+              .find("td.title a")
+              .text()
+              .trim()
+              .slice(0, 30)
+              .trim(),
+            url: $(this)
+              .find("td.title a")
+              .attr("href"),
+            date: $(this)
+              .find("td.time span.number span.regdateHour")
+              .text()
+          };
+        }
+      });
+
       ulList = ulList.filter(ul => {
         return ul.title.length >= 3;
+      });
+
+      ulList2 = ulList2.filter(ul => {
+        return ul.title.length >= 3;
+      });
+      ulList2 = ulList2.slice(3, ulList2.length);
+      ulList = ulList.concat(ulList2);
+      ulList.sort(function(a, b) {
+        return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
       });
       return ulList;
     })
