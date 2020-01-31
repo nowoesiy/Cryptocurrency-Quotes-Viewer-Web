@@ -1,5 +1,5 @@
 div.home_wrap {
-  margin: 10px 0px 30px 10px;
+  margin: 10px 0px 15px 10px;
 }
 
 div.JumpCoinInfo {
@@ -14,14 +14,16 @@ div.JumpCoinInfo {
 }
 
 div.Homecoininfo {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   display: flex;
 }
 
 div.Table-title {
+  display: flex;
+  justify-content: space-between;
   height: 3.2rem;
   border-bottom: 2px solid #eee;
-  padding-left: 18px;
+  padding: 0px 18px;
 }
 
 div.Table-title span {
@@ -60,7 +62,7 @@ div.FavCoinInfo {
   padding: 10px 10px 10px 10px;
   margin-right: 1rem;
   background: white;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-size: 1.5rem;
   min-height: 140px;
 }
@@ -107,4 +109,25 @@ div.CrawlInfo {
   width: 50%;
   font-size: 1.5rem;
   min-height: 140px;
+}
+
+#titleCrawl {
+  display: inline-block;
+  width: 340px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#titleCrawlNews {
+  display: inline-block;
+  width: 500px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#coinpanlogo {
+  margin-left: -15px;
+  margin-top: -5px;
 }

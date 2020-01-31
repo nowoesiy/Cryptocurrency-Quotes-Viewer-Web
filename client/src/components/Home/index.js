@@ -39,7 +39,7 @@ function CreateCoinInfo({ title, notes, onclick }) {
                 <td width="100">
                   {showDiff(Number(endPrice[0] - endPrice[2]))}
                 </td>
-                <td width="100">{showRate(changeRate)}</td>
+                <td width="100">{showRate(changeRate[0])}</td>
               </tr>
             );
           })}
@@ -80,13 +80,21 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
         {fixedCoin.length != 0 ? (
           <thead>
             <tr>
-              <th>코인명</th>
-              <th>현재가</th>
-              <th>변동폭</th>
-              <th>변동률</th>
-              <th>고가</th>
-              <th>저가</th>
-              <th>거래량</th>
+              <th rowspan="2">코인명</th>
+              <th rowspan="2">현재가</th>
+              <th colSpan="5" style={{ borderBottom: "1px solid" }}>
+                변동률
+              </th>
+              {/* <th rowspan="2">고가</th>
+              <th rowspan="2">저가</th> */}
+              <th rowspan="2">거래금액(24H)</th>
+            </tr>
+            <tr style={{ fontSize: "1.5rem" }}>
+              <th>3분</th>
+              <th>5분</th>
+              <th>10분</th>
+              <th>30분</th>
+              <th>60분</th>
             </tr>
           </thead>
         ) : (
@@ -108,7 +116,7 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
                 } = note;
                 return (
                   <tr>
-                    <td width="200">
+                    <td width="300">
                       <Link style={{ color: "#000000" }} to={"/quote/" + name}>
                         <span onClick={() => onclick(name)}>
                           {nameKor}({name})
@@ -118,17 +126,24 @@ function CreateFavoriteCoinInfo({ title, notes, fixedCoin, onclick }) {
                     <td width="150">
                       {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
                     </td>
-                    <td width="120">
-                      {showDiff(Number(endPrice[0] - endPrice[2]))}
-                    </td>
-                    <td width="120">{showRate(changeRate)}</td>
-                    <td width="120" style={{ color: "#d60000" }}>
+                    <td width="100">{showRate(changeRate[0])}</td>
+                    <td width="100">{showRate(changeRate[1])}</td>
+                    <td width="100">{showRate(changeRate[2])}</td>
+                    <td width="100">{showRate(changeRate[4])}</td>
+                    <td width="100">{showRate(changeRate[5])}</td>
+                    {/* <td width="120" style={{ color: "#d60000" }}>
                       \ {Number(highPrice[0]).toLocaleString()}
                     </td>
                     <td width="120" style={{ color: "#0051c7" }}>
                       \ {Number(lowPrice[0]).toLocaleString()}
+                    </td> */}
+                    <td width="180">
+                      \{" "}
+                      {Number(volume[0] * endPrice[0]).toLocaleString(
+                        undefined,
+                        { maximumFractionDigits: 0 }
+                      )}
                     </td>
-                    <td width="120">{Number(volume[0]).toLocaleString()}</td>
                   </tr>
                 );
               })
@@ -204,7 +219,10 @@ function CreateVoluneJumpCoinInfo({ title, notes, onclick }) {
                   {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
                 </td>
                 <td width="190">
-                \ {Number((volume[0] - volume[9]) * endPrice[0]).toLocaleString(undefined, {maximumFractionDigits: 0})}
+                  \{" "}
+                  {Number(
+                    (volume[0] - volume[9]) * endPrice[0]
+                  ).toLocaleString(undefined, { maximumFractionDigits: 0 })}
                 </td>
               </tr>
             );
@@ -239,6 +257,74 @@ function CreateVoluneJumpCoinInfo({ title, notes, onclick }) {
   );
 }
 
+function CreateHotCoinInfo({ title, notes, onclick }) {
+  const board = (
+    <div className="Info-board">
+      <table>
+        <thead>
+          <tr>
+            {/* <th>순위</th> */}
+            <th rowSpan="2">코인명</th>
+            <th rowSpan="2">현재가</th>
+            <th colSpan="3" style={{ borderBottom: "1px solid" }}>
+              변동률
+            </th>
+          </tr>
+          <tr>
+            <th>3분</th>
+            <th>5분</th>
+            <th>10분</th>
+          </tr>
+        </thead>
+        <tbody>
+          {notes.map(hotCoin => {
+            const { nameKor, name, endPrice, changeRate } = hotCoin;
+            return (
+              <tr>
+                {/* <td width="50">{i + 1}</td> */}
+
+                <td width="310">
+                  <Link style={{ color: "#000000" }} to={"/quote/" + name}>
+                    <span onClick={() => onclick(name)}>
+                      {nameKor}({name})
+                    </span>
+                  </Link>
+                </td>
+                <td width="140">
+                  {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
+                </td>
+                <td width="100">{showRate(changeRate[0])}</td>
+                <td width="100">{showRate(changeRate[1])}</td>
+                <td width="100">{showRate(changeRate[2])}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+  return (
+    <div className="JumpCoinInfo">
+      <div className="Table-title">
+        <span>{title}</span>
+      </div>
+      {notes.length != 0 ? (
+        board
+      ) : (
+        <h2
+          style={{
+            textAlign: "center",
+            marginTop: "100px",
+            color: "#808080"
+          }}
+        >
+          핫코인이 없군요 :(
+        </h2>
+      )}
+    </div>
+  );
+}
+
 function CreateCrawlInfo({ title, crawls }) {
   const board = (
     <div className="Fav-board">
@@ -251,14 +337,14 @@ function CreateCrawlInfo({ title, crawls }) {
           </tr>
         </thead>
         <tbody>
-          {crawls.slice(0, 6).map(crawl => {
+          {crawls.slice(0, 7).map(crawl => {
             const { title, url, date } = crawl;
             return (
               <tr>
                 <td width="60">
-                  <img width={60} src={coinpan_logo} />
+                  <img id="coinpanlogo" width={60} src={coinpan_logo} />
                 </td>
-                <td width="350">
+                <td id="titleCrawl" width="350">
                   <a
                     style={{ color: "#000000" }}
                     href={`https://coinpan.com${url}`}
@@ -310,7 +396,7 @@ function CreateCrawlNews({ title, crawlNews }) {
             const { title, url, date } = crawl;
             return (
               <tr>
-                <td width="350">
+                <td id="titleCrawlNews" width="350">
                   <a
                     style={{ color: "#000000" }}
                     href={`https://kr.investing.com/${url}`}
@@ -356,7 +442,8 @@ class Home extends React.Component {
   state = {
     priceJumpCoins: [],
     priceSlumpCoins: [],
-    volumeJumpCoins: []
+    volumeJumpCoins: [],
+    hotCoins: []
   };
 
   callPumpCoinList = () => {
@@ -365,13 +452,15 @@ class Home extends React.Component {
     let priceSlumpCoins = notes.slice();
     let volumeJumpCoins = notes.slice();
 
-    priceJumpCoins.sort((a, b) => a.changeRate - b.changeRate).reverse();
-    priceSlumpCoins.sort((a, b) => a.changeRate - b.changeRate);
-    volumeJumpCoins.sort(
-      (a, b) =>
-        (a.volume[0] - a.volume[9]) * a.endPrice[0] -
-        (b.volume[0] - b.volume[9]) * b.endPrice[0]
-    ).reverse();
+    priceJumpCoins.sort((a, b) => a.changeRate[0] - b.changeRate[0]).reverse();
+    priceSlumpCoins.sort((a, b) => a.changeRate[0] - b.changeRate[0]);
+    volumeJumpCoins
+      .sort(
+        (a, b) =>
+          (a.volume[0] - a.volume[9]) * a.endPrice[0] -
+          (b.volume[0] - b.volume[9]) * b.endPrice[0]
+      )
+      .reverse();
 
     priceJumpCoins = priceJumpCoins.slice(0, 5);
     priceSlumpCoins = priceSlumpCoins.slice(0, 5);
@@ -379,11 +468,22 @@ class Home extends React.Component {
 
     let slicepriceCoins = priceJumpCoins.slice(0, 5);
     let slicevolumeCoins = volumeJumpCoins.slice(0, 5);
-    //let hotCoins = volumeJumpCoins.filter(coins =>priceJumpCoins.includes(coins.id))
+
+    let hotCoins = notes
+      .filter(
+        coins =>
+          (coins.changeRate[0] > 1.5 &&
+            coins.changeRate[1] > 1.5 &&
+            coins.changeRate[2] > 1.5) ||
+          coins.changeRate[0] > 4
+      )
+      .slice(0, 4);
+
     this.setState({
       priceJumpCoins,
       priceSlumpCoins,
       volumeJumpCoins,
+      hotCoins
     });
   };
 
@@ -396,8 +496,14 @@ class Home extends React.Component {
     this.time = setInterval(this.callPumpCoinList, 5000);
   }
   render() {
-    const { priceJumpCoins, priceSlumpCoins, volumeJumpCoins} = this.state;
+    const {
+      priceJumpCoins,
+      priceSlumpCoins,
+      volumeJumpCoins,
+      hotCoins
+    } = this.state;
     const { notes, crawls, crawlNews, fixedCoin, onListItemClick } = this.props;
+
     return (
       <div className="home_wrap">
         {notes.length != 0 && (
@@ -426,9 +532,9 @@ class Home extends React.Component {
             notes={volumeJumpCoins}
             onclick={onListItemClick}
           />
-          <CreateVoluneJumpCoinInfo
+          <CreateHotCoinInfo
             title={"실시간 핫코인"}
-            notes={volumeJumpCoins}
+            notes={hotCoins}
             onclick={onListItemClick}
           />
         </div>
