@@ -269,7 +269,10 @@ class ListItem extends React.Component {
                   ></FaStar>
                 </button>
                 <h1 id="changeRate">
-                  {this.showRate(Number(endPrice[0] - endPrice[2]), changeRate)}
+                  {this.showRate(
+                    Number(endPrice[0] - endPrice[2]),
+                    changeRate[0]
+                  )}
                 </h1>
               </div>
             </div>
