@@ -49,10 +49,32 @@ function CreateDeailCoinInfoTitle({ note }) {
             {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
           </h1>
         </div>
-        <div>
-          <h1>
+        <div className="CoinDetailInfo-right">
+          <table style={{ fontSize: "2.5rem", width: "100%" }}>
+            <thead>
+              <tr>
+                <th width="80" height="35">
+                  3분
+                </th>
+                <th width="80">5분</th>
+                <th width="80">10분</th>
+                <th width="80">15분</th>
+                <th width="80">30분</th>
+                <th width="80">60분</th>
+              </tr>
+            </thead>
+            <tbody>
+              <td>{showRate(changeRate[0])}</td>
+              <td>{showRate(changeRate[1])}</td>
+              <td>{showRate(changeRate[2])}</td>
+              <td>{showRate(changeRate[3])}</td>
+              <td>{showRate(changeRate[4])}</td>
+              <td>{showRate(changeRate[5])}</td>
+            </tbody>
+          </table>
+          {/* <h1 style={{ marginTop: "30px" }}>
             {showDiffWithRate(Number(endPrice[0] - endPrice[2]), changeRate)}
-          </h1>
+          </h1> */}
         </div>
       </div>
     </div>
@@ -76,73 +98,44 @@ function CreateDeailCoinInfoBoard({ note }) {
     <div className="DetailCoinInfoBoard">
       <div className="DetailInfo-board">
         <div className="coinDetail">
-          <div className="coinDetailInfo">
-            <h1 style={{ fontSize: "38px" }}>
-              <span></span>
-            </h1>
-            <h1></h1>
-          </div>
-          <div className="coinDetailInfoSub">
-            <h2
-              style={{
-                marginBottom: "0px",
-                fontSize: "22px",
-                display: "flex",
-                justifyContent: "space-between"
-              }}
-            >
-              <span>고가(3M)</span>
+          <h2
+            style={{
+              fontSize: "22px",
+              display: "flex",
+              justifyContent: "space-between"
+            }}
+          >
+            <span>
+              <span>고가(3M)</span>{" "}
               <span style={{ color: "#d60000" }}>
-                {highPrice
-                  ? " " + Number(highPrice[0]).toLocaleString()
-                  : "내용"}
+                {Number(highPrice[0]).toLocaleString()}
               </span>
-            </h2>
-            <h2
-              style={{
-                marginBottom: "0px",
-                marginTop: "5px",
-                fontSize: "22px",
-                display: "flex",
-                justifyContent: "space-between"
-              }}
-            >
+            </span>
+            <span>
               <span>저가(3M)</span>
               <span style={{ color: "#0051c7" }}>
                 {highPrice
                   ? " " + Number(lowPrice[0]).toLocaleString()
                   : "내용"}
               </span>
-            </h2>
-            <h2
-              style={{
-                marginBottom: "0px",
-                marginTop: "5px",
-                fontSize: "22px",
-                display: "flex",
-                justifyContent: "space-between"
-              }}
-            >
+            </span>
+            <span>
               <span>거래량</span>
               <span>
                 {volume ? " " + Number(volume[0]).toLocaleString() : "내용"}
               </span>
-            </h2>
-            <h2
-              style={{
-                marginBottom: "0px",
-                marginTop: "5px",
-                fontSize: "22px",
-                display: "flex",
-                justifyContent: "space-between"
-              }}
-            >
-              <span>시가총액</span>
+            </span>
+            <span>
+              <span>거래금액</span>
               <span>
-                {volume ? " " + Number(volume[0]).toLocaleString() : "내용"}
+                {" "}
+                \
+                {Number(
+                  (volume[0] - volume[9]) * endPrice[0]
+                ).toLocaleString(undefined, { maximumFractionDigits: 0 })}
               </span>
-            </h2>
-          </div>
+            </span>
+          </h2>
         </div>
       </div>
     </div>
@@ -392,7 +385,7 @@ class Detail extends React.Component {
                   }
                 ]
               }}
-              style={{ height: "520px", width: "100%" }}
+              style={{ height: "630px", width: "100%" }}
               notMerge={true}
               lazyUpdate={true}
               theme={"theme_name"}
@@ -404,7 +397,7 @@ class Detail extends React.Component {
     }
 
     return (
-      <div>
+      <div className="Detail_wrap">
         <CreateDeailCoinInfoTitle note={note} />
         <CreateDeailCoinInfoBoard note={note} />
         {/* <div className="coinDetail">
