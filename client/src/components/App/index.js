@@ -51,15 +51,74 @@ const nameOfCoins = [
   { nameEng: "BTT", nameKor: "비트토렌트" },
   { nameEng: "VALOR", nameKor: "밸러토큰" },
   { nameEng: "GXC", nameKor: "지엑스체인" }
-  // { nameEng: "ETZ", nameKor: "이더제로" },
-  // { nameEng: "AMO", nameKor: "아모코인" },
-  // { nameEng: "MXC", nameKor: "머신익스체인지코인" },
-  // { nameEng: "VET", nameKor: "비체인" },
-  // { nameEng: "ZEC", nameKor: "제트캐시" },
-  // { nameEng: "WAVES", nameKor: "웨이브" },
-  // { nameEng: "INS", nameKor: "아이앤에스" },
-  // { nameEng: "OMG", nameKor: "오미세고" },
-  // { nameEng: "XVG", nameKor: "버지" }
+];
+
+const nameOfCoins2 = [
+  { nameEng: "ETZ", nameKor: "이더제로" },
+  { nameEng: "AMO", nameKor: "아모코인" },
+  { nameEng: "MXC", nameKor: "머신익스체인지코인" },
+  { nameEng: "VET", nameKor: "비체인" },
+  { nameEng: "ZEC", nameKor: "제트캐시" },
+  { nameEng: "WAVES", nameKor: "웨이브" },
+  { nameEng: "INS", nameKor: "아이앤에스" },
+  { nameEng: "OMG", nameKor: "오미세고" },
+  { nameEng: "XVG", nameKor: "버지" },
+  { nameEng: "ENJ", nameKor: "엔진코인" },
+  { nameEng: "ABT", nameKor: "아크블록" },
+  { nameEng: "PIVX", nameKor: "피벡스" },
+  { nameEng: "LAMB", nameKor: "람다" },
+  { nameEng: "CMT", nameKor: "사이버마일즈" },
+  { nameEng: "SNT", nameKor: "스테이터스네트워크토큰" },
+  { nameEng: "XMR", nameKor: "모네로" },
+  { nameEng: "MCO", nameKor: "크립토닷컴" },
+  { nameEng: "DAC", nameKor: "다빈치" },
+  { nameEng: "ORBS", nameKor: "오브스" },
+  { nameEng: "MBL", nameKor: "무비블록" },
+  { nameEng: "ZRX", nameKor: "제로엑스" },
+  { nameEng: "XEM", nameKor: "넴" },
+  { nameEng: "BAT", nameKor: "베이직어텐션토큰" },
+  { nameEng: "HDAC", nameKor: "에이치닥" },
+  { nameEng: "HC", nameKor: "하이퍼캐시" },
+  { nameEng: "BHP", nameKor: "비에이치피" },
+  { nameEng: "MIX", nameKor: "믹스마블" },
+  { nameEng: "STRAT", nameKor: "스트라티스" },
+  { nameEng: "CTXC", nameKor: "코르텍스" }
+];
+
+const nameOfCoins3 = [
+  { nameEng: "PLY", nameKor: "플레이코인" },
+  { nameEng: "ICX", nameKor: "아이콘" },
+  { nameEng: "NPXS", nameKor: "펀디엑스" },
+  { nameEng: "POWR", nameKor: "파워렛저" },
+  { nameEng: "IOST", nameKor: "이오스트" },
+  { nameEng: "WAXP", nameKor: "왁스" },
+  { nameEng: "FZZ", nameKor: "피즈토큰" },
+  { nameEng: "TRUE", nameKor: "트루체인" },
+  { nameEng: "WICC", nameKor: "웨이키체인" },
+  { nameEng: "HYC", nameKor: "하이콘" },
+  { nameEng: "BZNT", nameKor: "베잔트" },
+  { nameEng: "WOM", nameKor: "왐토큰" },
+  { nameEng: "FX", nameKor: "펑션엑스" },
+  { nameEng: "PPT", nameKor: "파퓰러스" },
+  { nameEng: "LBA", nameKor: "크레드" },
+  { nameEng: "PAY", nameKor: "텐엑스" },
+  { nameEng: "WET", nameKor: "위쇼토큰" },
+  { nameEng: "OGO", nameKor: "오리고" },
+  { nameEng: "LOOM", nameKor: "룸네트워크" },
+  { nameEng: "ZIL", nameKor: "질리카" },
+  { nameEng: "CHR", nameKor: "크로미아" },
+  { nameEng: "ITC", nameKor: "아이오티체인" },
+  { nameEng: "DVP", nameKor: "디브이피" },
+  { nameEng: "ELF", nameKor: "엘프" },
+  { nameEng: "RDN", nameKor: "레이든네트워크토큰" },
+  { nameEng: "PCM", nameKor: "프레시움" },
+  { nameEng: "KNC", nameKor: "카이버 네트워크" },
+  { nameEng: "RNT", nameKor: "원루트 네트워크" },
+  { nameEng: "ANKR", nameKor: "앵커" },
+  { nameEng: "CRO", nameKor: "크립토닷컴체인" },
+  { nameEng: "LRC", nameKor: "루프링" },
+  { nameEng: "QKC", nameKor: "쿼크체인" },
+  { nameEng: "SXP", nameKor: "스와이프" }
 ];
 
 class App extends React.Component {
@@ -88,8 +147,39 @@ class App extends React.Component {
         changeRate: []
       };
     });
+
+    const coinlist2 = nameOfCoins2.map(nameOfCoin => {
+      return {
+        id: nameOfCoin.nameEng,
+        name: nameOfCoin.nameEng,
+        nameKor: nameOfCoin.nameKor,
+        time: [],
+        openPrice: [],
+        endPrice: [],
+        highPrice: [],
+        lowPrice: [],
+        volume: [],
+        changeRate: []
+      };
+    });
+
+    const coinlist3 = nameOfCoins3.map(nameOfCoin => {
+      return {
+        id: nameOfCoin.nameEng,
+        name: nameOfCoin.nameEng,
+        nameKor: nameOfCoin.nameKor,
+        time: [],
+        openPrice: [],
+        endPrice: [],
+        highPrice: [],
+        lowPrice: [],
+        volume: [],
+        changeRate: []
+      };
+    });
+
     this.setState({
-      notes: [...coinlist]
+      notes: [...coinlist, ...coinlist2, ...coinlist3]
     });
   };
 
@@ -133,10 +223,55 @@ class App extends React.Component {
     });
   };
 
+  RequestPriceList2 = c => {
+    axios.get(`http://cowindow.herokuapp.com/api/coin/${c}`).then(response => {
+      const coins = [...this.state.notes];
+      const coin = coins.find(coin => coin.id == c);
+      coin.time = [...response.data.time];
+      coin.openPrice = [...response.data.openPrice];
+      coin.endPrice = [...response.data.endPrice];
+      coin.highPrice = [...response.data.highPrice];
+      coin.lowPrice = [...response.data.lowPrice];
+      coin.volume = [...response.data.volume];
+      coin.changeRate = response.data.changeRate;
+
+      this.setState({
+        notes: [...coins]
+      });
+    });
+  };
+
+  RequestPriceList3 = c => {
+    axios.get(`http://cowindoz.herokuapp.com/api/coin/${c}`).then(response => {
+      const coins = [...this.state.notes];
+      const coin = coins.find(coin => coin.id == c);
+      coin.time = [...response.data.time];
+      coin.openPrice = [...response.data.openPrice];
+      coin.endPrice = [...response.data.endPrice];
+      coin.highPrice = [...response.data.highPrice];
+      coin.lowPrice = [...response.data.lowPrice];
+      coin.volume = [...response.data.volume];
+      coin.changeRate = response.data.changeRate;
+
+      this.setState({
+        notes: [...coins]
+      });
+    });
+  };
+
   time = () => {
     nameOfCoins.map(nameOfCoin => {
       this.RequestPriceList(nameOfCoin.nameEng);
     });
+
+    nameOfCoins2.map(nameOfCoin => {
+      this.RequestPriceList2(nameOfCoin.nameEng);
+    });
+
+    nameOfCoins3.map(nameOfCoin => {
+      this.RequestPriceList3(nameOfCoin.nameEng);
+    });
+
     //this.state.notes.sort((a, b) => a.changeRate - b.changeRate).reverse();
     //등락률 순 정렬
   };
