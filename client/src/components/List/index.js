@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import ListItem from "../ListItem";
-
+import { FaSearch } from "react-icons/fa";
 class List extends React.Component {
   render() {
     const {
@@ -64,6 +64,9 @@ class List extends React.Component {
           className="coinsearch"
           style={{ display: "flex", justifyContent: "space-between" }}
         >
+          <span className="search">
+            <FaSearch size="20" />
+          </span>
           <input
             type="text"
             name="keyword"

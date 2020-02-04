@@ -1,4 +1,5 @@
 div.list_wrap {
+  margin-top: 10px;
   background-color: #ffffff;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
   z-index: 9000;
@@ -7,7 +8,7 @@ div.list_wrap {
 div.Coinlist {
   overflow: scroll;
   position: relative;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 112px);
   width: 420px;
   min-width: 420px;
 }
@@ -15,14 +16,30 @@ div.Coinlist {
 .coinsearch {
   border-bottom: 1px solid #eee;
   box-shadow: 0 6px 6px 0 rgba(80, 78, 75, 0.09);
+  border: 4px solid #294e80;
 }
 
+.coinsearch span {
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+  margin-left: 10px;
+  margin-top: 10px;
+}
 .coinsearch input {
-  margin: 2px 0px 2px 0px;
+  margin: 5px;
   font-size: 15px;
-  height: 30px;
+  height: 28px;
   width: 100%;
-  border: 5px solid #294e80;
+  border: none;
+}
+.coinsearch input:focus {
+  outline: none;
 }
 ::-webkit-scrollbar {
   display: none;
