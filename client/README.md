@@ -1,29 +1,25 @@
-# ![logo](https://user-images.githubusercontent.com/39932233/81046824-27da3e00-8ef4-11ea-96d2-2ac71872dfe7.jpg)
+## ![logo](https://user-images.githubusercontent.com/39932233/81046824-27da3e00-8ef4-11ea-96d2-2ac71872dfe7.jpg)
 > 가상 화폐 시세 뷰어
 
 [VisCoin](http://viscoin.com)은 코인들의 변동률을 3분,5분, 10분 간격으로 보여주는 웹 앱입니다.
 
 코인 가격 정보는 Bithumb을 기준으로 제공됩니다.
 
-# 주요기능
+## 주요기능
 
 * 급등 코인 포착
-- 관심 코인 지정
-- 차트 및 표를 통한 코인별 정보 제공
-- 코인 커뮤니티를 크롤링하여 정보 제공
+* 관심 코인 지정
+* 차트 및 표를 통한 코인별 정보 제공
+* 코인 커뮤니티를 크롤링하여 정보 제공
 
-# 사용된 기술 스택
-
-- frontend
-
+## 사용된 기술 스택
+### 프론트엔드
 * react
 * react-router-v4
 
-- backend
-
+### 백엔드
 * Node.js
 * Express
 
-- etc
-
+### DevOps
 * Jenkins
