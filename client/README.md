@@ -41,16 +41,21 @@
 
 ### 실시간 HoT 코인 및 급등 코인 알림
 > 실시간 상승률/하락률/거래금액 Top5 코인 정보 및 급등 코인 리스트를 제공합니다.
+
 ![급등코인](https://user-images.githubusercontent.com/39932233/81047878-46413900-8ef6-11ea-8094-8cb77b507951.jpg)
 ### 관심 코인 테이블
 > 사용자가 관심 코인으로 지정한 코인 목록들이 나타나며, 다양한 시간 간격의 변동률을 제공합니다.
+
 ![관심코인](https://user-images.githubusercontent.com/39932233/81048406-3d9d3280-8ef7-11ea-9c17-c876488d307a.jpg)
 ### 전체 코인 리스트
 > 전체 코인 리스트를 보여주며, 관심코인으로 등록 시 미니 차트를 제공합니다.
+
 ![코인 리스트](https://user-images.githubusercontent.com/39932233/81048256-f3b44c80-8ef6-11ea-84d5-86c46600d630.jpg)
 ### 커뮤니티 반응 및 코인 뉴스
 > 실시간으로 코인 커뮤니티 게시글과 가상화폐 소식을 제공합니다.
+
 ![커뮤니티 반응 및 코인 뉴스](https://user-images.githubusercontent.com/39932233/81048313-0d559400-8ef7-11ea-8d6c-3dee74aecee6.jpg)
 ### 차트
 > 선택한 코인의 차트를 보여줍니다.
+
 ![차트](https://user-images.githubusercontent.com/39932233/81048498-6c1b0d80-8ef7-11ea-8e0c-c20982370183.jpg)
