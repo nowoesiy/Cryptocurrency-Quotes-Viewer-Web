@@ -30,6 +30,12 @@
  * Jenkins
 
 ## UI/UX
-### 1. 로그인
-### 2. 사용자 정보 변경
-### 3. 홈
+### 1. 실시간 HoT 코인 및 급등 코인 알림
+![급등코인](https://user-images.githubusercontent.com/39932233/81047878-46413900-8ef6-11ea-8094-8cb77b507951.jpg)
+### 2. 관심 코인
+![급등코인](https://user-images.githubusercontent.com/39932233/81048077-98825a00-8ef6-11ea-9094-dfd00e276dbf.jpg)
+### 3. 코인 리스트
+![코인 리스트](https://user-images.githubusercontent.com/39932233/81048256-f3b44c80-8ef6-11ea-84d5-86c46600d630.jpg)
+### 3. 커뮤니티 반응 및 코인 뉴스
+![커뮤니티 반응 및 코인 뉴스](https://user-images.githubusercontent.com/39932233/81048313-0d559400-8ef7-11ea-8d6c-3dee74aecee6.jpg)
+### 4. 차트
