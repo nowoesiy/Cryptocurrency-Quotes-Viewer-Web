@@ -39,13 +39,13 @@
 
 > 다음은 세부적인 UI 구성 입니다.
 
-### 1. 실시간 HoT 코인 및 급등 코인 알림
+### 실시간 HoT 코인 및 급등 코인 알림
 ![급등코인](https://user-images.githubusercontent.com/39932233/81047878-46413900-8ef6-11ea-8094-8cb77b507951.jpg)
-### 2. 관심 코인
+### 관심 코인 테이블
 ![관심코인](https://user-images.githubusercontent.com/39932233/81048406-3d9d3280-8ef7-11ea-9c17-c876488d307a.jpg)
-### 3. 코인 리스트
+### 전체 코인 리스트
 ![코인 리스트](https://user-images.githubusercontent.com/39932233/81048256-f3b44c80-8ef6-11ea-84d5-86c46600d630.jpg)
-### 3. 커뮤니티 반응 및 코인 뉴스
+### 커뮤니티 반응 및 코인 뉴스
 ![커뮤니티 반응 및 코인 뉴스](https://user-images.githubusercontent.com/39932233/81048313-0d559400-8ef7-11ea-8d6c-3dee74aecee6.jpg)
-### 4. 차트
+### 차트
 ![차트](https://user-images.githubusercontent.com/39932233/81048498-6c1b0d80-8ef7-11ea-8e0c-c20982370183.jpg)
