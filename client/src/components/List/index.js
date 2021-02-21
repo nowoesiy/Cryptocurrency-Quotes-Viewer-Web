@@ -1,37 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import "./index.css";
 import ListItem from "../ListItem";
 import { FaSearch } from "react-icons/fa";
-class List extends React.Component {
-  render() {
-    const {
-      notes,
-      activeId,
-      fixedCoin,
-      keyword,
-      onListItemClick,
-      onListItemFixedIconClick,
-      onValueChange
-    } = this.props;
+
+export default function List ({notes, activeId, fixedCoin, onListItemClick, onListItemFixedIconClick}) {
+    const [keyword, setKeyword] = useState('');
 
     const filterCoinList = key => {
       key = key.filter(c => {
         return c.nameKor.indexOf(keyword) > -1 || c.name.indexOf(keyword) > -1;
       });
 
-      return key.map(item => {
-        const {
-          id,
-          name,
-          nameKor,
-          time,
-          openPrice,
-          endPrice,
-          highPrice,
-          lowPrice,
-          changeRate,
-          volume
-        } = item;
+      return key.map(({id, name, nameKor, time, openPrice, endPrice, highPrice, lowPrice, changeRate, volume }) => {
         return (
           <ListItem
             key={id}
@@ -73,14 +53,10 @@ class List extends React.Component {
             value={keyword}
             placeholder="코인명/심볼검색"
             autoComplete="off"
-            onChange={e => onValueChange(e)}
+            onChange={e => setKeyword(e.target.value)}
           ></input>
-          {/* <img src="https://img.icons8.com/officel/40/000000/toggle-on.png"></img> */}
         </div>
         <div className="Coinlist">{filterCoinList(notes)}</div>
       </div>
     );
-  }
 }
-
-export default List;

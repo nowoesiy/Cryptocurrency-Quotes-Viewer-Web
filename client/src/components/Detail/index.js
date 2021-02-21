@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.css";
-import { showRate, showDiff, showPrice } from "../../common";
+import { showRate, showPrice } from "../../utils/common"
 import ReactEcharts from "echarts-for-react";
 import { FaPowerOff } from "react-icons/fa";
 

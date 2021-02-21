@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
-import { showPrice } from "../../common";
+import { showPrice } from "../../utils/common"
+
 import ReactEcharts from "echarts-for-react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";

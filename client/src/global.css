@@ -1,17 +1,17 @@
 @font-face {
   font-family: "NanumSquareR";
-  src: url("./font/NanumSquareR.svg#NanumSquareR") format("svg"),
-    url("./font/NanumSquareR.ttf") format("truetype"),
-    url("./font/NanumSquareR.woff") format("woff");
+  src: url("./static/font/NanumSquareR.svg#NanumSquareR") format("svg"),
+    url("./static/font/NanumSquareR.ttf") format("truetype"),
+    url("./static/font/NanumSquareR.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "NanumSquareR_mini";
-  src: url("./font/NanumSquareR_mini.eot");
-  src: url("./font/NanumSquareR_mini.eot?#iefix") format("embedded-opentype"),
-    url("./font/NanumSquareR_mini.woff2") format("woff2");
+  src: url("./static/font/NanumSquareR_mini.eot");
+  src: url("./static/font/NanumSquareR_mini.eot?#iefix") format("embedded-opentype"),
+    url("./static/font/NanumSquareR_mini.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
