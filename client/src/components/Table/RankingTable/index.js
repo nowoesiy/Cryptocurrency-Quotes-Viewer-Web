@@ -12,32 +12,24 @@ export default function RankingTable({ title, notes, onclick }) {
             <tr>
               {/* <th>순위</th> */}
               <th>코인명</th>
-              <th>현재가</th>
-              <th>변동폭</th>
               <th>변동률</th>
             </tr>
           </thead>
           <tbody>
             {notes.map(priceJumpCoin => {
-              const { nameKor, name, endPrice, changeRate } = priceJumpCoin;
+              const { name, symbol, changeRate} = priceJumpCoin;
               return (
                 <tr>
                   {/* <td width="50">{i + 1}</td> */}
   
                   <td width="320">
-                    <Link style={{ color: "#000000" }} to={"/quote/" + name}>
-                      <span onClick={() => onclick(name)}>
-                        {nameKor}({name})
+                    <Link style={{ color: "#000000" }} to={"/quote/" + symbol}>
+                      <span onClick={() => onclick(symbol)}>
+                        {name}({symbol})
                       </span>
                     </Link>
                   </td>
-                  <td width="140">
-                    {showPrice(Number(endPrice[0]), Number(endPrice[2]))}
-                  </td>
-                  <td width="100">
-                    {showDiff(Number(endPrice[0] - endPrice[2]))}
-                  </td>
-                  <td width="100">{showRate(changeRate[0])}</td>
+                  <td width="100">{showRate(changeRate)}</td>
                 </tr>
               );
             })}
