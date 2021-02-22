@@ -3,7 +3,7 @@ import "./index.css";
 import ListItem from "../ListItem";
 import { FaSearch } from "react-icons/fa";
 
-export default function List ({notes, activeId, fixedCoin, onListItemClick, onListItemFixedIconClick}) {
+export default function List ({notes, activeId, fixedCoin, onListItemClick}) {
     const [keyword, setKeyword] = useState('');
 
     const filterCoinList = key => {
@@ -28,11 +28,6 @@ export default function List ({notes, activeId, fixedCoin, onListItemClick, onLi
             volume={volume}
             fixedCoin={fixedCoin}
             onClick={() => onListItemClick(id)}
-            onFixedIconClick={e => {
-              e.stopPropagation();
-              e.preventDefault();
-              onListItemFixedIconClick(id);
-            }}
           />
         );
       });

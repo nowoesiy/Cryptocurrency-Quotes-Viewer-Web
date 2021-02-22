@@ -54,7 +54,6 @@ class ListItem extends React.Component {
       lowPrice,
       fixedCoin,
       onClick,
-      onFixedIconClick,
       changeRate,
       volume
     } = this.props;
@@ -257,7 +256,6 @@ class ListItem extends React.Component {
                     paddingRight: "0px",
                     marginLeft: "150px"
                   }}
-                  onClick={onFixedIconClick}
                 >
                   <FaStar
                     size="20"
