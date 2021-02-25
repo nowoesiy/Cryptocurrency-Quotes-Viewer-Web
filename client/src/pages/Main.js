@@ -1,7 +1,5 @@
 import React from 'react';
-
 import Header from "../components/Header";
-import List from "../components/List";
 import Home from "../components/Home";
 
 export default function Main () {
