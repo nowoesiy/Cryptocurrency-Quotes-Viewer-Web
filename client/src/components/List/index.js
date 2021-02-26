@@ -3,35 +3,22 @@ import "./index.css";
 import ListItem from "../ListItem";
 import { FaSearch } from "react-icons/fa";
 
-export default function List ({notes, activeId, fixedCoin, onListItemClick, onListItemFixedIconClick}) {
+export default function List ({coins, activeId, fixedCoin, onListItemClick, onListItemFixedIconClick}) {
     const [keyword, setKeyword] = useState('');
 
-    const filterCoinList = key => {
-      key = key.filter(c => {
-        return c.nameKor.indexOf(keyword) > -1 || c.name.indexOf(keyword) > -1;
-      });
-
-      return key.map(({id, name, nameKor, time, openPrice, endPrice, highPrice, lowPrice, changeRate, volume }) => {
+    const filterCoinList = () => {
+      const filteredCoins = Object.values(coins).filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword));
+      return filteredCoins.map((coin) => {
         return (
           <ListItem
-            key={id}
-            id={id}
-            time={time}
-            active={id === activeId}
-            name={name}
-            nameKor={nameKor}
-            openPrice={openPrice}
-            endPrice={endPrice}
-            highPrice={highPrice}
-            lowPrice={lowPrice}
-            changeRate={changeRate}
-            volume={volume}
+            key={coin.symbol}
+            coin={coin}
             fixedCoin={fixedCoin}
-            onClick={() => onListItemClick(id)}
+            onClick={() => onListItemClick(coin.symbol)}
             onFixedIconClick={e => {
               e.stopPropagation();
               e.preventDefault();
-              onListItemFixedIconClick(id);
+              onListItemFixedIconClick(coin.symbol);
             }}
           />
         );
@@ -56,7 +43,7 @@ export default function List ({notes, activeId, fixedCoin, onListItemClick, onLi
             onChange={e => setKeyword(e.target.value)}
           ></input>
         </div>
-        <div className="Coinlist">{filterCoinList(notes)}</div>
+        <div className="Coinlist">{filterCoinList()}</div>
       </div>
     );
 }
