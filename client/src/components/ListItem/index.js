@@ -108,7 +108,7 @@ const CreateChart = (price) => {
   );
 }
 
-const createSmallChart = (price) => {
+const createSmallChart = (price, currentCoin) => {
   return (
     <div className="chart">
       <div className="List_Chart">
@@ -134,7 +134,7 @@ const createSmallChart = (price) => {
               {
                 type: "k",
                 data: [
-                  [price[0].openPrice, price[0].closePrice, price[0].minPrice, price[0].maxPrice]
+                  [price[0].openPrice, currentCoin ? currentCoin.closePrice : price[0].closePrice, price[0].minPrice, price[0].maxPrice]
                 ]
               }
             ]
@@ -149,7 +149,7 @@ const createSmallChart = (price) => {
   );
 }
 
-const board = ({symbol, name, price, changeRate, fixedCoin, onClick, onFixedIconClick}) => (
+const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onClick, onFixedIconClick}) => (
   <Link to={"/quote/" + symbol}>
     <div className={false ? "list_active" : "list"} onClick={onClick}>
       <div className="profile">
@@ -162,10 +162,10 @@ const board = ({symbol, name, price, changeRate, fixedCoin, onClick, onFixedIcon
               </span>
             </h1>
             <h1 id="endPrice">
-              {/* {showPrice(price[0].endPrice, price[2].endPrice)} */}
+              {showPrice(currentCoin ? currentCoin.closePrice : price[0].closePrice, price[2].closePrice)}
             </h1>
           </div>
-          {fixedCoin.includes(symbol) ? "" : createSmallChart(price)}
+          {fixedCoin.includes(symbol) ? "" : createSmallChart(price, currentCoin)}
           <div className="profile_stockprice">
             <button
               style={{
@@ -201,13 +201,12 @@ const board = ({symbol, name, price, changeRate, fixedCoin, onClick, onFixedIcon
   </Link>
 );
 
-const ListItem= ({coin, fixedCoin, onClick, onFixedIconClick}) => {
+const ListItem= ({coin, currentCoin, fixedCoin, onClick, onFixedIconClick}) => {
     const {symbol, name, price, changeRate} = coin;
-
     return (
       <div>
         {coin.price.length !== 0 ? (
-          board({symbol, name, price, changeRate, fixedCoin, onClick, onFixedIconClick})
+          board({symbol, name, price, currentCoin, changeRate, fixedCoin, onClick, onFixedIconClick})
         ) : (
           <div
             className="list_loading"

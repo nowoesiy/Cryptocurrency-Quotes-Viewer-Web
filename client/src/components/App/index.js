@@ -59,22 +59,18 @@ function App () {
 
       reader.onload = () => {
           const coinInfo = JSON.parse(reader.result);
-          console.log(coinInfo);
           const nextCurrentCoins = {...currentCoins};
-          nextCurrentCoins[coinInfo.code] = coinInfo
-          // nextCurrentCoins[coinInfo.code] = {
-          //   date: coinInfo.date,
-          //   openPrice: coinInfo.opening_price,
-          //   closePrice: coinInfo.trade_price,
-          //   maxPrice: coinInfo.high_price,
-          //   minPrice: coinInfo.low_price,
-          // };
-          console.log(nextCurrentCoins);
+          nextCurrentCoins[coinInfo.code] = {
+            date: coinInfo.date,
+            openPrice: coinInfo.opening_price,
+            closePrice: coinInfo.trade_price,
+            maxPrice: coinInfo.high_price,
+            minPrice: coinInfo.low_price,
+          };
           setCurrentCoins(currentCoins => ({
+            ...currentCoins,
             ...nextCurrentCoins,
-            currentCoins,
           }));
-          console.log(currentCoins);
       };
 
       reader.readAsText(event.data);
@@ -101,6 +97,7 @@ function App () {
             activeId={activeId}
             handleListItemClick={handleListItemClick}
             coins={coins}
+            currentCoins={currentCoins}
             fixedCoin={fixedCoin}
             handleListItemFixedIconClick={handleListItemFixedIconClick}
           />

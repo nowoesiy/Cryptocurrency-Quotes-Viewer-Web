@@ -3,16 +3,18 @@ import "./index.css";
 import ListItem from "../ListItem";
 import { FaSearch } from "react-icons/fa";
 
-export default function List ({coins, activeId, fixedCoin, onListItemClick, onListItemFixedIconClick}) {
+export default function List ({coins, currentCoins, activeId, fixedCoin, onListItemClick, onListItemFixedIconClick}) {
     const [keyword, setKeyword] = useState('');
 
     const filterCoinList = () => {
-      const filteredCoins = Object.values(coins).filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword));
+      const filteredCoins = Object.values(coins).filter(coin => ["KMD", "TFUEL", "DKA", "TT", "PCI"].includes(coin.symbol)).filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword));
+      console.log(filteredCoins);
       return filteredCoins.map((coin) => {
         return (
           <ListItem
             key={coin.symbol}
             coin={coin}
+            currentCoin={currentCoins[`KRW-${coin.symbol}`]}
             fixedCoin={fixedCoin}
             onClick={() => onListItemClick(coin.symbol)}
             onFixedIconClick={e => {

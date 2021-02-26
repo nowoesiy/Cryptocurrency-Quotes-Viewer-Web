@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import List from "../components/List";
 import Home from "../components/Home";
 
-export default function Main ({coins, crawls, crawlNews, activeId, handleListItemClick, keyword, notes, fixedCoin, handleListItemFixedIconClick}) {
+export default function Main ({coins, currentCoins, crawls, crawlNews, activeId, handleListItemClick, keyword, notes, fixedCoin, handleListItemFixedIconClick}) {
     return (
         <div className="app">
         <Header
@@ -14,6 +14,7 @@ export default function Main ({coins, crawls, crawlNews, activeId, handleListIte
           <List
             keyword={keyword}
             coins={coins}
+            currentCoins={currentCoins}
             activeId={activeId}
             fixedCoin={fixedCoin}
             onListItemClick={handleListItemClick}

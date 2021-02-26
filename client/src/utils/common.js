@@ -50,6 +50,6 @@ export const showPrice = (priceF, priceB) => {
       </span>
     );
   } else {
-    return <span>\ {priceF.toLocaleString()}</span>;
+    return <span>\ {0}</span>;
   }
 };
