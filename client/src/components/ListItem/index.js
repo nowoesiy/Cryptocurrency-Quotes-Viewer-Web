@@ -203,7 +203,6 @@ const board = ({symbol, name, price, changeRate, fixedCoin, onClick, onFixedIcon
 
 const ListItem= ({coin, fixedCoin, onClick, onFixedIconClick}) => {
     const {symbol, name, price, changeRate} = coin;
-console.log(data(price));
 
     return (
       <div>

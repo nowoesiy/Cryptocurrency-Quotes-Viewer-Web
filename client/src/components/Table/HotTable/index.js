@@ -5,7 +5,6 @@ import { showRate, showPrice } from  "../../../utils/common"
 
 export default function HotTable({ title, notes }) {
     const openBlankWindow = (name) => {
-      console.log(name);
       const BITHUMB_URL = 'www.bithumb.com'
       window.open(`${BITHUMB_URL}/trade/order/${name}_KRW`);
     }

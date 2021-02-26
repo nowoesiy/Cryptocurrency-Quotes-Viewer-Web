@@ -1,109 +1,123 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
 
 import axios from "axios";
 import Main from '../../pages/Main';
 import CoinInfo from '../../pages/CoinInfo';
-
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import {nameOfCoins, nameOfCoins2, nameOfCoins3} from '../../constants/coins';
+function App () {
+    const [miunte, setMinute] = useState('');
+    const [coins, setCoins] = useState({});
+    const [currentCoins, setCurrentCoins] = useState({});
+    const [crawls, setCrawls] = useState([]);
+    const [activeId, setActiveId] = useState([]);
+    const [fixedCoin, setFixedCoin] = useState([]);
 
-class App extends React.Component {
-  state = {
-    coins: {},
-    crawls: [],
-    crawlNews: [],
-    activeId: "BTC",
-    fixedCoin: [],
-  };
-
-  getCoins = async () => {
+  const getCoins = async () => {
     const response = await axios.get('https://vc-fetch-server-union.herokuapp.com/coin/upbit');
-    this.setState({coins: response.data});
+    setCoins(response.data);
   }
 
-  setCrawls = () => {
+  const getCrawls = () => {
     axios
       .get(`http://cowindo.herokuapp.com/api/crawl:coinpan`)
       .then(response => {
         const crawls = response.data;
-        this.setState({
-          crawls
-        });
+        setCrawls(crawls);
       });
   }
 
-  handleListItemClick = id => {
-    this.setState({ activeId: id });
-  };
+  const handleListItemClick = (id) => setActiveId(id);
 
-  handleListItemFixedIconClick = id => {
-    this.setState(
-      state => {
-        let fixedCoinList = [...state.fixedCoin];
+  const handleListItemFixedIconClick = id => {
+    setFixedCoin(
+      fixedCoin => {
+        let fixedCoinList = [...fixedCoin];
         fixedCoinList.includes(id)
           ? (fixedCoinList = fixedCoinList.filter(item => item != id))
           : fixedCoinList.push(id);
 
-        return {
-          fixedCoin: fixedCoinList
-        };
+        return fixedCoinList;
       },
-      // () => {
-      //   this.state.notes.sort((a, b) => {
-      //     return (
-      //       this.state.fixedCoin.includes(b.name) -
-      //       this.state.fixedCoin.includes(a.name)
-      //     );
-      //   });
-      // }
     );
     return false;
   };
 
-  componentDidMount() {
-    setInterval(async () => { this.getCoins()} , 5000);
-    setInterval(this.setCrawls, 10000);
-  }
+  useEffect(() => {
+    const ws = new WebSocket('wss://api.upbit.com/websocket/v1');
 
-  render() {
-    const {
-      notes,
-      crawls,
-      crawlNews,
-      fixedCoin,
-      activeId,
-      coins
-    } = this.state;
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact>
-            <Main 
-              crawls={crawls}
-              crawlNews={crawlNews}
+    ws.addEventListener("open", event => {
+      const upbitData = '[{"ticket":"v1v2v02"},{"type":"ticker","codes":["KRW-KMD", "KRW-TFUEL", "KRW-DKA", "KRW-T", "KRW-PCI"]}]';
+      // const upbitData = '[{"ticket":"v1v2v02"},{"type":"ticker","codes":["KRW-BTC"]}]';
+
+      ws.send(upbitData);
+    });
+
+    ws.onmessage = (event) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+          const coinInfo = JSON.parse(reader.result);
+          console.log(coinInfo);
+          const nextCurrentCoins = {...currentCoins};
+          nextCurrentCoins[coinInfo.code] = coinInfo
+          // nextCurrentCoins[coinInfo.code] = {
+          //   date: coinInfo.date,
+          //   openPrice: coinInfo.opening_price,
+          //   closePrice: coinInfo.trade_price,
+          //   maxPrice: coinInfo.high_price,
+          //   minPrice: coinInfo.low_price,
+          // };
+          console.log(nextCurrentCoins);
+          setCurrentCoins(currentCoins => ({
+            ...nextCurrentCoins,
+            currentCoins,
+          }));
+          console.log(currentCoins);
+      };
+
+      reader.readAsText(event.data);
+    };
+  }, [])
+
+  useEffect(() => {
+    getCoins();
+    getCrawls();
+  }, [miunte])
+
+  useEffect(() => {
+    setInterval(() => {
+      setMinute(new Date().getMinutes());
+    }, 1000);
+  }, [])
+
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact>
+          <Main 
+            crawls={crawls}
+            activeId={activeId}
+            handleListItemClick={handleListItemClick}
+            coins={coins}
+            fixedCoin={fixedCoin}
+            handleListItemFixedIconClick={handleListItemFixedIconClick}
+          />
+        </Route>
+        {/* <Route path={"/quote/" + activeId}>
+          <CoinInfo 
+              activeNote={activeNote}
               activeId={activeId}
               handleListItemClick={this.handleListItemClick}
-              coins={coins}
+              notes={notes}
               fixedCoin={fixedCoin}
               handleListItemFixedIconClick={this.handleListItemFixedIconClick}
             />
-          </Route>
-          {/* <Route path={"/quote/" + activeId}>
-            <CoinInfo 
-                activeNote={activeNote}
-                activeId={activeId}
-                handleListItemClick={this.handleListItemClick}
-                notes={notes}
-                fixedCoin={fixedCoin}
-                handleListItemFixedIconClick={this.handleListItemFixedIconClick}
-              />
-          </Route> */}
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+        </Route> */}
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;
