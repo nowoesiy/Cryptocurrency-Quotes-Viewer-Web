@@ -3,7 +3,7 @@ import "./index.css";
 import ListItem from "../ListItem";
 import { FaSearch } from "react-icons/fa";
 
-export default function List ({coins, currentCoins, activeId, fixedCoin, onListItemClick, onListItemFixedIconClick}) {
+export default function List ({coins, currentCoins, fixedCoin, onListItemFixedIconClick}) {
     const [keyword, setKeyword] = useState('');
 
     const filterCoinList = () => {
@@ -15,7 +15,6 @@ export default function List ({coins, currentCoins, activeId, fixedCoin, onListI
             coin={coin}
             currentCoin={currentCoins[`KRW-${coin.symbol}`]}
             fixedCoin={fixedCoin}
-            onClick={() => onListItemClick(coin.symbol)}
             onFixedIconClick={e => {
               e.stopPropagation();
               e.preventDefault();

@@ -15,25 +15,12 @@ function App () {
     const [miunte, setMinute] = useState('');
     const [coins, setCoins] = useState({});
     const [currentCoins, setCurrentCoins] = useState({});
-    const [crawls, setCrawls] = useState([]);
-    const [activeId, setActiveId] = useState([]);
     const [fixedCoin, setFixedCoin] = useState([]);
 
   const getCoins = async () => {
-    const response = await axios.get('https://vc-fetch-server-union.herokuapp.com/coin/upbit');
+    const response = await axios.get('https://vc-fetch-server-union.herokuapp.com/coin/upbit/15');
     setCoins(response.data);
   }
-
-  const getCrawls = () => {
-    axios
-      .get(`http://cowindo.herokuapp.com/api/crawl:coinpan`)
-      .then(response => {
-        const crawls = response.data;
-        setCrawls(crawls);
-      });
-  }
-
-  const handleListItemClick = (id) => setActiveId(id);
 
   const handleListItemFixedIconClick = id => {
     setFixedCoin(
@@ -54,7 +41,6 @@ function App () {
 
     ws.addEventListener("open", event => {
       const upbitData = `[{"ticket":"v1v2v02"},{"type":"ticker","codes":[${'' + getUpbitCoins(upbitCoinList)}]}]`;
-      // const upbitData = '[{"ticket":"v1v2v02"},{"type":"ticker","codes":["KRW-BTC"]}]';
 
       ws.send(upbitData);
     });
@@ -90,7 +76,6 @@ function App () {
              nextCurrentCoins[coinInfo.code].minPrice = coinInfo.trade_price;
           }
 
-          console.log(nextCurrentCoins[coinInfo.code])
           setCurrentCoins({
             ...currentCoins,
             ...nextCurrentCoins,
@@ -103,7 +88,6 @@ function App () {
 
   useEffect(() => {
     getCoins();
-    getCrawls();
   }, [miunte])
 
   useEffect(() => {
@@ -116,26 +100,13 @@ function App () {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <Main 
-            crawls={crawls}
-            activeId={activeId}
-            handleListItemClick={handleListItemClick}
+          <Main
             coins={coins}
             currentCoins={currentCoins}
             fixedCoin={fixedCoin}
             handleListItemFixedIconClick={handleListItemFixedIconClick}
           />
         </Route>
-        {/* <Route path={"/quote/" + activeId}>
-          <CoinInfo 
-              activeNote={activeNote}
-              activeId={activeId}
-              handleListItemClick={this.handleListItemClick}
-              notes={notes}
-              fixedCoin={fixedCoin}
-              handleListItemFixedIconClick={this.handleListItemFixedIconClick}
-            />
-        </Route> */}
       </Switch>
     </BrowserRouter>
   );

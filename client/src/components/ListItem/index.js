@@ -153,9 +153,9 @@ const createSmallChart = (price, currentCoin) => {
   );
 }
 
-const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onClick, onFixedIconClick}) => (
+const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixedIconClick}) => (
   <Link to={"/quote/" + symbol}>
-    <div className={false ? "list_active" : "list"} onClick={onClick}>
+    <div className={false ? "list_active" : "list"}>
       <div className="profile">
         <div className="profile_original">
           <div className="profile_top">
@@ -205,12 +205,12 @@ const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onClick
   </Link>
 );
 
-const ListItem= ({coin, currentCoin, fixedCoin, onClick, onFixedIconClick}) => {
+const ListItem= ({coin, currentCoin, fixedCoin, onFixedIconClick}) => {
     const {symbol, name, price, changeRate} = coin;
     return (
       <div>
         {coin.price.length !== 0 ? (
-          board({symbol, name, price, currentCoin, changeRate, fixedCoin, onClick, onFixedIconClick})
+          board({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixedIconClick})
         ) : (
           <div
             className="list_loading"

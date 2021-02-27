@@ -15,7 +15,7 @@ const MenuItem = ({ children, link }) => {
   );
 };
 
-export default function Header ({activeId}) {
+export default function Header () {
   const [date, setDate] = useState("");
 
   useEffect(()=> {
@@ -38,7 +38,6 @@ export default function Header ({activeId}) {
       </div>
       <nav className="header_Menu">
         <MenuItem link="/">Home</MenuItem>
-        <MenuItem link={"/quote/" + activeId}>코인정보</MenuItem>
       </nav>
       <div className="clock">{date}</div>
     </div>
