@@ -25,13 +25,17 @@ const showRate = (diff, changeRate) => {
   }
 };
 
-const data = (price) => {
-  return price.slice(0, 15).map(p => {
-    return [p.openPrice, p.closePrice, p.minPrice, p.maxPrice];
+const data = (price, currentCoin) => {
+  return price.slice(0, 15).map((p, index) => {
+    if(index ===0 && currentCoin) {
+      return [currentCoin.openPrice, currentCoin.closePrice, currentCoin.minPrice, currentCoin.maxPrice]
+    } else {
+      return [p.openPrice, p.closePrice, p.minPrice, p.maxPrice];
+    }
   }).reverse();
 }
 
-const CreateChart = (price) => {
+const CreateChart = (price, currentCoin) => {
   return (
     <div className="chart">
       <div className="profile_middle">
@@ -93,7 +97,7 @@ const CreateChart = (price) => {
             series: [
               {
                 type: "k",
-                data: data(price),
+                data: data(price, currentCoin),
               }
             ]
           }}
@@ -162,7 +166,7 @@ const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onClick
               </span>
             </h1>
             <h1 id="endPrice">
-              {showPrice(currentCoin ? currentCoin.closePrice : price[0].closePrice, price[2].closePrice)}
+              {showPrice(currentCoin ? currentCoin.closePrice : price[0].closePrice, currentCoin ? price[0].closePrice : price[1].closePrice)}
             </h1>
           </div>
           {fixedCoin.includes(symbol) ? "" : createSmallChart(price, currentCoin)}
@@ -195,7 +199,7 @@ const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onClick
             </h1>
           </div>
         </div>
-        {fixedCoin.includes(symbol) ? CreateChart(price) : ""}
+        {fixedCoin.includes(symbol) ? CreateChart(price, currentCoin) : ""}
       </div>
     </div>
   </Link>

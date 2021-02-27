@@ -7,8 +7,7 @@ export default function List ({coins, currentCoins, activeId, fixedCoin, onListI
     const [keyword, setKeyword] = useState('');
 
     const filterCoinList = () => {
-      const filteredCoins = Object.values(coins).filter(coin => ["KMD", "TFUEL", "DKA", "TT", "PCI"].includes(coin.symbol)).filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword));
-      console.log(filteredCoins);
+      const filteredCoins = Object.values(coins).filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword));
       return filteredCoins.map((coin) => {
         return (
           <ListItem

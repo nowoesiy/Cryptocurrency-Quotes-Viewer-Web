@@ -92,3 +92,68 @@ export const nameOfCoins = [
     { nameEng: "QKC", nameKor: "쿼크체인" },
     { nameEng: "SXP", nameKor: "스와이프" }
   ];
+
+  export const upbitCoinList = [
+    // 서버 1 (https://vc-fetch-server-01.herokuapp.com)
+    {"name":"가스","symbol":"GAS", "server": "vc-fetch-server-01"},
+    {"name":"아크","symbol":"ARK", "server": "vc-fetch-server-01"},
+    {"name":"톤","symbol":"TON", "server": "vc-fetch-server-01"},
+    {"name":"이그니스","symbol":"IGNIS", "server": "vc-fetch-server-01"},
+    {"name":"시린토큰","symbol":"SRN", "server": "vc-fetch-server-01"},
+    {"name":"코박토큰","symbol":"CBK", "server": "vc-fetch-server-01"},
+    {"name":"네오","symbol":"NEO", "server": "vc-fetch-server-01"},
+    {"name":"스펜드코인","symbol":"SPND", "server": "vc-fetch-server-01"},
+    {"name":"아이오에스티","symbol":"IOST", "server": "vc-fetch-server-01"},
+
+    // 서버 2 (https://vc-fetch-server-01.herokuapp.com)
+    {"name":"페이코인","symbol":"PCI", "server": "vc-fetch-server-02"},
+    {"name":"코모도","symbol":"KMD", "server": "vc-fetch-server-02"},
+    {"name":"쎄타퓨엘","symbol":"TFUEL", "server": "vc-fetch-server-02"},
+    {"name":"디카르고","symbol":"DKA", "server": "vc-fetch-server-02"},
+    {"name":"썬더토큰","symbol":"TT", "server": "vc-fetch-server-02"},
+    {"name":"아하토큰","symbol":"AHT", "server": "vc-fetch-server-02"},
+    {"name":"디마켓","symbol":"DMT", "server": "vc-fetch-server-02"},
+    {"name":"캐리프로토콜","symbol":"CRE", "server": "vc-fetch-server-02"},
+    {"name":"엠블","symbol":"MVL", "server": "vc-fetch-server-02"},
+
+    // 서버 3 (https://vc-fetch-server-03.herokuapp.com)
+    {"name":"그로스톨코인","symbol":"GRS", "server": "vc-fetch-server-03"},
+    {"name":"메인프레임","symbol":"MFT", "server": "vc-fetch-server-03"},
+    {"name":"썸씽","symbol":"SSX", "server": "vc-fetch-server-03"},
+    {"name":"헤데라해시그래프","symbol":"HBAR", "server": "vc-fetch-server-03"},
+    {"name":"스톰엑스","symbol":"STMX", "server": "vc-fetch-server-03"},
+    {"name":"리퍼리움","symbol":"RFR", "server": "vc-fetch-server-03"},
+    {"name":"스토리지","symbol":"STORJ", "server": "vc-fetch-server-03"},
+    {"name":"엘비알와이크레딧","symbol":"LBC", "server": "vc-fetch-server-03"},
+    {"name":"센티넬프로토콜","symbol":"UPP", "server": "vc-fetch-server-03"},
+
+    // 서버 4 (https://vc-fetch-server-04.herokuapp.com)
+    {"name":"칠리즈","symbol":"CHZ", "server": "vc-fetch-server-04"},
+    {"name":"에브리피디아","symbol":"IQ", "server": "vc-fetch-server-04"},
+    {"name":"시빅","symbol":"CVC", "server": "vc-fetch-server-04"},
+    {"name":"디센트럴랜드","symbol":"MANA", "server": "vc-fetch-server-04"},
+    {"name":"트웰브쉽스","symbol":"TSHP", "server": "vc-fetch-server-04"},
+    {"name":"엔도르","symbol":"EDR", "server": "vc-fetch-server-04"},
+    {"name":"플레이댑","symbol":"PLA", "server": "vc-fetch-server-04"},
+    {"name":"픽셀","symbol":"PXL", "server": "vc-fetch-server-04"},
+    {"name":"메디블록","symbol":"MED", "server": "vc-fetch-server-04"},
+    
+    // {"name":"모스코인","symbol":"MOC"},
+    // {"name":"휴먼스케이프","symbol":"HUM"},
+    // {"name":"스팀달러","symbol":"SBD"},
+    // {"name":"에드엑스","symbol":"ADX"},
+    // {"name":"리스크","symbol":"LSK"},
+    // {"name":"아르고","symbol":"AERGO"},
+    // {"name":"솔브케어","symbol":"SOLVE"},
+    // {"name":"알파쿼크","symbol":"AQT"},
+    // {"name":"마로","symbol":"MARO"},
+
+    // {"name":"시아코인","symbol":"SC"},
+    // {"name":"헌트","symbol":"HUNT"},
+    // {"name":"에스티피","symbol":"STPT"},
+    // {"name":"아인스타이늄","symbol":"EMC2"},
+    // {"name":"아더","symbol":"ARDR"},
+    // {"name":"카바","symbol":"KAVA"},
+    // {"name":"아이오타","symbol":"IOTA"},
+    // {"name":"폴리매쓰","symbol":"POLY"},
+]

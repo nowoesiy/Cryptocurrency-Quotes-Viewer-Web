@@ -50,6 +50,6 @@ export const showPrice = (priceF, priceB) => {
       </span>
     );
   } else {
-    return <span>\ {0}</span>;
+    return <span>\ {priceF}</span>;
   }
 };

@@ -5,6 +5,11 @@ import axios from "axios";
 import Main from '../../pages/Main';
 import CoinInfo from '../../pages/CoinInfo';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { upbitCoinList } from "../../constants/coins";
+
+const getUpbitCoins = (coins) => {
+  return coins.map(coin => `"KRW-${coin.symbol}"`)
+}
 
 function App () {
     const [miunte, setMinute] = useState('');
@@ -48,7 +53,7 @@ function App () {
     const ws = new WebSocket('wss://api.upbit.com/websocket/v1');
 
     ws.addEventListener("open", event => {
-      const upbitData = '[{"ticket":"v1v2v02"},{"type":"ticker","codes":["KRW-KMD", "KRW-TFUEL", "KRW-DKA", "KRW-T", "KRW-PCI"]}]';
+      const upbitData = `[{"ticket":"v1v2v02"},{"type":"ticker","codes":[${'' + getUpbitCoins(upbitCoinList)}]}]`;
       // const upbitData = '[{"ticket":"v1v2v02"},{"type":"ticker","codes":["KRW-BTC"]}]';
 
       ws.send(upbitData);
@@ -60,17 +65,36 @@ function App () {
       reader.onload = () => {
           const coinInfo = JSON.parse(reader.result);
           const nextCurrentCoins = {...currentCoins};
-          nextCurrentCoins[coinInfo.code] = {
-            date: coinInfo.date,
-            openPrice: coinInfo.opening_price,
-            closePrice: coinInfo.trade_price,
-            maxPrice: coinInfo.high_price,
-            minPrice: coinInfo.low_price,
-          };
-          setCurrentCoins(currentCoins => ({
+
+          if(nextCurrentCoins[coinInfo.code] === undefined) {
+            nextCurrentCoins[coinInfo.code] = {
+              date: '',
+              openPrice: coinInfo.trade_price,
+              closePrice: coinInfo.trade_price,
+              maxPrice: coinInfo.trade_price,
+              minPrice: coinInfo.trade_price,
+            };
+          }
+
+          nextCurrentCoins[coinInfo.code].closePrice = coinInfo.trade_price;
+          
+          if(miunte === '0') {
+            nextCurrentCoins[coinInfo.code].openPrice = coinInfo.trade_price;
+          }
+
+          if(nextCurrentCoins[coinInfo.code].maxPrice < coinInfo.trade_price) {
+             nextCurrentCoins[coinInfo.code].maxPrice = coinInfo.trade_price;
+          }
+
+          if(nextCurrentCoins[coinInfo.code].minPrice > coinInfo.trade_price) {
+             nextCurrentCoins[coinInfo.code].minPrice = coinInfo.trade_price;
+          }
+
+          console.log(nextCurrentCoins[coinInfo.code])
+          setCurrentCoins({
             ...currentCoins,
             ...nextCurrentCoins,
-          }));
+          });
       };
 
       reader.readAsText(event.data);
