@@ -48,6 +48,31 @@ div.list {
   /* border-right: 1px solid #eee; */
 }
 
+div.list--5 {
+  border-bottom: 1px solid #eee;
+  background-color: #ff9999;
+}
+
+div.list--10 {
+  border-bottom: 1px solid #eee;
+  background-color: #ff6666;
+}
+
+div.list--20 {
+  border-bottom: 1px solid #eee;
+  background-color: #ff3d3d;
+}
+
+div.list--30 {
+  border-bottom: 1px solid #eee;
+  background-color: #ff1f1f;
+}
+
+div.list--50 {
+  border-bottom: 1px solid #eee;
+  background-color: #ff0000;
+}
+
 div.list_active {
   border-bottom: 1px solid #eee;
   /* border-right: 1px solid #eee; */

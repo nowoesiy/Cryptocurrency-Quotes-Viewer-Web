@@ -7,23 +7,43 @@ import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
-const showRate = (diff, changeRate) => {
+const showRate = (changeRate) => {
   if (changeRate > 0) {
     return (
       <div style={{ color: "#d60000" }} className="list-item-contents">
-        {changeRate ? `▲ ${Math.abs(diff).toFixed(0)}(${changeRate}%)` : ""}
+        {changeRate ? `▲ ${changeRate}%` : ""}
       </div>
     );
   } else if (changeRate < 0) {
     return (
       <div style={{ color: "#0051c7" }} className="list-item-contents">
-        {changeRate ? `▼ ${Math.abs(diff).toFixed(0)}(${changeRate}%)` : ""}
+        {changeRate ? `▼ ${changeRate}%` : ""}
       </div>
     );
   } else {
-    return <div className="list-item-contents">0.000(0.00%)</div>;
+    return <div className="list-item-contents">0.00%</div>;
   }
 };
+
+const listColorPicker = (changeRate) => {
+  if(changeRate >= 5 && changeRate < 10) {
+    return 'list--5';
+  }
+  if(changeRate >= 10 && changeRate < 20) {
+    return 'list--10';
+  }
+  if(changeRate >= 20 && changeRate < 30) {
+    return 'list--20';
+  }
+  if(changeRate >= 30 && changeRate < 45) {
+    return 'list--30';
+  }
+  if(changeRate >= 45) {
+    return 'list--50';
+  }
+
+  return 'list'
+}
 
 const data = (price, currentCoin) => {
   return price.slice(0, 15).map((p, index) => {
@@ -154,9 +174,8 @@ const createSmallChart = (price, currentCoin) => {
 }
 
 const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixedIconClick}) => (
-  <Link to={"/quote/" + symbol}>
-    <div className={false ? "list_active" : "list"}>
-      <div className="profile">
+    <div className={listColorPicker(currentCoin ? ((currentCoin.closePrice - price[1].closePrice) / currentCoin.closePrice * 100) .toFixed(3) :  ((price[0].closePrice - price[1].closePrice) / price[0].closePrice * 100).toFixed(3))}>
+      <div className="profile" onClick={() => window.open(`https://upbit.com/exchange?code=CRIX.UPBIT.KRW-${symbol}`)}>
         <div className="profile_original">
           <div className="profile_top">
             <h1>
@@ -166,7 +185,7 @@ const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixed
               </span>
             </h1>
             <h1 id="endPrice">
-              {showPrice(currentCoin ? currentCoin.closePrice : price[0].closePrice, currentCoin ? price[0].closePrice : price[1].closePrice)}
+              {showPrice(currentCoin ? currentCoin.closePrice : price[0].closePrice, price[1].closePrice)}
             </h1>
           </div>
           {fixedCoin.includes(symbol) ? "" : createSmallChart(price, currentCoin)}
@@ -193,8 +212,7 @@ const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixed
             </button>
             <h1 id="changeRate">
               {showRate(
-                price[0].closePrice - price[3].closePrice,
-                +changeRate.M3
+                currentCoin ? ((currentCoin.closePrice - price[1].closePrice) / currentCoin.closePrice * 100) .toFixed(3) :  ((price[0].closePrice - price[1].closePrice) / price[0].closePrice * 100).toFixed(3)
               )}
             </h1>
           </div>
@@ -202,7 +220,6 @@ const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixed
         {fixedCoin.includes(symbol) ? CreateChart(price, currentCoin) : ""}
       </div>
     </div>
-  </Link>
 );
 
 const ListItem= ({coin, currentCoin, fixedCoin, onFixedIconClick}) => {

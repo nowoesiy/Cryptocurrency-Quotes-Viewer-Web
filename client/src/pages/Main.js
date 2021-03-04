@@ -5,6 +5,7 @@ import List from "../components/List";
 import Home from "../components/Home";
 
 export default function Main ({coins, currentCoins, keyword, fixedCoin, handleListItemFixedIconClick}) {
+  // console.log(currentCoins);
     return (
         <div className="app">
         <Header

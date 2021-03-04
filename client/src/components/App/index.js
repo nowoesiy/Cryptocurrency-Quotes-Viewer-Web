@@ -47,41 +47,25 @@ function App () {
 
     ws.onmessage = (event) => {
       const reader = new FileReader();
-
+  
       reader.onload = () => {
           const coinInfo = JSON.parse(reader.result);
-          const nextCurrentCoins = {...currentCoins};
+          const nextCurrentCoins = {};
 
-          if(nextCurrentCoins[coinInfo.code] === undefined) {
-            nextCurrentCoins[coinInfo.code] = {
-              date: '',
-              openPrice: coinInfo.trade_price,
-              closePrice: coinInfo.trade_price,
-              maxPrice: coinInfo.trade_price,
-              minPrice: coinInfo.trade_price,
-            };
-          }
-
-          nextCurrentCoins[coinInfo.code].closePrice = coinInfo.trade_price;
-          
-          if(miunte === '0') {
-            nextCurrentCoins[coinInfo.code].openPrice = coinInfo.trade_price;
-          }
-
-          if(nextCurrentCoins[coinInfo.code].maxPrice < coinInfo.trade_price) {
-             nextCurrentCoins[coinInfo.code].maxPrice = coinInfo.trade_price;
-          }
-
-          if(nextCurrentCoins[coinInfo.code].minPrice > coinInfo.trade_price) {
-             nextCurrentCoins[coinInfo.code].minPrice = coinInfo.trade_price;
-          }
-
-          setCurrentCoins({
+          nextCurrentCoins[coinInfo.code] = {
+            date: '',
+            openPrice: coinInfo.trade_price,
+            closePrice: coinInfo.trade_price,
+            maxPrice: coinInfo.trade_price,
+            minPrice: coinInfo.trade_price,
+          };
+    
+          setCurrentCoins(currentCoins => ({
             ...currentCoins,
             ...nextCurrentCoins,
-          });
+          }));
       };
-
+  
       reader.readAsText(event.data);
     };
   }, [])
