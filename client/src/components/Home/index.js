@@ -3,6 +3,7 @@ import "./index.css";
 import axios from "axios";
 import RankingTable from '../Table/RankingTable';
 import ReactionTable from '../Table/ReactionTable';
+import NoticeTable from "../Table/NoticeTable";
 
 const Home = () => {
     const [risingCoinUpbitM3, setRisingCoinUpbitM3] = useState([]);
@@ -10,6 +11,7 @@ const Home = () => {
     const [risingCoinUpbitM10, setRisingCoinUpbitM10] = useState([]);
 
     const [coinCommunityReaction, setCoinCommunityReaction] = useState([]);
+    const [upbitNotice, setUpbitNotice] = useState([]);
   
   const getRisingCoinList = async () => {
     const [{data: risingCoinUpbitM3}, {data: risingCoinUpbitM5}, {data: risingCoinUpbitM10}] = await Promise.all(
@@ -27,9 +29,15 @@ const Home = () => {
     setCoinCommunityReaction(data);
   }
 
+  const fetchUpbitNotice = async () => {
+    const {data: {data: {posts}}} = await axios.get('https://project-team.upbit.com/api/v1/disclosure?region=kr&per_page=8');
+    setUpbitNotice(posts);
+  }
+
   useEffect(()=> {
     setInterval(getRisingCoinList, 3000);
     setInterval(getCommunityRection, 3000);
+    setInterval(fetchUpbitNotice, 3000);
   },[])
 
   return (
@@ -52,9 +60,15 @@ const Home = () => {
           notes={risedCoin}
         /> */}
       </div>
-      <div>
-        <ReactionTable title={"실시간 반응"}
-        crawls={coinCommunityReaction} />
+      <div style={{display: "flex"}}>
+        <ReactionTable
+          title={"실시간 반응"}
+          crawls={coinCommunityReaction}
+        />
+        <NoticeTable
+          title={"업비트 공시"}
+          notices={upbitNotice}
+        />
       </div>
     </div>
   );
