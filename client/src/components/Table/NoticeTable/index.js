@@ -7,7 +7,8 @@ export default function NoticeTable({ title, notices }) {
     useEffect(() => {
         const isUpdatedNotice = () => notices[0].id !== currentNotices[0].id;
         if(notices[0] && currentNotices[0] && isUpdatedNotice()) {
-            alert('공시뜸');
+            const audio = new Audio("https://freesound.org/data/previews/213/213795_4001802-lq.mp3");
+            audio.play();
         }
         setCurrentCoins(notices);
     }, [notices])

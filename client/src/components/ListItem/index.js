@@ -7,6 +7,9 @@ import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 
+const audio = new Audio("https://freesound.org/data/previews/213/213795_4001802-lq.mp3");
+audio.loop = false;
+
 const showRate = (changeRate) => {
   if (changeRate > 0) {
     return (
@@ -27,18 +30,23 @@ const showRate = (changeRate) => {
 
 const listColorPicker = (changeRate) => {
   if(changeRate >= 5 && changeRate < 10) {
+    audio.play();
     return 'list--5';
   }
   if(changeRate >= 10 && changeRate < 20) {
+    audio.play();
     return 'list--10';
   }
   if(changeRate >= 20 && changeRate < 30) {
+    audio.play();
     return 'list--20';
   }
   if(changeRate >= 30 && changeRate < 45) {
+    audio.play();
     return 'list--30';
   }
   if(changeRate >= 45) {
+    audio.play();
     return 'list--50';
   }
 
