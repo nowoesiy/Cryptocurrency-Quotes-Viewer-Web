@@ -1,29 +1,68 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./index.css";
 import ListItem from "../ListItem";
 import { FaSearch } from "react-icons/fa";
+import { symbolMapper } from "../../constants/coins";
 
-const get1MchangeRate = (coin, currentCoins) => {
-  const agoAClosePrice = coin.price[1].closePrice;
-  const currentAClosePrice = currentCoins[`KRW-${coin.symbol}`].closePrice ? currentCoins[`KRW-${coin.symbol}`].closePrice : coin.price[0].closePrice;
-  return (currentAClosePrice - agoAClosePrice) / currentAClosePrice * 100;
+const get1MchangeRate = (coin) => {
+  return (coin.closePrice - coin.openPrice) / coin.closePrice * 100;
 }
 
-export default function List ({coins, currentCoins, fixedCoin, onListItemFixedIconClick}) {
+
+export default function List ({currentCoins, fixedCoin, onListItemFixedIconClick, minute}) {
     const [keyword, setKeyword] = useState('');
+    const [nextCurrentCoins, setNextCurrentCoins] = useState({});
+
+    useEffect(() => {
+      setNextCurrentCoins({});
+    }, [minute])
+    
+    useEffect(() => {
+      if(Object.keys(currentCoins).length === 0) {
+        return;
+      }
+      const symbol = Object.keys(currentCoins)[0];
+      const [,symbolShort] = symbol.split('-');
+      const _nextCurrentCoins = {...nextCurrentCoins};
+      
+      if(!_nextCurrentCoins[symbol]) {
+        _nextCurrentCoins[symbol] = {};
+      }
+
+      if(!_nextCurrentCoins[symbol].name) {
+        _nextCurrentCoins[symbol].name = symbolMapper[symbolShort];
+      }
+
+      if(!_nextCurrentCoins[symbol].symbol) {
+        _nextCurrentCoins[symbol].symbol = symbolShort;
+      }
+
+      _nextCurrentCoins[symbol].closePrice = currentCoins[symbol].closePrice;
+      if(minute === 0 || !_nextCurrentCoins[symbol].openPrice) {
+        _nextCurrentCoins[symbol].openPrice = currentCoins[symbol].closePrice;
+      }
+      
+      if(!_nextCurrentCoins[symbol].minPrice || _nextCurrentCoins[symbol].minPrice > currentCoins[symbol].closePrice) {
+        _nextCurrentCoins[symbol].minPrice = currentCoins[symbol].closePrice; 
+      }
+
+      if(!_nextCurrentCoins[symbol].maxPrice || _nextCurrentCoins[symbol].maxPrice < currentCoins[symbol].closePrice) {
+        _nextCurrentCoins[symbol].maxPrice = currentCoins[symbol].closePrice; 
+      }
+
+      setNextCurrentCoins(_nextCurrentCoins);
+    }, [currentCoins])
 
     const filterCoinList = () => {
-      const filteredCoins = Object.values(coins).filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword)).filter(coin => get1MchangeRate(coin, currentCoins) > 0);
+      const filteredCoins = Object.values(nextCurrentCoins).filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword)).filter(coin => get1MchangeRate(coin, currentCoins) > 0);
       const sortedCoins = Object.values(filteredCoins).sort((a, b) => {
-        return get1MchangeRate(b, currentCoins) - get1MchangeRate(a, currentCoins);
+        return get1MchangeRate(b) - get1MchangeRate(a);
       })
-
-      return sortedCoins.map((coin) => {
+      return sortedCoins && sortedCoins.map((coin) => {
         return (
           <ListItem
             key={coin.symbol}
-            coin={coin}
-            currentCoin={currentCoins[`KRW-${coin.symbol}`]}
+            currentCoin={coin}
             fixedCoin={fixedCoin}
             onFixedIconClick={e => {
               e.stopPropagation();

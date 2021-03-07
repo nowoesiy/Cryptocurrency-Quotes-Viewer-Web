@@ -53,6 +53,7 @@ const listColorPicker = (changeRate) => {
   return 'list'
 }
 
+
 const data = (price, currentCoin) => {
   return price.slice(0, 15).map((p, index) => {
     if(index ===0 && currentCoin) {
@@ -140,7 +141,7 @@ const CreateChart = (price, currentCoin) => {
   );
 }
 
-const createSmallChart = (price, currentCoin) => {
+const createSmallChart = (currentCoin) => {
   return (
     <div className="chart">
       <div className="List_Chart">
@@ -154,8 +155,8 @@ const createSmallChart = (price, currentCoin) => {
             },
             yAxis: {
               show: false,
-              min: price[0].minPrice * 0.999,
-              max: price[0].maxPrice * 1.001,
+              min: currentCoin.minPrice * 0.999,
+              max: currentCoin.maxPrice * 1.001,
             },
             xAxis: {
               type: "category",
@@ -166,7 +167,7 @@ const createSmallChart = (price, currentCoin) => {
               {
                 type: "k",
                 data: [
-                  [price[0].openPrice, currentCoin ? currentCoin.closePrice : price[0].closePrice, price[0].minPrice, price[0].maxPrice]
+                  [currentCoin.openPrice, currentCoin.closePrice, currentCoin.minPrice, currentCoin.maxPrice]
                 ]
               }
             ]
@@ -181,8 +182,8 @@ const createSmallChart = (price, currentCoin) => {
   );
 }
 
-const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixedIconClick}) => (
-    <div className={listColorPicker(currentCoin ? ((currentCoin.closePrice - price[1].closePrice) / currentCoin.closePrice * 100) .toFixed(3) :  ((price[0].closePrice - price[1].closePrice) / price[0].closePrice * 100).toFixed(3))}>
+const board = ({symbol, name, currentCoin, fixedCoin, onFixedIconClick}) => (
+    <div className={listColorPicker(((currentCoin.closePrice - currentCoin.openPrice) / currentCoin.closePrice * 100).toFixed(3))}>
       <div className="profile" onClick={() => window.open(`https://upbit.com/exchange?code=CRIX.UPBIT.KRW-${symbol}`)}>
         <div className="profile_original">
           <div className="profile_top">
@@ -193,10 +194,10 @@ const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixed
               </span>
             </h1>
             <h1 id="endPrice">
-              {showPrice(currentCoin ? currentCoin.closePrice : price[0].closePrice, price[1].closePrice)}
+              {showPrice(currentCoin.closePrice, currentCoin.openPrice)}
             </h1>
           </div>
-          {fixedCoin.includes(symbol) ? "" : createSmallChart(price, currentCoin)}
+          {fixedCoin.includes(symbol) ? "" : createSmallChart(currentCoin)}
           <div className="profile_stockprice">
             <button
               style={{
@@ -220,22 +221,22 @@ const board = ({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixed
             </button>
             <h1 id="changeRate">
               {showRate(
-                currentCoin ? ((currentCoin.closePrice - price[1].closePrice) / currentCoin.closePrice * 100) .toFixed(3) :  ((price[0].closePrice - price[1].closePrice) / price[0].closePrice * 100).toFixed(3)
+                ((currentCoin.closePrice - currentCoin.openPrice) / currentCoin.closePrice * 100).toFixed(3)
               )}
             </h1>
           </div>
         </div>
-        {fixedCoin.includes(symbol) ? CreateChart(price, currentCoin) : ""}
+        {/* {fixedCoin.includes(symbol) ? CreateChart(currentCoin) : ""} */}
       </div>
     </div>
 );
 
-const ListItem= ({coin, currentCoin, fixedCoin, onFixedIconClick}) => {
-    const {symbol, name, price, changeRate} = coin;
+const ListItem= ({currentCoin, fixedCoin, onFixedIconClick}) => {
+    const {symbol, name} = currentCoin;
     return (
       <div>
-        {coin.price.length !== 0 ? (
-          board({symbol, name, price, currentCoin, changeRate, fixedCoin, onFixedIconClick})
+        {currentCoin ? (
+          board({symbol, name, currentCoin, fixedCoin, onFixedIconClick})
         ) : (
           <div
             className="list_loading"

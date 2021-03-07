@@ -4,8 +4,7 @@ import Header from "../components/Header";
 import List from "../components/List";
 import Home from "../components/Home";
 
-export default function Main ({coins, currentCoins, keyword, fixedCoin, handleListItemFixedIconClick}) {
-  // console.log(currentCoins);
+export default function Main ({currentCoins, keyword, fixedCoin, handleListItemFixedIconClick, minute}) {
     return (
         <div className="app">
         <Header
@@ -13,10 +12,10 @@ export default function Main ({coins, currentCoins, keyword, fixedCoin, handleLi
         <div className="container">
           <List
             keyword={keyword}
-            coins={coins}
             currentCoins={currentCoins}
             fixedCoin={fixedCoin}
             onListItemFixedIconClick={handleListItemFixedIconClick}
+            minute={minute}
           />
         <div className="board">
             <Home />

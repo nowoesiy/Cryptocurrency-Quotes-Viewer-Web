@@ -13,14 +13,8 @@ const getUpbitCoins = (coins) => {
 
 function App () {
     const [miunte, setMinute] = useState('');
-    const [coins, setCoins] = useState({});
     const [currentCoins, setCurrentCoins] = useState({});
     const [fixedCoin, setFixedCoin] = useState([]);
-
-  const getCoins = async () => {
-    const response = await axios.get('https://vc-fetch-server-union.herokuapp.com/coin/upbit/15');
-    setCoins(response.data);
-  }
 
   const handleListItemFixedIconClick = id => {
     setFixedCoin(
@@ -51,28 +45,16 @@ function App () {
       reader.onload = () => {
           const coinInfo = JSON.parse(reader.result);
           const nextCurrentCoins = {};
-
           nextCurrentCoins[coinInfo.code] = {
-            date: '',
-            openPrice: coinInfo.trade_price,
             closePrice: coinInfo.trade_price,
-            maxPrice: coinInfo.trade_price,
-            minPrice: coinInfo.trade_price,
           };
     
-          setCurrentCoins(currentCoins => ({
-            ...currentCoins,
-            ...nextCurrentCoins,
-          }));
+          setCurrentCoins(nextCurrentCoins);
       };
   
       reader.readAsText(event.data);
     };
   }, [])
-
-  useEffect(() => {
-    getCoins();
-  }, [miunte])
 
   useEffect(() => {
     setInterval(() => {
@@ -85,10 +67,10 @@ function App () {
       <Switch>
         <Route path="/" exact>
           <Main
-            coins={coins}
             currentCoins={currentCoins}
             fixedCoin={fixedCoin}
             handleListItemFixedIconClick={handleListItemFixedIconClick}
+            minute={miunte}
           />
         </Route>
       </Switch>
