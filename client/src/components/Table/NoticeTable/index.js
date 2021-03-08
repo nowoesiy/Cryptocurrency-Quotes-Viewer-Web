@@ -7,6 +7,7 @@ export default function NoticeTable({ title, notices }) {
     useEffect(() => {
         const isUpdatedNotice = () => notices[0].id !== currentNotices[0].id;
         if(notices[0] && currentNotices[0] && isUpdatedNotice()) {
+            window.open(`https://upbit.com/exchange?code=CRIX.UPBIT.KRW-${notices[0].assets}`)
             const audio = new Audio("https://freesound.org/data/previews/213/213795_4001802-lq.mp3");
             audio.play();
         }
