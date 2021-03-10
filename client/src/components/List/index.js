@@ -14,6 +14,7 @@ export default function List ({currentCoins, fixedCoin, onListItemFixedIconClick
     const [nextCurrentCoins, setNextCurrentCoins] = useState({});
 
     useEffect(() => {
+      console.log('reset');
       setNextCurrentCoins({});
     }, [minute])
     
@@ -38,7 +39,7 @@ export default function List ({currentCoins, fixedCoin, onListItemFixedIconClick
       }
 
       _nextCurrentCoins[symbol].closePrice = currentCoins[symbol].closePrice;
-      if(minute === 0 || !_nextCurrentCoins[symbol].openPrice) {
+      if(!_nextCurrentCoins[symbol].openPrice) {
         _nextCurrentCoins[symbol].openPrice = currentCoins[symbol].closePrice;
       }
       
@@ -54,7 +55,10 @@ export default function List ({currentCoins, fixedCoin, onListItemFixedIconClick
     }, [currentCoins])
 
     const filterCoinList = () => {
-      const filteredCoins = Object.values(nextCurrentCoins).filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword)).filter(coin => get1MchangeRate(coin, currentCoins) > 0);
+      const filteredCoins = Object.values(nextCurrentCoins)
+      .filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword))
+      .filter(coin => get1MchangeRate(coin, currentCoins) > 0)
+      .slice(0, 12);
       const sortedCoins = Object.values(filteredCoins).sort((a, b) => {
         return get1MchangeRate(b) - get1MchangeRate(a);
       })
