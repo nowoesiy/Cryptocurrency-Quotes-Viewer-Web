@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 
-import axios from "axios";
 import Main from '../../pages/Main';
-import CoinInfo from '../../pages/CoinInfo';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { upbitCoinList } from "../../constants/coins";
 
