@@ -4,6 +4,7 @@ import axios from "axios";
 import RankingTable from '../Table/RankingTable';
 import ReactionTable from '../Table/ReactionTable';
 import NoticeTable from "../Table/NoticeTable";
+import ChartTable from "../Table/ChartTable";
 
 const Home = () => {
     const [risingCoinUpbitM3, setRisingCoinUpbitM3] = useState([]);
@@ -61,13 +62,12 @@ const Home = () => {
         /> */}
       </div>
       <div style={{display: "flex"}}>
+        <ChartTable
+          title={"차트"}
+        />
         <ReactionTable
           title={"실시간 반응"}
           crawls={coinCommunityReaction}
-        />
-        <NoticeTable
-          title={"업비트 공시"}
-          notices={upbitNotice}
         />
       </div>
     </div>

@@ -31,7 +31,7 @@ export default function List ({currentCoins, fixedCoin, onListItemFixedIconClick
       }
 
       if(!_nextCurrentCoins[symbol].name) {
-        _nextCurrentCoins[symbol].name = symbolMapper[symbolShort];
+        _nextCurrentCoins[symbol].name = currentCoins[symbol].name;
       }
 
       if(!_nextCurrentCoins[symbol].symbol) {
@@ -50,13 +50,13 @@ export default function List ({currentCoins, fixedCoin, onListItemFixedIconClick
       if(!_nextCurrentCoins[symbol].maxPrice || _nextCurrentCoins[symbol].maxPrice < currentCoins[symbol].closePrice) {
         _nextCurrentCoins[symbol].maxPrice = currentCoins[symbol].closePrice; 
       }
-
+      
       setNextCurrentCoins(_nextCurrentCoins);
     }, [currentCoins])
 
     const filterCoinList = () => {
       const filteredCoins = Object.values(nextCurrentCoins)
-      .filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword))
+      // .filter(coin => coin.name.includes(keyword) || coin.symbol.includes(keyword))
       .filter(coin => get1MchangeRate(coin, currentCoins) > 0)
       .slice(0, 12);
       const sortedCoins = Object.values(filteredCoins).sort((a, b) => {
